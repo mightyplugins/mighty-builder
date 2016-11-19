@@ -91,7 +91,15 @@ if ( ! class_exists('CT_Page_Builder') ) {
 
 		public function front_end_assets()
 		{
-			wp_enqueue_style('bootstrap', CTPB_URL.'assets/bootstrap/css/bootstrap.css'  );
+			wp_enqueue_style('bootstrap', CTPB_URL.'assets/bootstrap/css/bootstrap.min.css'  );
+			wp_enqueue_style('font-awesome', CTPB_URL.'assets/font-awesome/css/font-awesome.min.css'  );
+			wp_enqueue_style('pagebuilder', CTPB_URL.'assets/css/pagebuilder.css'  );
+
+
+			wp_enqueue_script( 'bootstrap', CTPB_URL.'assets/bootstrap/js/bootstrap.min.js', array('jquery'), '', true );
+			wp_enqueue_script( 'counterup', CTPB_URL.'assets/countup/jquery.counterup.min.js', array('jquery'), '', true );
+			wp_enqueue_script( 'waypoints', CTPB_URL.'assets/js/waypoints.min.js', array('jquery'), '', true );
+			wp_enqueue_script( 'pagebuilder', CTPB_URL.'assets/js/pagebuilder.js', array('jquery', 'waypoints', 'counterup', 'bootstrap'), '', true );
 		}
 
 

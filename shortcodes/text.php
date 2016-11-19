@@ -6,15 +6,19 @@ function ct_text_cb( $atts, $content ) {
 		'padding_top' => '',
 		'padding_bottom' => '',
 		'color' => '',
+		'align' => ''
 	);
 
 	$atts_default = apply_filters( 'ctf_pb_text_element_atts', $default );
 
 	$atts = shortcode_atts( $atts_default, $atts );
 
+
+
 	$style = '';
 
 	$style .= (isset($atts['color']) && !empty($atts['color'])) ? 'color:'.$atts['color'].';' : '';
+	$style .= (isset($atts['align']) && !empty($atts['align'])) ? 'text-align:'.$atts['align'].';' : '';
 
 
 	$output = '';
@@ -54,6 +58,13 @@ if (class_exists('CTPB_Element')) {
 				'type'     => 'editor',
 				'default' => '',
 				'roll' => 'content'
+			),
+			array(
+				'id' => 'align',
+				'label'    => __( 'Text Align', 'mytheme' ),
+				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'type'     => 'text_align',
+				'default' => '',
 			)
 		)
 	);

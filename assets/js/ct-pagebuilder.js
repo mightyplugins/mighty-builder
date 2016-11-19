@@ -696,6 +696,7 @@
 				data = {
 					code: tag,
 					icon: element_data.icon,
+					color: element_data.color,
 					name: element_data.title,
 					sc_start: shortcode
 				},
@@ -1046,6 +1047,8 @@
 				// Clear all html from shortcode list container
 				self.pagebuilderModalObj.find('.mpb-elements-list').html('');
 
+				self.pagebuilderModalObj.find('#modal-pb-title').text(self.args.pb_elements_title);
+
 				_.each(ctf_pb_elements_data, function (element_data){
 					
 					if((typeof element_data.parent === 'undefined') && (typeof element_data.layout === 'undefined')){
@@ -1055,7 +1058,8 @@
 							code: element_data.code,
 							name: element_data.title,
 							icon: element_data.icon,
-							desc: element_data.subtitle
+							desc: element_data.subtitle,
+							color: element_data.color
 						});
 	
 						var elementItemObj = $(elementItem),
@@ -1064,6 +1068,7 @@
 							elemData = {
 								code: element_data.code,
 								icon: element_data.icon,
+								color: element_data.color,
 								name: element_data.title,
 								sc_start: shortcode
 							};
@@ -1275,14 +1280,17 @@
 
 				var tag = elementObj.data('code'),
 					shortcode = elementObj.find('> .ct-pb-sc-code.ct-pb-sc-start').html(),
-					options = self.getScOptionsFromSc(_.unescape(shortcode), tag);
+					options = self.getScOptionsFromSc(_.unescape(shortcode), tag),
+					elementTitle = ctf_pb_elements_data[tag].title;
 
 
-				console.log(options);
+				console.log(ctf_pb_elements_data[tag].title);
 
 				// Clear Element List and Element Form HTML
 				self.pagebuilderModalObj.find('.mpb-elements-list').html('');
 				self.pagebuilderModalForm.html('');
+
+				self.pagebuilderModalObj.find('#modal-pb-title').text(elementTitle);
 
 				var field_obj = new CTF_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
 

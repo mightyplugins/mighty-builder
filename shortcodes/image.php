@@ -42,7 +42,6 @@ if (class_exists('CTPB_Element')) {
 		'title' => 'Single Image',
 		'subtitle' => 'Single Image Element',
 		'code' => 'ct_img',
-		'hascontent' => true,
 		'icon' => 'fa fa-font',
 		'options' => array(
 			array(

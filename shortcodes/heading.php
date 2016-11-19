@@ -8,6 +8,7 @@ function ct_heading_cb( $atts, $content ) {
 		'padding_left' => '',
 		'padding_right' => '',
 		'color' => '',
+		'align' => '',
 		'tag' => 'h1',
 		'haeding_font-family' => '',
 		'haeding_font-weight' => '',
@@ -22,6 +23,7 @@ function ct_heading_cb( $atts, $content ) {
 	$style = '';
 
 	$style .= (isset($atts['color']) && !empty($atts['color'])) ? 'color:'.$atts['color'].';' : '';
+	$style .= (isset($atts['align']) && !empty($atts['align'])) ? 'text-align:'.$atts['align'].';' : '';
 
 	$style .= (isset($atts['padding_top']) && !empty($atts['padding_top'])) ? 'padding-top:'.$atts['padding_top'].';' : '';
 	$style .= (isset($atts['padding_bottom']) && !empty($atts['padding_bottom'])) ? 'padding-bottom:'.$atts['padding_bottom'].';' : '';
@@ -99,7 +101,14 @@ if (class_exists('CTPB_Element')) {
                 'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
                 'type'     => 'google_font',
                 'default' => array(),
-            )
+            ),
+            array(
+				'id' => 'align',
+				'label'    => __( 'Heading Align', 'mytheme' ),
+				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'type'     => 'text_align',
+				'default' => '',
+			)
 		)
 	);
 

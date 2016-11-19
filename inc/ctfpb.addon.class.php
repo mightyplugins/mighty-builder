@@ -38,6 +38,7 @@ class CTFPB_Addon extends CTF_Addon
             'col_sc' => apply_filters( 'ct_pb_column_sortcode_tag', 'ct_col' ),
             'pb_enable_text' => esc_html__( 'Active Page Builder', 'ctpb' ),
             'pb_disable_text' => esc_html__( 'Disable Page Builder', 'ctpb' ),
+            'pb_elements_title' => esc_html__( 'Select an Element', 'ctpb' ),
         );
 
         wp_localize_script( 'ct-pagebuilder', 'ct_pb_args', $ct_pb_args );
@@ -193,9 +194,17 @@ class CTFPB_Addon extends CTF_Addon
                         <li><a href="#" class="ct-pb-item-delete" data-item="element"><i class="fa fa-trash-o"></i></a></li>
                     </ul>
                 </div>
+                <#
+                    var iconStyle = '';
 
+                    console.log(typeof data.color !== 'undefined');
+
+                    if(typeof data.color !== 'undefined'){
+                        iconStyle = 'style="background-color: '+data.color+';"';
+                    }
+                #>
                 <div class="ct-pb-item-container-ui">
-                    <div class="ct-pb-elem-icon">
+                    <div class="ct-pb-elem-icon"  {{{ iconStyle }}}>
                         <i class="{{ data.icon }}"></i>
                     </div>
                     <h3 class="ct-pb-elem-item-name">{{ data.name }}</h3>
@@ -226,7 +235,16 @@ class CTFPB_Addon extends CTF_Addon
         </div></script>
         <script type="text/html" id="tmpl-ctpb-modal-item">
             <div class="ct-pb-modal-item" data-code="{{ data.code }}">
-                <div class="ct-pb-mi-icon">
+                <#
+                    var iconStyle = '';
+
+                    console.log(typeof data.color !== 'undefined');
+
+                    if(typeof data.color !== 'undefined'){
+                        iconStyle = 'style="background-color: '+data.color+';"';
+                    }
+                #>
+                <div class="ct-pb-mi-icon" {{{ iconStyle }}}>
                     <i class="{{ data.icon }}"></i>
                 </div>
                 <div class="ct-pb-modal-item-label">
