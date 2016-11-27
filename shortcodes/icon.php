@@ -1,6 +1,6 @@
 <?php
 
-function ct_icon_cb( $atts, $content ) {
+function mb_icon_cb( $atts, $content ) {
 
 	$default = array(
 		'icon' => 'fa fa-cogs',
@@ -13,7 +13,7 @@ function ct_icon_cb( $atts, $content ) {
 		'icon_align' => ''
 	);
 
-	$default = apply_filters( 'ctf_pb_icon_element_atts', $default );
+	$default = apply_filters( 'mb_icon_element_atts', $default );
 
 	$atts = shortcode_atts( $default, $atts );
 
@@ -39,17 +39,17 @@ function ct_icon_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_icon_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_icon_element_output', $output, $atts, $content );
 	return $output;
 }
-add_shortcode( 'ct_icon','ct_icon_cb' );
+add_shortcode( 'mb_icon','mb_icon_cb' );
 
 if (class_exists('CTPB_Element')) {
 
 	$icon_map = array(
 		'title' => 'Icon',
 		'subtitle' => 'text Element',
-		'code' => 'ct_icon',
+		'code' => 'mb_icon',
 		'icon' => 'fa fa-info',
 		'options' => array(
 			array(
@@ -116,7 +116,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$icon_map = apply_filters( 'ctf_pb_icon_map', $icon_map );
+	$icon_map = apply_filters( 'mb_icon_map', $icon_map );
 
 	CTPB_Element::add($icon_map);
 }

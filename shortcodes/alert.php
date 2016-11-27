@@ -1,13 +1,13 @@
 <?php
 
-function ct_alert_cb( $atts, $content ) {
+function mb_alert_cb( $atts, $content ) {
 
 	$default = array(
 		'alert_type' => 'info',
 		'close_btn' => 0,
 	);
 
-	$atts_default = apply_filters( 'ctf_pb_alert_element_atts', $default );
+	$atts_default = apply_filters( 'mb_alert_element_atts', $default );
 
 	$atts = shortcode_atts( $atts_default, $atts );
 
@@ -30,11 +30,11 @@ function ct_alert_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_alert_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_alert_element_output', $output, $atts, $content );
 
 	return $output;
 }
-add_shortcode( 'ct_alert','ct_alert_cb' );
+add_shortcode( 'mb_alert','mb_alert_cb' );
 
 
 
@@ -43,7 +43,7 @@ if (class_exists('CTPB_Element')) {
 	$alert_map = array(
 		'title' => 'Alert',
 		'subtitle' => 'alert Element',
-		'code' => 'ct_alert',
+		'code' => 'mb_alert',
 		'hascontent' => true,
 		'icon' => 'fa fa-font',
 		'options' => array(
@@ -82,7 +82,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$alert_map = apply_filters( 'ctf_pb_alert_map', $alert_map );
+	$alert_map = apply_filters( 'mb_alert_map', $alert_map );
 
 	CTPB_Element::add($alert_map);
 }

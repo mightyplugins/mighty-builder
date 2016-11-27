@@ -1,12 +1,12 @@
 <?php
 
-function ct_video_cb( $atts, $content ) {
+function mb_video_cb( $atts, $content ) {
 
 	$default = array(
 		'url' => '',
 	);
 
-	$default = apply_filters( 'ctf_pb_video_element_atts', $default );
+	$default = apply_filters( 'mb_video_element_atts', $default );
 
 	$atts = shortcode_atts( $default, $atts );
 
@@ -20,17 +20,17 @@ function ct_video_cb( $atts, $content ) {
 
 	$output .= '</div>';
 
-	$output = apply_filters( 'ctf_pb_video_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_video_element_output', $output, $atts, $content );
 	return $output;
 }
-add_shortcode( 'ct_video','ct_video_cb' );
+add_shortcode( 'mb_video','mb_video_cb' );
 
 if (class_exists('CTPB_Element')) {
 
 	$video_map = array(
 		'title' => 'Video',
 		'subtitle' => 'text Element',
-		'code' => 'ct_video',
+		'code' => 'mb_video',
 		'icon' => 'fa fa-info',
 		'options' => array(
 			array(
@@ -43,7 +43,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$video_map = apply_filters( 'ctf_pb_video_map', $video_map );
+	$video_map = apply_filters( 'mb_video_map', $video_map );
 
 	CTPB_Element::add($video_map);
 }

@@ -1,13 +1,13 @@
 <?php
 
-function ct_btn_cb( $atts, $content ) {
+function mb_btn_cb( $atts, $content ) {
 
 	$default = array(
 		'btn_type' => 'info',
 		'size' => '',
 	);
 
-	$atts_default = apply_filters( 'ctf_pb_btn_element_atts', $default );
+	$atts_default = apply_filters( 'mb_btn_element_atts', $default );
 
 	$atts = shortcode_atts( $atts_default, $atts );
 
@@ -25,11 +25,11 @@ function ct_btn_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_btn_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_btn_element_output', $output, $atts, $content );
 
 	return $output;
 }
-add_shortcode( 'ct_btn','ct_btn_cb' );
+add_shortcode( 'mb_btn','mb_btn_cb' );
 
 
 
@@ -38,7 +38,7 @@ if (class_exists('CTPB_Element')) {
 	$btn_map = array(
 		'title' => 'Button',
 		'subtitle' => 'btn Element',
-		'code' => 'ct_btn',
+		'code' => 'mb_btn',
 		'hascontent' => true,
 		'icon' => 'fa fa-font',
 		'options' => array(
@@ -82,7 +82,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$btn_map = apply_filters( 'ctf_pb_btn_map', $btn_map );
+	$btn_map = apply_filters( 'mb_btn_map', $btn_map );
 
 	CTPB_Element::add($btn_map);
 }

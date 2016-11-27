@@ -1,6 +1,6 @@
 <?php
 
-function ct_row_cb( $atts, $content ) {
+function mb_row_cb( $atts, $content ) {
 
 	$default = array(
 		'padding_top' => '',
@@ -8,7 +8,7 @@ function ct_row_cb( $atts, $content ) {
 		'bg_color' => '',
 	);
 
-	$atts_default = apply_filters( 'ctf_pb_row_element_atts', $default );
+	$atts_default = apply_filters( 'mb_row_element_atts', $default );
 
 	$atts = shortcode_atts( $atts_default, $atts );
 
@@ -33,11 +33,11 @@ function ct_row_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_row_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_row_element_output', $output, $atts, $content );
 
 	return $output;
 }
-add_shortcode( 'ct_row','ct_row_cb' );
+add_shortcode( 'mb_row','mb_row_cb' );
 
 
 
@@ -46,7 +46,7 @@ if (class_exists('CTPB_Element')) {
 	$row_map = array(
 		'title' => 'row',
 		'subtitle' => 'row Element',
-		'code' => 'ct_row',
+		'code' => 'mb_row',
 		'hascontent' => true,
 		'layout' => true,
 		'icon' => '',
@@ -61,7 +61,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$row_map = apply_filters( 'ctf_pb_row_map', $row_map );
+	$row_map = apply_filters( 'mb_row_map', $row_map );
 
 	CTPB_Element::add($row_map);
 }

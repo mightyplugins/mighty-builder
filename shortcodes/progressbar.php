@@ -1,13 +1,13 @@
 <?php
 
-function ct_progressbar_cb( $atts, $content ) {
+function mb_progressbar_cb( $atts, $content ) {
 
 	$default = array(
 		'size' => '50',
 		'title' => '',
 	);
 
-	$default = apply_filters( 'ctf_pb_progressbar_element_atts', $default );
+	$default = apply_filters( 'mb_progressbar_element_atts', $default );
 
 	$atts = shortcode_atts( $default, $atts );
 
@@ -34,17 +34,17 @@ function ct_progressbar_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_progressbar_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_progressbar_element_output', $output, $atts, $content );
 	return $output;
 }
-add_shortcode( 'ct_progressbar','ct_progressbar_cb' );
+add_shortcode( 'mb_progressbar','mb_progressbar_cb' );
 
 if (class_exists('CTPB_Element')) {
 
 	$progressbar_map = array(
 		'title' => 'Progress Bar',
 		'subtitle' => 'text Element',
-		'code' => 'ct_progressbar',
+		'code' => 'mb_progressbar',
 		'icon' => 'fa fa-info',
 		'options' => array(
 			array(
@@ -63,7 +63,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$progressbar_map = apply_filters( 'ctf_pb_progressbar_map', $progressbar_map );
+	$progressbar_map = apply_filters( 'mb_progressbar_map', $progressbar_map );
 
 	CTPB_Element::add($progressbar_map);
 }

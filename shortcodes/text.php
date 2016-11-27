@@ -1,6 +1,6 @@
 <?php
 
-function ct_text_cb( $atts, $content ) {
+function mb_text_cb( $atts, $content ) {
 
 	$default = array(
 		'padding_top' => '',
@@ -9,7 +9,7 @@ function ct_text_cb( $atts, $content ) {
 		'align' => ''
 	);
 
-	$atts_default = apply_filters( 'ctf_pb_text_element_atts', $default );
+	$atts_default = apply_filters( 'mb_text_element_atts', $default );
 
 	$atts = shortcode_atts( $atts_default, $atts );
 
@@ -34,11 +34,11 @@ function ct_text_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_text_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_text_element_output', $output, $atts, $content );
 
 	return $output;
 }
-add_shortcode( 'ct_text','ct_text_cb' );
+add_shortcode( 'mb_text','mb_text_cb' );
 
 
 
@@ -47,7 +47,7 @@ if (class_exists('CTPB_Element')) {
 	$text_map = array(
 		'title' => 'Text',
 		'subtitle' => 'text Element',
-		'code' => 'ct_text',
+		'code' => 'mb_text',
 		'hascontent' => true,
 		'icon' => 'fa fa-font',
 		'options' => array(
@@ -69,7 +69,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$text_map = apply_filters( 'ctf_pb_text_map', $text_map );
+	$text_map = apply_filters( 'mb_text_map', $text_map );
 
 	CTPB_Element::add($text_map);
 }

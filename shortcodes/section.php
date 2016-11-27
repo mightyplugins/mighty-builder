@@ -1,6 +1,6 @@
 <?php
 
-function ct_section_cb( $atts, $content ) {
+function mb_section_cb( $atts, $content ) {
 
 	$default = array(
 		'padding_top' => '50px',
@@ -11,7 +11,7 @@ function ct_section_cb( $atts, $content ) {
 		'container' => 'fullwidth', // boxed, fluid, fullwidth
 	);
 
-	$atts_default = apply_filters( 'ctf_pb_section_element_atts', $default );
+	$atts_default = apply_filters( 'mb_section_element_atts', $default );
 
 	$atts = shortcode_atts( $atts_default, $atts );
 
@@ -55,11 +55,11 @@ function ct_section_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_section_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_section_element_output', $output, $atts, $content );
 
 	return $output;
 }
-add_shortcode( 'ct_section','ct_section_cb' );
+add_shortcode( 'mb_section','mb_section_cb' );
 
 
 
@@ -68,7 +68,7 @@ if (class_exists('CTPB_Element')) {
 	$section_map = array(
 		'title' => 'Section',
 		'subtitle' => 'Section Element',
-		'code' => 'ct_section',
+		'code' => 'mb_section',
 		'hascontent' => true,
 		'layout' => true,
 		'icon' => '',
@@ -95,7 +95,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$section_map = apply_filters( 'ctf_pb_section_map', $section_map );
+	$section_map = apply_filters( 'mb_section_map', $section_map );
 
 	CTPB_Element::add($section_map);
 }

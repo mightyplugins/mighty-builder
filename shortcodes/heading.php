@@ -1,6 +1,6 @@
 <?php
 
-function ct_heading_cb( $atts, $content ) {
+function mb_heading_cb( $atts, $content ) {
 
 	$default = array(
 		'padding_top' => '',
@@ -16,7 +16,7 @@ function ct_heading_cb( $atts, $content ) {
 		'haeding_line-height' => '',
 	);
 
-	$atts_default = apply_filters( 'ctf_pb_heading_element_atts', $default );
+	$atts_default = apply_filters( 'mb_heading_element_atts', $default );
 
 	$atts = shortcode_atts( $atts_default, $atts );
 
@@ -47,11 +47,11 @@ function ct_heading_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_heading_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_heading_element_output', $output, $atts, $content );
 
 	return $output;
 }
-add_shortcode( 'ct_heading','ct_heading_cb' );
+add_shortcode( 'mb_heading','mb_heading_cb' );
 
 
 
@@ -60,7 +60,7 @@ if (class_exists('CTPB_Element')) {
 	$heading_map = array(
 		'title' => 'Heading',
 		'subtitle' => 'text Element',
-		'code' => 'ct_heading',
+		'code' => 'mb_heading',
 		'hascontent' => true,
 		'icon' => 'fa fa-header',
 		'options' => array(
@@ -108,11 +108,12 @@ if (class_exists('CTPB_Element')) {
 				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
 				'type'     => 'text_align',
 				'default' => '',
+				'choices' => array( 'justify' => '0' )
 			)
 		)
 	);
 
-	$heading_map = apply_filters( 'ctf_pb_text_map', $heading_map );
+	$heading_map = apply_filters( 'mb_text_map', $heading_map );
 
 	CTPB_Element::add($heading_map);
 }

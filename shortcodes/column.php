@@ -1,6 +1,6 @@
 <?php
 
-function ct_column_cb( $atts, $content ) {
+function mb_column_cb( $atts, $content ) {
 
 	$default = array(
 		'padding_top' => '',
@@ -11,7 +11,7 @@ function ct_column_cb( $atts, $content ) {
 		'col' => 12, 
 	);
 
-	$atts_default = apply_filters( 'ctf_pb_column_element_atts', $default );
+	$atts_default = apply_filters( 'mb_column_element_atts', $default );
 
 	$atts = shortcode_atts( $atts_default, $atts );
 
@@ -45,11 +45,11 @@ function ct_column_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_column_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_column_element_output', $output, $atts, $content );
 
 	return $output;
 }
-add_shortcode( 'ct_col','ct_column_cb' );
+add_shortcode( 'mb_col','mb_column_cb' );
 
 
 
@@ -58,7 +58,7 @@ if (class_exists('CTPB_Element')) {
 	$column_map = array(
 		'title' => 'column',
 		'subtitle' => 'column Element',
-		'code' => 'ct_col',
+		'code' => 'mb_col',
 		'hascontent' => true,
 		'layout' => true,
 		'icon' => '',
@@ -93,7 +93,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$column_map = apply_filters( 'ctf_pb_column_map', $column_map );
+	$column_map = apply_filters( 'mb_column_map', $column_map );
 
 	CTPB_Element::add($column_map);
 }

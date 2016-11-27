@@ -1,6 +1,6 @@
 <?php
 
-function ct_countup_cb( $atts, $content ) {
+function mb_countup_cb( $atts, $content ) {
 
 	$default = array(
 		'num' => '100',
@@ -8,7 +8,7 @@ function ct_countup_cb( $atts, $content ) {
 		'suffix' => ''
 	);
 
-	$default = apply_filters( 'ctf_pb_countup_element_atts', $default );
+	$default = apply_filters( 'mb_countup_element_atts', $default );
 
 	$atts = shortcode_atts( $default, $atts );
 
@@ -28,17 +28,17 @@ function ct_countup_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_countup_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_countup_element_output', $output, $atts, $content );
 	return $output;
 }
-add_shortcode( 'ct_countup','ct_countup_cb' );
+add_shortcode( 'mb_countup','mb_countup_cb' );
 
 if (class_exists('CTPB_Element')) {
 
 	$countup_map = array(
 		'title' => 'CountUp',
 		'subtitle' => 'text Element',
-		'code' => 'ct_countup',
+		'code' => 'mb_countup',
 		'icon' => 'fa fa-info',
 		'color' => '#ff9800',
 		'options' => array(
@@ -66,7 +66,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$countup_map = apply_filters( 'ctf_pb_countup_map', $countup_map );
+	$countup_map = apply_filters( 'mb_countup_map', $countup_map );
 
 	CTPB_Element::add($countup_map);
 }

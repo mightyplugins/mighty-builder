@@ -1,12 +1,12 @@
 <?php
 
-function ct_space_cb( $atts, $content ) {
+function mb_space_cb( $atts, $content ) {
 
 	$default = array(
 		'size' => '25px',
 	);
 
-	$default = apply_filters( 'ctf_pb_space_element_atts', $default );
+	$default = apply_filters( 'mb_space_element_atts', $default );
 
 	$atts = shortcode_atts( $default, $atts );
 
@@ -24,17 +24,17 @@ function ct_space_cb( $atts, $content ) {
 
 	$output =  ob_get_clean();
 
-	$output = apply_filters( 'ctf_pb_space_element_output', $output, $atts, $content );
+	$output = apply_filters( 'mb_space_element_output', $output, $atts, $content );
 	return $output;
 }
-add_shortcode( 'ct_space','ct_space_cb' );
+add_shortcode( 'mb_space','mb_space_cb' );
 
 if (class_exists('CTPB_Element')) {
 
 	$space_map = array(
 		'title' => 'Space',
 		'subtitle' => 'text Element',
-		'code' => 'ct_space',
+		'code' => 'mb_space',
 		'icon' => 'fa fa-info',
 		'options' => array(
 			array(
@@ -48,7 +48,7 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	$space_map = apply_filters( 'ctf_pb_space_map', $space_map );
+	$space_map = apply_filters( 'mb_space_map', $space_map );
 
 	CTPB_Element::add($space_map);
 }
