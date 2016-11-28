@@ -38,7 +38,7 @@ add_shortcode( 'mb_alert','mb_alert_cb' );
 
 
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$alert_map = array(
 		'title' => 'Alert',
@@ -84,5 +84,5 @@ if (class_exists('CTPB_Element')) {
 
 	$alert_map = apply_filters( 'mb_alert_map', $alert_map );
 
-	CTPB_Element::add($alert_map);
+	MB_Element::add($alert_map);
 }

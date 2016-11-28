@@ -5,7 +5,7 @@ if(!class_exists('CTF_Addon')){
     return;
 }
 
-class MP_PB_Addon extends CTF_Addon
+class MB_Addon extends CTF_Addon
 {
 
     function __construct()

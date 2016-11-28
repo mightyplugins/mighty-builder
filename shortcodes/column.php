@@ -53,7 +53,7 @@ add_shortcode( 'mb_col','mb_column_cb' );
 
 
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$column_map = array(
 		'title' => 'column',
@@ -95,5 +95,5 @@ if (class_exists('CTPB_Element')) {
 
 	$column_map = apply_filters( 'mb_column_map', $column_map );
 
-	CTPB_Element::add($column_map);
+	MB_Element::add($column_map);
 }

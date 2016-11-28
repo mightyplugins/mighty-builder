@@ -55,7 +55,7 @@ add_shortcode( 'mb_heading','mb_heading_cb' );
 
 
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$heading_map = array(
 		'title' => 'Heading',
@@ -115,5 +115,5 @@ if (class_exists('CTPB_Element')) {
 
 	$heading_map = apply_filters( 'mb_text_map', $heading_map );
 
-	CTPB_Element::add($heading_map);
+	MB_Element::add($heading_map);
 }

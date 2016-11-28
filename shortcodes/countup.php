@@ -33,7 +33,7 @@ function mb_countup_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_countup','mb_countup_cb' );
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$countup_map = array(
 		'title' => 'CountUp',
@@ -68,5 +68,5 @@ if (class_exists('CTPB_Element')) {
 
 	$countup_map = apply_filters( 'mb_countup_map', $countup_map );
 
-	CTPB_Element::add($countup_map);
+	MB_Element::add($countup_map);
 }

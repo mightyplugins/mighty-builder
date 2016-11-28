@@ -42,7 +42,7 @@ add_shortcode( 'mb_text','mb_text_cb' );
 
 
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$text_map = array(
 		'title' => 'Text',
@@ -71,5 +71,5 @@ if (class_exists('CTPB_Element')) {
 
 	$text_map = apply_filters( 'mb_text_map', $text_map );
 
-	CTPB_Element::add($text_map);
+	MB_Element::add($text_map);
 }

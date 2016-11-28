@@ -65,7 +65,7 @@ add_shortcode( 'mb_img','mb_img_cb' );
 
 
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$sizes = array('full' => 'Full');
 
@@ -130,5 +130,5 @@ if (class_exists('CTPB_Element')) {
 
 	$image_map = apply_filters( 'mb_text_map', $image_map );
 
-	CTPB_Element::add($image_map);
+	MB_Element::add($image_map);
 }

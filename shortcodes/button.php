@@ -33,7 +33,7 @@ add_shortcode( 'mb_btn','mb_btn_cb' );
 
 
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$btn_map = array(
 		'title' => 'Button',
@@ -84,5 +84,5 @@ if (class_exists('CTPB_Element')) {
 
 	$btn_map = apply_filters( 'mb_btn_map', $btn_map );
 
-	CTPB_Element::add($btn_map);
+	MB_Element::add($btn_map);
 }

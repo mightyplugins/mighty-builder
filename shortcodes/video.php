@@ -25,7 +25,7 @@ function mb_video_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_video','mb_video_cb' );
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$video_map = array(
 		'title' => 'Video',
@@ -45,5 +45,5 @@ if (class_exists('CTPB_Element')) {
 
 	$video_map = apply_filters( 'mb_video_map', $video_map );
 
-	CTPB_Element::add($video_map);
+	MB_Element::add($video_map);
 }

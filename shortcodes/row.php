@@ -41,7 +41,7 @@ add_shortcode( 'mb_row','mb_row_cb' );
 
 
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$row_map = array(
 		'title' => 'row',
@@ -63,5 +63,5 @@ if (class_exists('CTPB_Element')) {
 
 	$row_map = apply_filters( 'mb_row_map', $row_map );
 
-	CTPB_Element::add($row_map);
+	MB_Element::add($row_map);
 }

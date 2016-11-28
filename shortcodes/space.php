@@ -29,7 +29,7 @@ function mb_space_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_space','mb_space_cb' );
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$space_map = array(
 		'title' => 'Space',
@@ -50,5 +50,5 @@ if (class_exists('CTPB_Element')) {
 
 	$space_map = apply_filters( 'mb_space_map', $space_map );
 
-	CTPB_Element::add($space_map);
+	MB_Element::add($space_map);
 }

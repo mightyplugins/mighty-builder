@@ -39,7 +39,7 @@ function mb_progressbar_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_progressbar','mb_progressbar_cb' );
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$progressbar_map = array(
 		'title' => 'Progress Bar',
@@ -65,5 +65,5 @@ if (class_exists('CTPB_Element')) {
 
 	$progressbar_map = apply_filters( 'mb_progressbar_map', $progressbar_map );
 
-	CTPB_Element::add($progressbar_map);
+	MB_Element::add($progressbar_map);
 }

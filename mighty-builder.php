@@ -32,12 +32,19 @@ require_once MP_PB_PATH .'/framework/cantoframework.php';
 
 if ( ! class_exists('MP_Page_Builder') ) {
 
+	/**
+	 * MP_Page_Builder is main class for Mighty Builder.
+	 *
+	 * @since 1.0.0
+	 */
 	class MP_Page_Builder
 	{
 		private static $sc_array = array();
 
 		/**
-		 * @var         CTFMB $instance The one true CTFMB
+		 * MP_Page_Builder $instance The one true MP_Page_Builder
+		 *
+		 * @access      private
 		 * @since       1.0.0
 		 */
 		private static $instance;
@@ -48,7 +55,7 @@ if ( ! class_exists('MP_Page_Builder') ) {
 		 *
 		 * @access      public
 		 * @since       1.0.0
-		 * @return      object self::$instance The one true CTFMB
+		 * @return      object self::$instance The one true MP_Page_Builder
 		 */
 		public static function instance() {
 			if( !self::$instance ) {
@@ -56,8 +63,8 @@ if ( ! class_exists('MP_Page_Builder') ) {
 				self::$instance->includes();
 				self::$instance->hooks();
 				
-				if(class_exists('MP_PB_Addon')){
-					$opt_addon = new MP_PB_Addon();
+				if(class_exists('MB_Addon')){
+					$opt_addon = new MB_Addon();
 				}
 
 			}
@@ -65,13 +72,23 @@ if ( ! class_exists('MP_Page_Builder') ) {
 			return self::$instance;
 		}
 
+		/**
+		 * Include all class and functions.
+		 * 
+		 * @since		1.0.0
+		 */
 		private function includes() {
 			require_once MP_PB_PATH .'/inc/functions.php';
-			require_once MP_PB_PATH .'/inc/ctfpb.elements.class.php';
-			require_once MP_PB_PATH .'/inc/ctfpb.addon.class.php';
+			require_once MP_PB_PATH .'/inc/class-mb-element.php';
+			require_once MP_PB_PATH .'/inc/class-mb-addon.php';
 			require_once MP_PB_PATH .'/shortcodes/shortcodes.php';
 		}
 
+		/**
+		 * This method will be init all hooks need for Mighty Builder.
+		 * 
+		 * @since		1.0.0
+		 */
 		private function hooks() {
 			add_action( 'admin_footer', array($this,'print_elements_as_json'), 10 );
 
@@ -80,16 +97,24 @@ if ( ! class_exists('MP_Page_Builder') ) {
 			add_filter( 'the_content', array($this,'shortcode_empty_paragraph_fix') );
 		}
 
-
+		/**
+		 * Print all shortcodes options map.
+		 * 
+		 * @since		1.0.0
+		 */
 		public function print_elements_as_json(){
 			?>
 			<script type="text/javascript">
-				window.mb_elements_data = <?php echo json_encode(CTPB_Element::$_elements); ?>;
+				window.mb_elements_data = <?php echo json_encode(MB_Element::$_elements); ?>;
 			</script>
 			<?php
 		}
 
-
+		/**
+		 * Load all front-end assets (CSS and JS)
+		 * 
+		 * @since		1.0.0
+		 */
 		public function front_end_assets()
 		{
 			wp_enqueue_style('bootstrap', MP_PB_URL.'assets/bootstrap/css/bootstrap.min.css'  );
@@ -103,7 +128,14 @@ if ( ! class_exists('MP_Page_Builder') ) {
 			wp_enqueue_script( 'pagebuilder', MP_PB_URL.'assets/js/pagebuilder.js', array('jquery', 'waypoints', 'counterup', 'bootstrap'), '', true );
 		}
 
-
+		/**
+		 * Fix auto p tag from shrtcode to avoid empety space in page
+		 *
+		 * @since		1.0.0
+		 * 
+		 * @param  (string) $content content to filter
+		 * @return (string)          filtered content
+		 */
 		public function shortcode_empty_paragraph_fix( $content ) {
 
 			$array = array (
@@ -116,14 +148,15 @@ if ( ! class_exists('MP_Page_Builder') ) {
 
 			return $content;
 		}
-  
- 
-
-
 	}
 
 }
 
+/**
+ * Init Mighty Builder
+ *
+ * @since		1.0.0
+ */
 function CTF_Page_Builder_Addon_Register() {
 	if( class_exists( 'CTF_Init' ) ) {
 		return MP_Page_Builder::instance();

@@ -44,7 +44,7 @@ function mb_icon_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_icon','mb_icon_cb' );
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$icon_map = array(
 		'title' => 'Icon',
@@ -118,5 +118,5 @@ if (class_exists('CTPB_Element')) {
 
 	$icon_map = apply_filters( 'mb_icon_map', $icon_map );
 
-	CTPB_Element::add($icon_map);
+	MB_Element::add($icon_map);
 }

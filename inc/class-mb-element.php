@@ -3,7 +3,7 @@
 /**
 * 
 */
-class CTPB_Element
+class MB_Element
 {
 	public static $_elements = array();
 

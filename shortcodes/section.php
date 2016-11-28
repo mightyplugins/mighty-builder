@@ -63,7 +63,7 @@ add_shortcode( 'mb_section','mb_section_cb' );
 
 
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$section_map = array(
 		'title' => 'Section',
@@ -97,5 +97,5 @@ if (class_exists('CTPB_Element')) {
 
 	$section_map = apply_filters( 'mb_section_map', $section_map );
 
-	CTPB_Element::add($section_map);
+	MB_Element::add($section_map);
 }

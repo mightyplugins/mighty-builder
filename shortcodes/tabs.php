@@ -76,7 +76,7 @@ function mb_the_tab_title($data)
 	return $data[0];
 }
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$tabs_map = array(
 		'title' => 'Tabs',
@@ -99,7 +99,7 @@ if (class_exists('CTPB_Element')) {
 
 	$tabs_map = apply_filters( 'mb_tabs_map', $tabs_map );
 
-	CTPB_Element::add($tabs_map);
+	MB_Element::add($tabs_map);
 
 	$tab_map = array(
 		'title' => 'Tab Item',
@@ -134,6 +134,6 @@ if (class_exists('CTPB_Element')) {
 		)
 	);
 
-	CTPB_Element::add($tab_map);
+	MB_Element::add($tab_map);
 }
 

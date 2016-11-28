@@ -33,7 +33,7 @@ function mb_line_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_line','mb_line_cb' );
 
-if (class_exists('CTPB_Element')) {
+if (class_exists('MB_Element')) {
 
 	$line_map = array(
 		'title' => 'Line',
@@ -69,5 +69,5 @@ if (class_exists('CTPB_Element')) {
 
 	$line_map = apply_filters( 'mb_line_map', $line_map );
 
-	CTPB_Element::add($line_map);
+	MB_Element::add($line_map);
 }
