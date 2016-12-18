@@ -48,21 +48,22 @@ if (class_exists('MB_Element')) {
 
 	$icon_map = array(
 		'title' => 'Icon',
-		'subtitle' => 'text Element',
+		'subtitle' => 'Icon Element',
 		'code' => 'mb_icon',
 		'icon' => 'fa fa-info',
+		'color' => '#5bda97',
 		'options' => array(
 			array(
 				'id' => 'icon',
 				'label'    => __( 'Icon', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Select an icon', 'mytheme' ),
 				'type'     => 'icon',
 				'default' => 'fa fa-cogs',
 			),
 			array(
 				'id' => 'size',
 				'label'    => __( 'Size', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Icon size', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '25px',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
@@ -70,7 +71,7 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'icon_align',
 				'label'    => __( 'Align', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Icon alignment', 'mytheme' ),
 				'type'     => 'text_align',
 				'default' => '',
 				'choices' => array( 'justify' => '0' )
@@ -78,21 +79,21 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'color',
 				'label'    => __( 'Color', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Icon color', 'mytheme' ),
 				'type'     => 'color',
 				'default' => '',
 			),
 			array(
 				'id' => 'background_color',
 				'label'    => __( 'Background Color', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Icon background color', 'mytheme' ),
 				'type'     => 'color',
 				'default' => '',
 			),
 			array(
 				'id' => 'width',
 				'label'    => __( 'Width', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Icon width', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'choices' => array( 'units' => array( 'px', '%' ) )
@@ -100,7 +101,7 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'height',
 				'label'    => __( 'Height', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Icon height', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'choices' => array( 'units' => array( 'px', '%' ) )
@@ -108,7 +109,7 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'border_radius',
 				'label'    => __( 'Border Radius', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Border radius of icon', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'choices' => array( 'units' => array( 'px', '%' ) )

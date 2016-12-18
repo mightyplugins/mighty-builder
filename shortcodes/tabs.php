@@ -80,9 +80,10 @@ if (class_exists('MB_Element')) {
 
 	$tabs_map = array(
 		'title' => 'Tabs',
-		'subtitle' => 'text Element',
+		'subtitle' => 'Tabs Element',
 		'code' => 'mb_tabs',
 		'icon' => 'fa fa-info',
+		'color' => '#9cdb58',
 		'child' => 'mb_tab',
 		'hascontent' => true,
 		'options' => array(

@@ -186,7 +186,6 @@ class MB_Addon extends CTF_Addon
         </script>
         <script type="text/html" id="tmpl-ctpb-element"><div class="mb-pb-element-item" data-code="{{ data.code }}">
                 <textarea class="mb-pb-sc-code mb-pb-sc-start">{{{ data.sc_start }}}</textarea>
-                <# console.log(data.sc_start); #>
                 <div class="mb-pb-element-edit">
                     <ul>
                         <li><a href="#" class="mb-pb-drag"><i class="fa fa-arrows"></i></a></li>
@@ -198,7 +197,6 @@ class MB_Addon extends CTF_Addon
                 <#
                     var iconStyle = '';
 
-                    console.log(typeof data.color !== 'undefined');
 
                     if(typeof data.color !== 'undefined'){
                         iconStyle = 'style="background-color: '+data.color+';"';
@@ -239,7 +237,6 @@ class MB_Addon extends CTF_Addon
                 <#
                     var iconStyle = '';
 
-                    console.log(typeof data.color !== 'undefined');
 
                     if(typeof data.color !== 'undefined'){
                         iconStyle = 'style="background-color: '+data.color+';"';
@@ -252,6 +249,61 @@ class MB_Addon extends CTF_Addon
                     <strong>{{ data.name }}</strong>
                     <p>{{ data.desc }}</p>
                 </div>
+            </div>
+        </script>
+        <script type="text/html" id="tmpl-ctpb-responsive-input">
+            <div class="mb-pb-responsive-input">
+                <ul class="mb-responsive-tab-nav">
+                    <li data-id="{{ data.id }}_lg" class="active"><i class="fa fa-desktop"></i></li>
+                    <# if(typeof data.md !== 'undefined' && data.md == true){ #>
+                        <li data-id="{{ data.id }}_md"><i class="fa fa-laptop"></i></li>
+                    <# } #>
+                    <# if(typeof data.sm !== 'undefined' && data.sm == true){ #>
+                        <li data-id="{{ data.id }}_sm"><i class="fa fa-tablet"></i></li>
+                    <# } #>
+                    <# if(typeof data.xs !== 'undefined' && data.xs == true){ #>
+                        <li data-id="{{ data.id }}_xs"><i class="fa fa-mobile"></i></li>
+                    <# } #>
+                </ul>
+
+                <div id="{{ data.id }}_lg" class="mb-responsive-panel active"></div>
+                <# if(typeof data.md !== 'undefined' && data.md == true){ #>
+                    <div id="{{ data.id }}_md" class="mb-responsive-panel"></div>
+                <# } #>
+                <# if(typeof data.sm !== 'undefined' && data.sm == true){ #>
+                    <div id="{{ data.id }}_sm" class="mb-responsive-panel"></div>
+                <# } #>
+                <# if(typeof data.xs !== 'undefined' && data.xs == true){ #>
+                    <div id="{{ data.id }}_xs" class="mb-responsive-panel"></div>
+                <# } #>
+            </div>
+        </script>
+        <script type="text/html" id="tmpl-ctpb-input-tabs">
+            <#
+                var t_i = 0;
+                var tp_i = 0;
+            #>
+            <div class="mb-input-tabs">
+                <ul class="mb-input-tabs-nav clearfix">
+                    <# _.each(data.tabs, function(tabLabel, tabId){ #>
+                        <# if(t_i === 0){ #>
+                            <li data-id="{{ tabId }}" class="active">{{ tabLabel }}</li>
+                        <# } else { #>
+                            <li data-id="{{ tabId }}">{{ tabLabel }}</li>
+                        <# } #>
+                    <# t_i++;  } ); #>
+                </ul>
+                <div class="tabs-container">
+                    <# _.each(data.tabs, function(tabLabel, tabId){ #>
+                        <# if(tp_i === 0){ #>
+                            <div id="{{ tabId }}" class="mb-input-tab active"></div>
+                        <# } else { #>
+                            <div id="{{ tabId }}" class="mb-input-tab"></div>
+                        <# } #>
+                        
+                    <# tp_i++; } ); #>
+                </div>
+                
             </div>
         </script>
         <?php

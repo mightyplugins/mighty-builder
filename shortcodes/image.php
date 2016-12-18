@@ -5,6 +5,7 @@ function mb_img_cb( $atts, $content ) {
 	$default = array(
 		'size' => 'full',
 		'alt' => '',
+		'title' => '',
 		'src' => '',
 		'link_to' => 'none',
 		'link' => 'none'
@@ -46,7 +47,7 @@ function mb_img_cb( $atts, $content ) {
 		<?php
 	endif;
 	?>
-	<img src="<?php echo esc_url( $atts['src'] ); ?>" alt="<?php echo esc_attr( $atts['alt'] ); ?>">
+	<img src="<?php echo esc_url( $atts['src'] ); ?>" alt="<?php echo esc_attr( $atts['alt'] ); ?>" title="<?php echo esc_attr( $atts['title'] ); ?>">
 	
 	<?php
 	if ($atts['link_to'] == 'self' || $atts['link_to'] == 'link'):
@@ -82,34 +83,42 @@ if (class_exists('MB_Element')) {
 		'title' => 'Single Image',
 		'subtitle' => 'Single Image Element',
 		'code' => 'mb_img',
-		'icon' => 'fa fa-font',
+		'icon' => 'fa fa-picture-o',
+		'color' => '#6e97ff',
 		'options' => array(
 			array(
 				'id' => 'src',
-				'label'    => __( 'Background Color', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'Image', 'mytheme' ),
+				'subtitle'    => __( 'Select image', 'mytheme' ),
 				'type'     => 'image',
 				'default' => '',
 			),
 			array(
 				'id' => 'alt',
-				'label'    => __( 'Background Color', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'Image ALT', 'mytheme' ),
+				'subtitle'    => __( 'Value for image alt attribute.', 'mytheme' ),
+				'type'     => 'text',
+				'default' => '',
+			),
+			array(
+				'id' => 'title',
+				'label'    => __( 'Image Title', 'mytheme' ),
+				'subtitle'    => __( 'Value for image title attribute.', 'mytheme' ),
 				'type'     => 'text',
 				'default' => '',
 			),
 			array(
 				'id' => 'size',
-				'label'    => __( 'Background Color', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'Image Size', 'mytheme' ),
+				'subtitle'    => __( 'Size of this image.', 'mytheme' ),
 				'type'     => 'select',
 				'default' => 'full',
 				'choices' => $sizes
 			),
 			array(
 				'id' => 'link_to',
-				'label'    => __( 'Background Color', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'Link To', 'mytheme' ),
+				'subtitle'    => __( 'Set link of this image.', 'mytheme' ),
 				'type'     => 'select',
 				'default' => 'none',
 				'choices' => array(
@@ -120,8 +129,8 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'link',
-				'label'    => __( 'Background Color', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'Custom Link', 'mytheme' ),
+				'subtitle'    => __( 'This option only work if \'Link To\' set as \'Custom Link\'.', 'mytheme' ),
 				'type'     => 'url',
 				'default' => '',
 			),

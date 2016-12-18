@@ -6,7 +6,7 @@
  * Author:      Mighty Plugins
  * Author URI:  http://mightyplugins.com/
  * Version:     1.0.0
- * Text Domain: ct-pagebuilder
+ * Text Domain: mighty-builder
  * Domain Path: /languages/
  */
 
@@ -95,6 +95,13 @@ if ( ! class_exists('MP_Page_Builder') ) {
 			add_action( 'wp_enqueue_scripts', array($this,'front_end_assets') );
 
 			add_filter( 'the_content', array($this,'shortcode_empty_paragraph_fix') );
+
+			add_filter( 'init', array($this,'load_textdomain') );
+		}
+
+
+		public function load_textdomain(){
+			load_plugin_textdomain( 'mighty-builder', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		}
 
 		/**
@@ -152,6 +159,16 @@ if ( ! class_exists('MP_Page_Builder') ) {
 
 }
 
+function mb_add_map( $map )
+{
+	$map = apply_filters( $map['code'].'_map', $map );
+
+	if (class_exists('MB_Element')) {
+		MB_Element::add($map);
+	}
+	
+}
+
 /**
  * Init Mighty Builder
  *
@@ -162,4 +179,4 @@ function CTF_Page_Builder_Addon_Register() {
 		return MP_Page_Builder::instance();
 	}
 }
-add_action( 'plugins_loaded', 'CTF_Page_Builder_Addon_Register' );
+add_action( 'init', 'CTF_Page_Builder_Addon_Register' );

@@ -5,7 +5,9 @@ function mb_countup_cb( $atts, $content ) {
 	$default = array(
 		'num' => '100',
 		'prefix' => '',
-		'suffix' => ''
+		'suffix' => '',
+		'label' => '',
+		'icon' => '',
 	);
 
 	$default = apply_filters( 'mb_countup_element_atts', $default );
@@ -23,6 +25,7 @@ function mb_countup_cb( $atts, $content ) {
 	?>
 	<div class="ct-countup" style="<?php echo esc_attr($style); ?>">
 		<?php if(isset($atts['prefix']) && !empty($atts['prefix'])): ?><span><?php echo esc_html( $atts['prefix'] ); ?></span><?php endif; ?><span class="ct-counter"><?php echo esc_html( $atts['num'] ); ?></span><?php if(isset($atts['suffix']) && !empty($atts['suffix'])): ?><span><?php echo esc_html( $atts['suffix'] ); ?></span><?php endif; ?>
+		<?php if(isset($atts['label']) && !empty($atts['label'])): ?><div class="ct-countup-label"><?php echo esc_html( $atts['label'] ); ?></div><?php endif; ?>
 	</div>
 	<?php
 
@@ -36,10 +39,10 @@ add_shortcode( 'mb_countup','mb_countup_cb' );
 if (class_exists('MB_Element')) {
 
 	$countup_map = array(
-		'title' => 'CountUp',
-		'subtitle' => 'text Element',
+		'title' => 'Count Up',
+		'subtitle' => 'Count Up Element',
 		'code' => 'mb_countup',
-		'icon' => 'fa fa-info',
+		'icon' => 'fa fa-sort-numeric-desc',
 		'color' => '#ff9800',
 		'options' => array(
 			array(
@@ -62,7 +65,21 @@ if (class_exists('MB_Element')) {
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'text',
 				'default' => '',
-			)
+			),
+			array(
+				'id' => 'icon',
+				'label'    => __( 'Icon', 'mytheme' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'type'     => 'icon',
+				'default' => '',
+			),
+			array(
+				'id' => 'label',
+				'label'    => __( 'Label', 'mytheme' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'type'     => 'text',
+				'default' => '',
+			),
 		)
 	);
 

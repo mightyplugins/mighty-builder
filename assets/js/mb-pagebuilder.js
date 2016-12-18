@@ -1,12 +1,28 @@
 (function($, CTF) {
 
+	String.prototype.strtr = function (replacePairs) {
+	    "use strict";
+	    var str = this.toString(), key, re;
+	    for (key in replacePairs) {
+	        if (replacePairs.hasOwnProperty(key)) {
+	            re = new RegExp(key, "g");
+	            str = str.replace(re, replacePairs[key]);
+	        }
+	    }
+	    return str;
+	}
+
 	var CTF_PB = {};
 	
 	CTF_Core.CTF_PageBuilder = CTF_Core.Opts.extend({
+		tabsData: {},
+		tabsObj: '',
         initialize: function ( container, args, tag ){
 	    	this.inputArgs = args;
 	    	this.tag = tag;
 	    	this.containerObj = container;
+
+	    	this.tabsData = this.getTabsData(this.inputArgs);
 
 	    	this.renderContent();
 	    },
@@ -16,13 +32,94 @@
 
 
 	    	if ( typeof inputFieldClss !== 'undefined' ) {
-	    		inputField = new inputFieldClss(args.type, args, this.containerObj);
+	    		var inputContainer = this.containerObj;
 
-		    	inputField.inputNameAttr = 'name="'+this.getNameAttr( args.type, args.id )+'"';
+	    		if (typeof args.tab !== 'undefined' && !_.isEmpty(this.tabsData) && _.isObject(this.tabsObj)) {
+	    			var tabId = args.tab.toLowerCase().replace(' ', '_');
 
-		    	inputField.inputValue = this.getInputValue( args.type, args.id, args.default);
+	    			inputContainer = this.tabsObj.find('#tab_'+tabId);
+	    		}
 
-		    	inputField.renderContent();
+	    		if (typeof args.responsive !== 'undefined' && args.responsive) {
+	    			var responsiveContainer = wp.template( 'ctpb-responsive-input' ),
+	    				responsiveArgs = {
+	    					id: args.id
+	    				};
+
+	    			if (typeof args.md === 'undefined' || args.md === true) {
+	    				responsiveArgs.md = true;
+	    			}
+
+	    			if (typeof args.sm === 'undefined' || args.sm === true) {
+	    				responsiveArgs.sm = true;
+	    			}
+
+	    			if (typeof args.xs === 'undefined' || args.xs === true) {
+	    				responsiveArgs.xs = true;
+	    			}
+
+	    			var responsiveObj = $(responsiveContainer(responsiveArgs));
+
+	    			var mdContainer = responsiveObj.find('#'+args.id+'_lg');
+
+    				var inputField = new inputFieldClss(args.type, args, mdContainer);
+
+    				inputField.inputNameAttr = 'name="'+this.getNameAttr( args.type, args.id )+'"';
+
+		    		inputField.inputValue = this.getInputValue( args.type, args.id, args.default);
+
+    				inputField.renderContent();
+
+	    			if (typeof args.md === 'undefined' || args.md === true) {
+	    				var mdContainer = responsiveObj.find('#'+args.id+'_md');
+
+	    				var inputField = new inputFieldClss(args.type, args, mdContainer);
+
+	    				inputField.inputNameAttr = 'name="'+this.getNameAttr( args.type, 'md_'+args.id )+'"';
+
+			    		inputField.inputValue = this.getInputValue( args.type, 'md_'+args.id, args.default_md);
+
+	    				inputField.renderContent();
+	    			}
+
+	    			if (typeof args.sm === 'undefined' || args.sm === true) {
+	    				var mdContainer = responsiveObj.find('#'+args.id+'_sm');
+
+	    				var inputField = new inputFieldClss(args.type, args, mdContainer);
+
+	    				inputField.inputNameAttr = 'name="'+this.getNameAttr( args.type, 'sm_'+args.id )+'"';
+
+			    		inputField.inputValue = this.getInputValue( args.type, 'sm_'+args.id, args.default_sm);
+
+	    				inputField.renderContent();
+	    			}
+
+	    			if (typeof args.xs === 'undefined' || args.xs === true) {
+	    				var mdContainer = responsiveObj.find('#'+args.id+'_xs');
+
+	    				var inputField = new inputFieldClss(args.type, args, mdContainer);
+
+	    				inputField.inputNameAttr = 'name="'+this.getNameAttr( args.type, 'xs_'+args.id )+'"';
+
+			    		inputField.inputValue = this.getInputValue( args.type, 'xs_'+args.id, args.default_xs);
+
+	    				inputField.renderContent();
+	    			}
+
+	    			this.initResponsiveTab(responsiveObj);
+
+	    			inputContainer.append(responsiveObj);
+
+				} else {
+					inputField = new inputFieldClss(args.type, args, inputContainer);
+
+			    	inputField.inputNameAttr = 'name="'+this.getNameAttr( args.type, args.id )+'"';
+
+			    	inputField.inputValue = this.getInputValue( args.type, args.id, args.default);
+
+			    	inputField.renderContent();
+				}
+	    		
 		    	
 		    	if(args.type == 'editor'){
 		    		
@@ -32,6 +129,50 @@
 		    	}
 	    	}
 	    },
+	    renderContent: function(){
+	    	var self = this;
+	    	if (!_.isEmpty(self.tabsData)) {
+	    		self.renderTabs();
+	    	}
+	    	if (!_.isEmpty(self.tabsData) && _.isObject(self.tabsObj)) {
+	    		self.containerObj.append(self.tabsObj);
+	    	}
+	    	_.each(self.inputArgs, function ( field, key, mbox_full ) {
+	    		self.renderInput(field);
+	    	});
+
+	    	
+	    },
+	    getTabsData: function (options) {
+			var tabs = {};
+			_.each(options, function (option) {
+				if (typeof option.tab !== 'undefined') {
+					var tabId = option.tab.toLowerCase().replace(' ', '_');
+					tabs['tab_'+tabId] = option.tab;
+				}
+			});
+
+			return tabs;
+		},
+		renderTabs: function () {
+			var self = this,
+				tabsTmpl =  wp.template( 'ctpb-input-tabs' ),
+				data = {
+					tabs: self.tabsData
+				};
+
+			self.tabsObj = $(tabsTmpl(data));
+
+			self.tabsObj.find('.mb-input-tabs-nav li').on('click', function (e) {
+				e.preventDefault();
+
+				self.tabsObj.find('.mb-input-tabs-nav li.active').removeClass('active');
+				self.tabsObj.find('.tabs-container .mb-input-tab.active').removeClass('active');
+
+				$(this).addClass('active');
+				self.tabsObj.find('.tabs-container > #'+$(this).data('id')).addClass('active');
+			});
+		},
         getNameAttr: function ( type, id ){
             var nameAttrValue = this.tag+'['+id+']';
 
@@ -53,6 +194,17 @@
         getInputValue: function ( type, id, defValue ){
             var value = defValue;
             return value;
+        },
+        initResponsiveTab: function (tabsObj) {
+        	tabsObj.find('.mb-responsive-tab-nav li').on('click', function (e) {
+        		e.preventDefault();
+
+        		tabsObj.find('.mb-responsive-tab-nav li.active').removeClass('active');
+        		tabsObj.find('.mb-responsive-panel.active').removeClass('active');
+
+        		$(this).addClass('active');
+        		tabsObj.find('.mb-responsive-panel#'+$(this).data('id')).addClass('active');
+        	});
         }
     });
 
@@ -216,7 +368,6 @@
 
 
 
-			console.log(editor_content);
 
 			if ( typeof matchedSections !== 'undefined' && !_.isEmpty(matchedSections) ) {
 				_.each(matchedSections, function (section) {
@@ -229,7 +380,6 @@
 							var matchedCols = row.match(new RegExp("(\\[mb_col.*?\\].*?\\[\\/mb_col\\])", "g")),
 								rowScStart = row.match(new RegExp(/\[mb_row.*?\]/)),
 								rowObj = self.getRow(rowScStart);
-							console.log(matchedCols);
 							if ( typeof matchedCols !== 'undefined' && !_.isEmpty(matchedCols) ) {
 								_.each(matchedCols, function (column) {
 									var matchedItems = column.match(new RegExp("(\\[("+allScTags.join("|")+")(?![\\w-]).*?\\](?![\"])(.*?\\[\\/(\\2)\\])?)", "g")),
@@ -668,7 +818,6 @@
 					var formData = self.pagebuilderModalForm.serializeObject(),
 						shortcode = '';
 
-						console.log(formData);
 					
 					if(typeof formData[tag] !== 'undefined'){
 						shortcode = self.getShortcodeByData(tag, formData[tag]);
@@ -1096,7 +1245,13 @@
 			
 			if( typeof atts !== 'undefined' && _.isObject(atts) && !_.isEmpty(atts) ){
 				_.each(atts, function (value, name){
-					var option = self.getFieldDataByID(name, shortcodeData.options);
+					if (_.isNull(name.match(/(md|xs|sm)_/i))) {
+						var option = self.getFieldDataByID(name, shortcodeData.options);
+					} else {
+						var newName = name.replace(/(md|xs|sm)_/i, '');
+						var option = self.getFieldDataByID(newName, shortcodeData.options);
+					}
+					
 
 					if ( typeof option.roll === 'undefined' ) {
 						if( option.type == 'google_font' ){
@@ -1280,17 +1435,17 @@
 
 				var tag = elementObj.data('code'),
 					shortcode = elementObj.find('> .mb-pb-sc-code.mb-pb-sc-start').html(),
-					options = self.getScOptionsFromSc(_.unescape(shortcode), tag),
+					shortcode = _.unescape(shortcode),
+					shortcode = shortcode.strtr({ '<p>\\[' : '[', '\\]<\\/p>' : ']', '\\]<br \\/>' : ']' }),
+					options = self.getScOptionsFromSc(shortcode, tag),
 					elementTitle = mb_elements_data[tag].title;
-
-
-				console.log(mb_elements_data[tag].title);
 
 				// Clear Element List and Element Form HTML
 				self.pagebuilderModalObj.find('.mpb-elements-list').html('');
 				self.pagebuilderModalForm.html('');
 
 				self.pagebuilderModalObj.find('#modal-pb-title').text(elementTitle);
+
 
 				var field_obj = new CTF_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
 
@@ -1458,12 +1613,42 @@
 						if (!_.isNull(machedVal)) {
 							options[i].default = machedVal[1];
 						}
+
+						if (typeof options[i].responsive !== 'undefined' && options[i].responsive) {
+							if (typeof options[i].md === 'undefined' || options[i].md === true) {
+								var scAttrPattMd =  new RegExp('md_'+option.id+'="(.*?)"'),
+									machedValMd = shortcode.match(scAttrPattMd);
+
+								if (!_.isNull(machedValMd)) {
+									options[i].default_md = machedValMd[1];
+								}
+							}
+
+							if (typeof options[i].sm === 'undefined' || options[i].sm === true) {
+								var scAttrPattSm =  new RegExp('sm_'+option.id+'="(.*?)"'),
+									machedValSm = shortcode.match(scAttrPattSm);
+
+								if (!_.isNull(machedValSm)) {
+									options[i].default_sm = machedValSm[1];
+								}
+							}
+
+							if (typeof options[i].xs === 'undefined' || options[i].xs === true) {
+								var scAttrPattXs =  new RegExp('xs_'+option.id+'="(.*?)"'),
+									machedValXs = shortcode.match(scAttrPattXs);
+
+								if (!_.isNull(machedValSm)) {
+									options[i].default_xs = machedValXs[1];
+								}
+							}
+						}
 						//options[i].default = machedVal[1];
 					}
 				} else {
-					// var scAttrPatt =  new RegExp('\\[('+tag+').*?\\](.*?)\\[\\/\\1\\]'),
-					var scAttrPatt =  new RegExp('\\[('+tag+').*?\\]([^()]+)\\[\\/\\1\\]'),
+					var scAttrPatt =  new RegExp('\\[('+tag+').*?\\](.*?)\\[\\/\\1\\]'),
+					// var scAttrPatt =  new RegExp('\\[('+tag+').*?\\]([^()]+)\\[\\/\\1\\]'),
 						machedVal = shortcode.match(scAttrPatt);
+
 
 					if (_.isNull(machedVal)) {
 						options[i].default = '';

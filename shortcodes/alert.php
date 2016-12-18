@@ -42,10 +42,11 @@ if (class_exists('MB_Element')) {
 
 	$alert_map = array(
 		'title' => 'Alert',
-		'subtitle' => 'alert Element',
+		'subtitle' => 'Alert Element',
 		'code' => 'mb_alert',
 		'hascontent' => true,
 		'icon' => 'fa fa-font',
+		'color' => '#39cbaa',
 		'options' => array(
 			array(
 				'id' => 'alert_content',
@@ -58,7 +59,7 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'alert_type',
 				'label'    => __( 'Type', 'mytheme' ),
-				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'subtitle'    => __( 'Select alert type', 'mytheme' ),
 				'type'     => 'select',
 				'default' => 'info',
 				'choices' => array(
@@ -71,7 +72,7 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'close_btn',
 				'label'    => __( 'Close Button', 'mytheme' ),
-				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'subtitle'    => __( 'Show/Hide alert close button', 'mytheme' ),
 				'type'     => 'radio',
 				'default' => '0',
 				'choices' => array(

@@ -5,6 +5,7 @@ function mb_btn_cb( $atts, $content ) {
 	$default = array(
 		'btn_type' => 'info',
 		'size' => '',
+		'align' => '',
 	);
 
 	$atts_default = apply_filters( 'mb_btn_element_atts', $default );
@@ -12,14 +13,21 @@ function mb_btn_cb( $atts, $content ) {
 	$atts = shortcode_atts( $atts_default, $atts );
 
 
+	$style_container = '';
+
+	$style_container .= (isset($atts['align']) && !empty($atts['align'])) ? 'text-align:'.$atts['align'].';' : '';
+
+
 	$output = '';
 
 	ob_start();
 
 	?>
-	<a class="btn btn-<?php echo esc_attr( $atts['btn_type'] ); ?> <?php echo esc_attr( $atts['size'] ); ?>" role="button">
-		<?php echo do_shortcode( $content ); ?>
-	</a>
+	<div class="mb-btn-container" style="<?php echo esc_attr($style_container); ?>">
+		<a class="btn btn-<?php echo esc_attr( $atts['btn_type'] ); ?> <?php echo esc_attr( $atts['size'] ); ?>" role="button">
+			<?php echo do_shortcode( $content ); ?>
+		</a>
+	</div>
 	
 	<?php
 
@@ -33,19 +41,20 @@ add_shortcode( 'mb_btn','mb_btn_cb' );
 
 
 
-if (class_exists('MB_Element')) {
+if (function_exists('mb_add_map')) {
 
 	$btn_map = array(
 		'title' => 'Button',
-		'subtitle' => 'btn Element',
+		'subtitle' => 'Button Element',
 		'code' => 'mb_btn',
 		'hascontent' => true,
-		'icon' => 'fa fa-font',
+		'icon' => 'fa fa-square-o',
+		'color' => '#6ec3ff',
 		'options' => array(
 			array(
 				'id' => 'btn_content',
 				'label'    => __( 'Text', 'mytheme' ),
-				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'subtitle'    => __( 'Button text', 'mytheme' ),
 				'type'     => 'text',
 				'default' => '',
 				'roll' => 'content'
@@ -53,7 +62,7 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'btn_type',
 				'label'    => __( 'Type', 'mytheme' ),
-				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'subtitle'    => __( 'Select button style', 'mytheme' ),
 				'type'     => 'select',
 				'default' => 'default',
 				'choices' => array(
@@ -69,20 +78,26 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'size',
 				'label'    => __( 'Size', 'mytheme' ),
-				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'subtitle'    => __( 'Select button size', 'mytheme' ),
 				'type'     => 'select',
-				'default' => '',
+				'default' => 'btn-nm',
 				'choices' => array(
 					'btn-xs' => __('Extra Small', 'mytheme'),
 					'btn-sm' => __('Small', 'mytheme'),
 					'btn-nm' => __('Normal', 'mytheme'),
 					'btn-lg' => __('Large', 'mytheme'),
 				)
-			)
+			),
+			array(
+				'id' => 'align',
+				'label'    => __( 'Align', 'mytheme' ),
+				'subtitle'    => __( 'Icon alignment', 'mytheme' ),
+				'type'     => 'text_align',
+				'default' => 'left',
+				'choices' => array( 'justify' => '0' )
+			),
 		)
 	);
-
-	$btn_map = apply_filters( 'mb_btn_map', $btn_map );
-
-	MB_Element::add($btn_map);
+	
+	mb_add_map($btn_map);
 }

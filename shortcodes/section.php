@@ -8,6 +8,7 @@ function mb_section_cb( $atts, $content ) {
 		'padding_left' => '0',
 		'padding_right' => '0',
 		'bg_color' => '',
+		'bg_img' => '',
 		'container' => 'fullwidth', // boxed, fluid, fullwidth
 	);
 
@@ -18,6 +19,7 @@ function mb_section_cb( $atts, $content ) {
 	$style = '';
 
 	$style .= (isset($atts['bg_color']) && !empty($atts['bg_color'])) ? 'background-color:'.$atts['bg_color'].';' : '';
+	$style .= (isset($atts['bg_img']) && !empty($atts['bg_img'])) ? 'background-image: url('.$atts['bg_img'].');' : '';
 
 	$style .= (isset($atts['padding_top']) && !empty($atts['padding_top'])) ? 'padding-top:'.$atts['padding_top'].';' : '';
 	$style .= (isset($atts['padding_bottom']) && !empty($atts['padding_bottom'])) ? 'padding-bottom:'.$atts['padding_bottom'].';' : '';
@@ -91,6 +93,41 @@ if (class_exists('MB_Element')) {
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'color',
 				'default' => '',
+			),
+			array(
+				'id' => 'bg_img',
+				'label'    => __( 'Background Image', 'mytheme' ),
+				'subtitle'    => __( 'Select image', 'mytheme' ),
+				'type'     => 'image',
+				'default' => '',
+			),
+			array(
+				'id' => 'padding_top',
+				'label'    => __( 'Padding Top', 'mytheme' ),
+				'type'     => 'dimension',
+				'default' => '50px',
+				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
+			),
+			array(
+				'id' => 'padding_bottom',
+				'label'    => __( 'Padding Bottom', 'mytheme' ),
+				'type'     => 'dimension',
+				'default' => '50px',
+				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
+			),
+			array(
+				'id' => 'padding_left',
+				'label'    => __( 'Padding Left', 'mytheme' ),
+				'type'     => 'dimension',
+				'default' => '',
+				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
+			),
+			array(
+				'id' => 'padding_right',
+				'label'    => __( 'Padding Right', 'mytheme' ),
+				'type'     => 'dimension',
+				'default' => '',
+				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
 			)
 		)
 	);

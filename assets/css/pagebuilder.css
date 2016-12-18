@@ -12,3 +12,36 @@
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
+
+.btn{
+	border-radius: 3px;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.btn-default {
+	color: #333;
+	background-color: #fff;
+	border-color: #fff;
+}
+
+.btn-default:hover {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #e6e6e6;
+}
+
+.ct-line-container{
+	display: block;
+	text-align: center;
+}
+
+.ct-line-container hr{
+	display: inline-block;
+	margin: 0;
+}
+
+.btn-group-lg>.btn, .btn-lg{
+	padding: 15px 30px;
+}

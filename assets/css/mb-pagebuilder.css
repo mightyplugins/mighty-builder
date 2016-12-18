@@ -11,6 +11,14 @@
 	line-height: inherit;
 }
 
+.remodal-wrapper{
+	padding: 50px 10px 10px;
+}
+
+.remodal-wrapper{
+	top: 32px;
+}
+
 .mb-pb-switch-button{
 	background-color: #fff;
 	display: block;
@@ -659,7 +667,7 @@ h2#modal-pb-title {
     margin: 0;
     padding: 30px 20px;
     box-sizing: border-box;
-    background-color: #222C3C;
+    background-color: #04ccb9;
     color: #fff;
     text-transform: uppercase;
     font-size: 20px;
@@ -776,4 +784,71 @@ h2#modal-pb-title {
 }
 .mb_pb_col-12{
 	width: 100%;
+}
+
+.mb-pb-responsive-input .mb-responsive-panel{
+	display: none;
+}
+
+.mb-pb-responsive-input .mb-responsive-panel.active{
+	display: block;
+}
+
+.mb-pb-responsive-input .mb-responsive-panel .ctf-cc-container{
+	padding-top: 0;
+}
+
+.mb-responsive-tab-nav{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: block;
+	text-align: right;
+	padding-right: 60px;
+}
+
+.mb-responsive-tab-nav li{
+	display: inline-block;
+	cursor: pointer;
+	width: 20px;
+	height: 30px;
+	line-height: 30px;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 12px;
+	margin-bottom: 0;
+}
+.mb-responsive-tab-nav li.active{
+	color: #06B3E6;
+}
+
+.mb-input-tabs .mb-input-tabs-nav{
+	margin: -22px -20px 0;
+	padding: 0 10px;
+	list-style: none;
+	display: block;
+	background-color: #00c5b3;
+}
+
+.mb-input-tabs .mb-input-tabs-nav li{
+	color: #fff;
+	display: inline-block;
+	float: left;
+	margin-bottom: 0;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+
+.mb-input-tabs .mb-input-tabs-nav li.active{
+	background-color: #ffffff;
+	color: #000;
+	border-radius: 3px 3px 0 0;
+}
+
+.mb-input-tabs .tabs-container .mb-input-tab{
+	display: none;
+}
+
+.mb-input-tabs .tabs-container .mb-input-tab.active{
+	display: block;
 }

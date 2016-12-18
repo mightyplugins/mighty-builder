@@ -33,14 +33,15 @@ if (class_exists('MB_Element')) {
 
 	$space_map = array(
 		'title' => 'Space',
-		'subtitle' => 'text Element',
+		'subtitle' => 'Space Element',
 		'code' => 'mb_space',
 		'icon' => 'fa fa-info',
+		'color' => '#6063cd',
 		'options' => array(
 			array(
 				'id' => 'size',
 				'label'    => __( 'Size', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Space size', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '25px',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )

@@ -29,9 +29,10 @@ if (class_exists('MB_Element')) {
 
 	$video_map = array(
 		'title' => 'Video',
-		'subtitle' => 'text Element',
+		'subtitle' => 'Video Element',
 		'code' => 'mb_video',
-		'icon' => 'fa fa-info',
+		'icon' => 'fa fa-video-camera',
+		'color' => '#4ad2da',
 		'options' => array(
 			array(
 				'id' => 'url',
