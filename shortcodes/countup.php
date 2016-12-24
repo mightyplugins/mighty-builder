@@ -8,6 +8,8 @@ function mb_countup_cb( $atts, $content ) {
 		'suffix' => '',
 		'label' => '',
 		'icon' => '',
+		'color' => '',
+		'icon_color' => '',
 	);
 
 	$default = apply_filters( 'mb_countup_element_atts', $default );
@@ -15,8 +17,11 @@ function mb_countup_cb( $atts, $content ) {
 	$atts = shortcode_atts( $default, $atts );
 
 	$style = '';
+	$style_icon = '';
 
-	$style .= (isset($atts['size']) && !empty($atts['size'])) ? 'height:'.$atts['size'].';' : '';
+	$style .= (isset($atts['color']) && !empty($atts['color'])) ? 'color:'.$atts['color'].';' : '';
+
+	$style_icon .= (isset($atts['icon_color']) && !empty($atts['icon_color'])) ? 'color:'.$atts['icon_color'].';' : '';
 
 
 
@@ -24,7 +29,10 @@ function mb_countup_cb( $atts, $content ) {
 	ob_start();
 	?>
 	<div class="ct-countup" style="<?php echo esc_attr($style); ?>">
-		<?php if(isset($atts['prefix']) && !empty($atts['prefix'])): ?><span><?php echo esc_html( $atts['prefix'] ); ?></span><?php endif; ?><span class="ct-counter"><?php echo esc_html( $atts['num'] ); ?></span><?php if(isset($atts['suffix']) && !empty($atts['suffix'])): ?><span><?php echo esc_html( $atts['suffix'] ); ?></span><?php endif; ?>
+		<?php if(isset($atts['icon']) && !empty($atts['icon'])): ?><div class="ct-countup-icon" style="<?php echo esc_attr($style_icon); ?>"><i class="<?php echo esc_attr( $atts['icon'] ); ?>"></i></div><?php endif; ?>
+		<div class="ct-counter-wrap">
+			<?php if(isset($atts['prefix']) && !empty($atts['prefix'])): ?><span><?php echo esc_html( $atts['prefix'] ); ?></span><?php endif; ?><span class="ct-counter"><?php echo esc_html( $atts['num'] ); ?></span><?php if(isset($atts['suffix']) && !empty($atts['suffix'])): ?><span><?php echo esc_html( $atts['suffix'] ); ?></span><?php endif; ?>
+		</div>
 		<?php if(isset($atts['label']) && !empty($atts['label'])): ?><div class="ct-countup-label"><?php echo esc_html( $atts['label'] ); ?></div><?php endif; ?>
 	</div>
 	<?php
@@ -51,6 +59,7 @@ if (class_exists('MB_Element')) {
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'number',
 				'default' => '100',
+				'tab' => 'Content'
 			),
 			array(
 				'id' => 'prefix',
@@ -58,6 +67,7 @@ if (class_exists('MB_Element')) {
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'text',
 				'default' => '',
+				'tab' => 'Content'
 			),
 			array(
 				'id' => 'suffix',
@@ -65,6 +75,7 @@ if (class_exists('MB_Element')) {
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'text',
 				'default' => '',
+				'tab' => 'Content'
 			),
 			array(
 				'id' => 'icon',
@@ -72,6 +83,7 @@ if (class_exists('MB_Element')) {
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'icon',
 				'default' => '',
+				'tab' => 'Content'
 			),
 			array(
 				'id' => 'label',
@@ -79,6 +91,23 @@ if (class_exists('MB_Element')) {
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'text',
 				'default' => '',
+				'tab' => 'Content'
+			),
+			array(
+				'id' => 'color',
+				'label'    => __( 'Text Color', 'mytheme' ),
+				'subtitle'    => __( 'Heading Text Color', 'mytheme' ),
+				'type'     => 'color',
+				'default' => '',
+				'tab' => 'Style'
+			),
+			array(
+				'id' => 'icon_color',
+				'label'    => __( 'Icon Color', 'mytheme' ),
+				'subtitle'    => __( 'Heading Text Color', 'mytheme' ),
+				'type'     => 'color',
+				'default' => '',
+				'tab' => 'Style'
 			),
 		)
 	);
