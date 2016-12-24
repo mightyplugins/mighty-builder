@@ -9,6 +9,10 @@ function mb_section_cb( $atts, $content ) {
 		'padding_right' => '0',
 		'bg_color' => '',
 		'bg_img' => '',
+		'bg_repeat' => '',
+		'bg_position' => '',
+		'bg_attachment' => '',
+		'bg_size' => '',
 		'container' => 'fullwidth', // boxed, fluid, fullwidth
 	);
 
@@ -20,6 +24,10 @@ function mb_section_cb( $atts, $content ) {
 
 	$style .= (isset($atts['bg_color']) && !empty($atts['bg_color'])) ? 'background-color:'.$atts['bg_color'].';' : '';
 	$style .= (isset($atts['bg_img']) && !empty($atts['bg_img'])) ? 'background-image: url('.$atts['bg_img'].');' : '';
+	$style .= (isset($atts['bg_repeat']) && !empty($atts['bg_repeat'])) ? 'background-repeat: '.$atts['bg_repeat'].';' : '';
+	$style .= (isset($atts['bg_position']) && !empty($atts['bg_position'])) ? 'background-position: '.$atts['bg_position'].';' : '';
+	$style .= (isset($atts['bg_attachment']) && !empty($atts['bg_attachment'])) ? 'background-attachment: '.$atts['bg_attachment'].';' : '';
+	$style .= (isset($atts['bg_size']) && !empty($atts['bg_size'])) ? 'background-size: '.$atts['bg_size'].';' : '';
 
 	$style .= (isset($atts['padding_top']) && !empty($atts['padding_top'])) ? 'padding-top:'.$atts['padding_top'].';' : '';
 	$style .= (isset($atts['padding_bottom']) && !empty($atts['padding_bottom'])) ? 'padding-bottom:'.$atts['padding_bottom'].';' : '';
@@ -85,7 +93,8 @@ if (class_exists('MB_Element')) {
                     'boxed' => 'Boxed',
                     'fluid' => 'Fluid',
                     'fullwidth' => 'Fullwidth'
-                )
+                ),
+                'tab' => 'Settings'
 			),
 			array(
 				'id' => 'bg_color',
@@ -93,6 +102,7 @@ if (class_exists('MB_Element')) {
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'color',
 				'default' => '',
+				'tab' => 'Background'
 			),
 			array(
 				'id' => 'bg_img',
@@ -100,34 +110,97 @@ if (class_exists('MB_Element')) {
 				'subtitle'    => __( 'Select image', 'mytheme' ),
 				'type'     => 'image',
 				'default' => '',
+				'tab' => 'Background'
+			),
+			array(
+				'id' => 'bg_repeat',
+				'label'    => __( 'Background Repeat', 'mytheme' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'type'     => 'select',
+				'default' => '',
+                'choices' => array(
+                    'repeat' => 'Repeat',
+                    'no-repeat' => 'No Repeat',
+                    'repeat-x' => 'Repeat Horizontally',
+                    'repeat-y' => 'Repeat Vertically',
+                ),
+                'tab' => 'Background'
+			),
+			array(
+				'id' => 'bg_size',
+				'label'    => __( 'Background Size', 'mytheme' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'type'     => 'select',
+				'default' => '',
+                'choices' => array(
+                    'auto' => 'Auto',
+                    'cover' => 'Cover',
+                    'contain' => 'Contain',
+                ),
+                'tab' => 'Background'
+			),
+			array(
+				'id' => 'bg_position',
+				'label'    => __( 'Background Position', 'mytheme' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'type'     => 'select',
+				'default' => '',
+                'choices' => array(
+                    'left top' => 'Left Top',
+					'left center' => 'Left Center',
+					'left bottom' => 'Left Bottom',
+					'right top' => 'Right Top',
+					'right center' => 'Right Center',
+					'right bottom' => 'Right Bottom',
+					'center top' => 'Center Top',
+					'center center' => 'Center Center',
+					'center bottom' => 'Center Bottom',
+                ),
+                'tab' => 'Background'
+			),
+			array(
+				'id' => 'bg_attachment',
+				'label'    => __( 'Background Attachment', 'mytheme' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'type'     => 'select',
+				'default' => '',
+                'choices' => array(
+                    'scroll' => 'Scroll',
+                    'fixed' => 'Fixed',
+                ),
+                'tab' => 'Background'
 			),
 			array(
 				'id' => 'padding_top',
 				'label'    => __( 'Padding Top', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '50px',
-				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
+				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) ),
+				'tab' => 'Spacing'
 			),
 			array(
 				'id' => 'padding_bottom',
 				'label'    => __( 'Padding Bottom', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '50px',
-				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
+				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) ),
+				'tab' => 'Spacing'
 			),
 			array(
 				'id' => 'padding_left',
 				'label'    => __( 'Padding Left', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '',
-				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
+				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) ),
+				'tab' => 'Spacing'
 			),
 			array(
 				'id' => 'padding_right',
 				'label'    => __( 'Padding Right', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '',
-				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
+				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) ),
+				'tab' => 'Spacing'
 			)
 		)
 	);
