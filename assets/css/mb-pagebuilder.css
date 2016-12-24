@@ -852,3 +852,11 @@ h2#modal-pb-title {
 .mb-input-tabs .tabs-container .mb-input-tab.active{
 	display: block;
 }
+
+.ctf-cc-container.ctf-input-editor .ctf-title-container{
+	display: none;
+}
+
+.ctf-cc-container.ctf-input-editor .ctf-input-field-container{
+	width: 100%;
+}
