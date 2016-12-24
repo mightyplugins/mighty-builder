@@ -45,3 +45,17 @@
 .btn-group-lg>.btn, .btn-lg{
 	padding: 15px 30px;
 }
+
+.ct-countup{
+	text-align: center;
+}
+
+.ct-countup .ct-counter-wrap{
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.ct-countup .ct-countup-icon{
+	font-size: 40px;
+	line-height: 1;
+}
