@@ -8,7 +8,8 @@ function mb_img_cb( $atts, $content ) {
 		'title' => '',
 		'src' => '',
 		'link_to' => 'none',
-		'link' => 'none'
+		'link' => 'none',
+		'align' => ''
 	);
 
 	$atts_default = apply_filters( 'mb_image_element_atts', $default );
@@ -17,7 +18,7 @@ function mb_img_cb( $atts, $content ) {
 
 	$style = '';
 
-	// $style .= (isset($atts['color']) && !empty($atts['color'])) ? 'color:'.$atts['color'].';' : '';
+	$style .= (isset($atts['align']) && !empty($atts['align'])) ? 'text-align:'.$atts['align'].';' : '';
 	
 
 	if ($atts['size'] != 'full') {
@@ -37,6 +38,9 @@ function mb_img_cb( $atts, $content ) {
 	$output = '';
 
 	ob_start();
+	?>
+	<div style="<?php echo esc_attr($style); ?>">
+	<?php
 	if ($atts['link_to'] == 'self'):
 		?>
 		<a href="<?php echo esc_url( $atts['src'] ); ?>">
@@ -55,6 +59,9 @@ function mb_img_cb( $atts, $content ) {
 		</a>
 		<?php
 	endif;
+	?>
+	</div>
+	<?php
 
 	$output =  ob_get_clean();
 
@@ -114,6 +121,14 @@ if (class_exists('MB_Element')) {
 				'type'     => 'select',
 				'default' => 'full',
 				'choices' => $sizes
+			),
+			array(
+				'id' => 'align',
+				'label'    => __( 'Image Align', 'mytheme' ),
+				'subtitle'    => __( 'Image align. Default: left', 'mytheme' ),
+				'type'     => 'text_align',
+				'default' => '',
+				'choices' => array( 'justify' => '0' ),
 			),
 			array(
 				'id' => 'link_to',

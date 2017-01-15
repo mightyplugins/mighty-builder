@@ -74,7 +74,7 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'font_size',
 				'label'    => __( 'Font Size', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Text font size', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'tab' => 'Style'
@@ -82,23 +82,20 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'align',
 				'label'    => __( 'Text Align', 'mytheme' ),
-				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
 				'type'     => 'text_align',
 				'default' => '',
 				'tab' => 'Style'
 			),
 			array(
 				'id' => 'color',
-				'label'    => __( 'Text Align', 'mytheme' ),
-				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'label'    => __( 'Text Color', 'mytheme' ),
 				'type'     => 'color',
 				'default' => '',
 				'tab' => 'Style'
 			),
 			array(
 				'id' => 'background_color',
-				'label'    => __( 'Text Align', 'mytheme' ),
-				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'label'    => __( 'Background Color', 'mytheme' ),
 				'type'     => 'color',
 				'default' => '',
 				'tab' => 'Style'
@@ -106,7 +103,6 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'padding_left',
 				'label'    => __( 'Padding Left', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'tab' => 'Spacing'
@@ -114,7 +110,6 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'padding_right',
 				'label'    => __( 'Padding Right', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'tab' => 'Spacing'
@@ -122,7 +117,6 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'padding_top',
 				'label'    => __( 'Padding Top', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'tab' => 'Spacing'
@@ -130,7 +124,6 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'padding_bottom',
 				'label'    => __( 'Padding Bottom', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'tab' => 'Spacing'

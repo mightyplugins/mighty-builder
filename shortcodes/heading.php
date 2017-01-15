@@ -2,6 +2,8 @@
 
 function mb_heading_cb( $atts, $content ) {
 
+	global $mb_google_fonts;
+
 	$default = array(
 		'padding_top' => '',
 		'padding_bottom' => '',
@@ -67,6 +69,28 @@ function mb_heading_cb( $atts, $content ) {
 	$atts_default = apply_filters( 'mb_heading_element_atts', $default );
 
 	$atts = shortcode_atts( $atts_default, $atts );
+
+	$all_fonts = CTF_Help::get_google_font_json();
+
+	$all_fonts = json_decode($all_fonts, true);
+
+	$font_weights = $all_fonts[$atts['haeding_font-family']];
+
+
+	if (!isset($mb_google_fonts[$atts['haeding_font-family']]) || !is_array($mb_google_fonts[$atts['haeding_font-family']])) {
+		$mb_google_fonts[$atts['haeding_font-family']] = array();
+	}
+
+	if (isset($atts['haeding_font-weight']) && !empty($atts['haeding_font-weight']) && isset($mb_google_fonts[$atts['haeding_font-family']]) && !in_array($atts['haeding_font-weight'], $mb_google_fonts[$atts['haeding_font-family']]) ) {
+		$mb_google_fonts[$atts['haeding_font-family']][] = $atts['haeding_font-weight'];
+	}
+
+	
+
+
+	/*if (isset($atts['haeding_font-family']) && !empty($atts['haeding_font-family'])) {
+		wp_enqueue_style( 'mb_google_font_' . mb_text_to_css_class( $atts['haeding_font-family'] ), '//fonts.googleapis.com/css?family=' . str_replace(' ', '+', $atts['haeding_font-family']) . ':' . implode(',', $font_weights) );
+	}*/
 
 	$style = '';
 	$style_md = '';
@@ -172,8 +196,6 @@ function mb_heading_cb( $atts, $content ) {
 	return $output;
 }
 add_shortcode( 'mb_heading','mb_heading_cb' );
-
-
 
 if (function_exists('mb_add_map')) {
 

@@ -77,7 +77,7 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'align',
 				'label'    => __( 'Align', 'mytheme' ),
-				'subtitle'    => __( 'Icon alignment', 'mytheme' ),
+				'subtitle'    => __( 'Line alignment', 'mytheme' ),
 				'type'     => 'text_align',
 				'default' => 'center',
 				'choices' => array( 'justify' => '0' )

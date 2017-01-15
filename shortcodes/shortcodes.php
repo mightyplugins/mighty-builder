@@ -13,5 +13,5 @@ require_once MP_PB_PATH .'/shortcodes/alert.php';
 require_once MP_PB_PATH .'/shortcodes/button.php';
 require_once MP_PB_PATH .'/shortcodes/progressbar.php';
 require_once MP_PB_PATH .'/shortcodes/countup.php';
-require_once MP_PB_PATH .'/shortcodes/video.php';
+require_once MP_PB_PATH .'/shortcodes/oembed.php';
 require_once MP_PB_PATH .'/shortcodes/tabs.php';

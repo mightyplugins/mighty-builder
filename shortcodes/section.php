@@ -14,6 +14,9 @@ function mb_section_cb( $atts, $content ) {
 		'bg_attachment' => '',
 		'bg_size' => '',
 		'container' => 'fullwidth', // boxed, fluid, fullwidth
+		'id' => '',
+		'class' => '',
+		'force_fullwidth' => 0,
 	);
 
 	$atts_default = apply_filters( 'mb_section_element_atts', $default );
@@ -50,12 +53,20 @@ function mb_section_cb( $atts, $content ) {
 		$container_class = 'container-fluid';
 	}
 
+	$sec_cls = array();
+
+	$sec_cls[] = $atts['class'];
+
+	if (((int) $atts['force_fullwidth']) && ($atts['container'] == 'fluid' || $atts['container'] == 'fullwidth')) {
+		$sec_cls[] = 'mb-force-fullwidth';
+	}
+
 	$output = '';
 
 	ob_start();
 
 	?>
-	<section style="<?php echo esc_attr($section_style); ?>">
+	<section class="<?php echo esc_attr(implode(' ', $sec_cls)); ?>" style="<?php echo esc_attr($section_style); ?>" id="<?php echo esc_attr($atts['id']); ?>">
 		<div class="<?php echo esc_attr($container_class); ?>" style="<?php echo esc_attr($container_style); ?>">
 			<?php echo do_shortcode( $content ); ?>
 		</div>
@@ -97,8 +108,36 @@ if (class_exists('MB_Element')) {
                 'tab' => 'Settings'
 			),
 			array(
+				'id' => 'force_fullwidth',
+				'label'    => __( 'Force Fullwidth', 'mytheme' ),
+				'subtitle'    => __( 'Only work with only Fluid and Fullwidth Container', 'mytheme' ),
+				'type'     => 'radio',
+				'default' => '0',
+				'choices' => array(
+					'0' => __('Disable', 'mytheme'),
+					'1' => __('Enable', 'mytheme'),
+				),
+				'tab' => 'Settings'
+			),
+			array(
+				'id' => 'id',
+				'label'    => __( 'Section ID', 'mytheme' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'type'     => 'text',
+				'default' => '',
+                'tab' => 'Settings'
+			),
+			array(
+				'id' => 'class',
+				'label'    => __( 'Extra Class', 'mytheme' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'type'     => 'text',
+				'default' => '',
+                'tab' => 'Settings'
+			),
+			array(
 				'id' => 'bg_color',
-				'label'    => __( 'Background Color', 'mytheme' ),
+				'label'    => __( 'Color', 'mytheme' ),
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'color',
 				'default' => '',
@@ -106,7 +145,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'bg_img',
-				'label'    => __( 'Background Image', 'mytheme' ),
+				'label'    => __( 'Image', 'mytheme' ),
 				'subtitle'    => __( 'Select image', 'mytheme' ),
 				'type'     => 'image',
 				'default' => '',
@@ -114,7 +153,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'bg_repeat',
-				'label'    => __( 'Background Repeat', 'mytheme' ),
+				'label'    => __( 'Repeat', 'mytheme' ),
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'select',
 				'default' => '',
@@ -128,7 +167,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'bg_size',
-				'label'    => __( 'Background Size', 'mytheme' ),
+				'label'    => __( 'Size', 'mytheme' ),
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'select',
 				'default' => '',
@@ -141,7 +180,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'bg_position',
-				'label'    => __( 'Background Position', 'mytheme' ),
+				'label'    => __( 'Position', 'mytheme' ),
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'select',
 				'default' => '',
@@ -160,7 +199,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'bg_attachment',
-				'label'    => __( 'Background Attachment', 'mytheme' ),
+				'label'    => __( 'Attachment', 'mytheme' ),
 				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'select',
 				'default' => '',

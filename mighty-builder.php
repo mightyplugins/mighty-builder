@@ -96,7 +96,31 @@ if ( ! class_exists('MP_Page_Builder') ) {
 
 			add_filter( 'the_content', array($this,'shortcode_empty_paragraph_fix') );
 
+			add_filter( 'wp_footer', array($this,'load_google_font') );
+
 			add_filter( 'init', array($this,'load_textdomain') );
+		}
+
+		public function load_google_font()
+		{
+			global $mb_google_fonts;
+
+			$fonts = array();
+
+			if (is_array($mb_google_fonts) && !empty($mb_google_fonts)) {
+				foreach ($mb_google_fonts as $font => $font_weights) {
+					$_font = str_replace(' ', '+', $font);
+
+					if (!empty($font_weights)) {
+						$_font .= ':'.implode(',', $font_weights);
+					}
+					$fonts[] = $_font;
+				}
+			}
+
+			if (!empty($fonts)) {
+				wp_enqueue_style( 'mb_google_fonts', '//fonts.googleapis.com/css?family=' . implode('|', $fonts) );
+			}
 		}
 
 
