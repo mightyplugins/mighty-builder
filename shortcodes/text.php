@@ -59,7 +59,7 @@ if (class_exists('MB_Element')) {
 		'subtitle' => 'Text Element',
 		'code' => 'mb_text',
 		'hascontent' => true,
-		'icon' => 'fa fa-align-left',
+		'icon' => 'mb mb-text',
 		'color' => '#ff6eec',
 		'options' => array(
 			array(

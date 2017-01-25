@@ -49,6 +49,7 @@ class MB_Addon extends CTF_Addon
         parent::load_admin_css();
         wp_enqueue_style( 'ctf-remodal', MP_PB_URL.'assets/remodal/remodal.css' );
         wp_enqueue_style( 'ctf-remodal-theme', MP_PB_URL.'assets/remodal/remodal-default-theme.css' );
+        wp_enqueue_style('mighty-builder-icons', MP_PB_URL.'assets/mighty-builder-icons/mighty-builder-icons.css'  );
         wp_enqueue_style('mb-pagebuilder', MP_PB_URL . 'assets/css/mb-pagebuilder.css', array(), '1.0');
     }
 
@@ -223,8 +224,20 @@ class MB_Addon extends CTF_Addon
                     </ul>
                 </div>
 
+                <#
+                    var iconStyle = '';
+
+
+                    if(typeof data.color !== 'undefined'){
+                        iconStyle = 'style="background-color: '+data.color+';"';
+                    }
+                #>
+
                 <div class="mb-pb-container-container-ui">
-                    <h3 class="mb-pb-elem-item-name"><i class="{{ data.icon }}"></i> {{ data.name }}</h3>
+                    <div class="mb-pb-elem-icon"  {{{ iconStyle }}}>
+                        <i class="{{ data.icon }}"></i>
+                    </div>
+                    <h3 class="mb-pb-elem-item-name">{{ data.name }}</h3>
                 </div>
                 <div class="mb-pb-elem-cont-container"></div>
                 <a href="#" class="mb-pb-add-sub-element"><i class="fa fa-plus"></i><span> Add {{ data.name }} Item</span></a>

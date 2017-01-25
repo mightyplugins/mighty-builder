@@ -605,10 +605,11 @@
 
 				var tag = self.args.section_sc,
 					shortcode = elementObj.find('> .mb-pb-sc-code.mb-pb-sc-start').html(),
-					options = self.getScOptionsFromSc(_.unescape(shortcode), tag);
+					options = self.getScOptionsFromSc(_.unescape(shortcode), tag),
+					sectionTitle = mb_elements_data[tag].title;
 
 
-
+				self.pagebuilderModalObj.find('#modal-pb-title').text(sectionTitle);
 
 				// Clear Element List and Element Form HTML
 				self.pagebuilderModalObj.find('.mpb-elements-list').html('');
@@ -703,7 +704,11 @@
 
 				var tag = self.args.row_sc,
 					shortcode = elementObj.find('> .mb-pb-sc-code.mb-pb-sc-start').html(),
-					options = self.getScOptionsFromSc(_.unescape(shortcode), tag);
+					options = self.getScOptionsFromSc(_.unescape(shortcode), tag),
+					rowTitle = mb_elements_data[tag].title;
+
+
+				self.pagebuilderModalObj.find('#modal-pb-title').text(rowTitle);
 
 
 
@@ -802,7 +807,11 @@
 
 				var tag = self.args.col_sc,
 					shortcode = elementObj.find('> .mb-pb-sc-code.mb-pb-sc-start').html(),
-					options = self.getScOptionsFromSc(_.unescape(shortcode), tag);
+					options = self.getScOptionsFromSc(_.unescape(shortcode), tag),
+					columnTitle = mb_elements_data[tag].title;
+
+
+				self.pagebuilderModalObj.find('#modal-pb-title').text(columnTitle);
 
 
 
@@ -864,6 +873,7 @@
 				containerData = {
 					code: tag,
 					icon: parentData.icon,
+					color: parentData.color,
 					name: parentData.title,
 					sc_start: shortcode.match(new RegExp("(\\[("+tag+")(?![\\w-]).*?\\](?![\"]))", "g")),
 					sc_end: '[/'+tag+']'
@@ -1373,8 +1383,6 @@
 						if(typeof formData[data.code] !== 'undefined'){
 							shortcode = self.getShortcodeByData(data.code, formData[data.code]);
 						}
-						
-						
 
 						elementObj.find("> .mb-pb-sc-code").html(shortcode);
 						

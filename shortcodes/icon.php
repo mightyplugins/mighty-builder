@@ -50,7 +50,7 @@ if (class_exists('MB_Element')) {
 		'title' => 'Icon',
 		'subtitle' => 'Icon Element',
 		'code' => 'mb_icon',
-		'icon' => 'fa fa-info',
+		'icon' => 'mb mb-icon',
 		'color' => '#5bda97',
 		'options' => array(
 			array(

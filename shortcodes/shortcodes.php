@@ -15,3 +15,6 @@ require_once MP_PB_PATH .'/shortcodes/progressbar.php';
 require_once MP_PB_PATH .'/shortcodes/countup.php';
 require_once MP_PB_PATH .'/shortcodes/oembed.php';
 require_once MP_PB_PATH .'/shortcodes/tabs.php';
+require_once MP_PB_PATH .'/shortcodes/accordion.php';
+
+require_once MP_PB_PATH .'/shortcodes/extra-maps.php';

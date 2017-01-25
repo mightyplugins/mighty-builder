@@ -204,7 +204,7 @@ if (function_exists('mb_add_map')) {
 		'subtitle' => 'Heading Element',
 		'code' => 'mb_heading',
 		'hascontent' => true,
-		'icon' => 'fa fa-header',
+		'icon' => 'mb mb-heading',
 		'color' => '#52d92e',
 		'options' => array(
 			array(

@@ -90,7 +90,7 @@ if (class_exists('MB_Element')) {
 		'title' => 'Single Image',
 		'subtitle' => 'Single Image Element',
 		'code' => 'mb_img',
-		'icon' => 'fa fa-picture-o',
+		'icon' => 'mb mb-image',
 		'color' => '#6e97ff',
 		'options' => array(
 			array(

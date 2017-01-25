@@ -55,7 +55,7 @@ if (class_exists('MB_Element')) {
 		'title' => 'Progress Bar',
 		'subtitle' => 'Progress Bar Element',
 		'code' => 'mb_progressbar',
-		'icon' => 'fa fa-tasks',
+		'icon' => 'mb mb-progressbar',
 		'color' => '#976eff',
 		'options' => array(
 			array(

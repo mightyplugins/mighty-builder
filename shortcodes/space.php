@@ -35,7 +35,7 @@ if (class_exists('MB_Element')) {
 		'title' => 'Space',
 		'subtitle' => 'Space Element',
 		'code' => 'mb_space',
-		'icon' => 'fa fa-info',
+		'icon' => 'mb mb-space',
 		'color' => '#6063cd',
 		'options' => array(
 			array(

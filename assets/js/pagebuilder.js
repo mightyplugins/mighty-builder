@@ -5,9 +5,9 @@
 	});
 
 
-	$('.ct-tabs').each(function () {
-		$(this).find(' > .nav > li:first > a').tab('show')
-	});
+	// $('.mb-tabs').each(function () {
+	// 	$(this).find(' > .nav > li:first > a').tab('show');
+	// });
 
 	var mb_container_reset = function (container) {
 		container.each(function () {

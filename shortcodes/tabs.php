@@ -3,6 +3,9 @@
 function mb_tabs_cb( $atts, $content ) {
 
 	$default = array(
+		'nav_pos' => 'top',
+		'fade' => 0,
+		'class' => ''
 	);
 
 	$default = apply_filters( 'mb_tabs_element_atts', $default );
@@ -10,17 +13,40 @@ function mb_tabs_cb( $atts, $content ) {
 	$atts = shortcode_atts( $default, $atts );
 
 	$style = '';
+
+	$ext_cls = array();
+
+	if(isset($atts['nav_pos']) && $atts['nav_pos'] == 'bottom'){
+		$ext_cls[] = 'bottom-nav';
+	}
+
+	if(isset($atts['class']) && !empty($atts['class'])){
+		$ext_cls[] = $atts['class'];
+	}
 	
+
+	if (isset($atts['fade']) && (int) $atts['fade']) {
+		$content = mb_tab_extra_atts($content, 'fade="1"', 0);
+	} else {
+		$content = mb_tab_extra_atts($content, '', 0);
+	}
 
 	ob_start();
 	?>
-	<div class="ct-tabs">
-		<ul class="nav nav-tabs" role="tablist">
-			<?php preg_replace_callback( '/mb_tab\s([^\]\#]+)/i', 'mb_the_tab_title' , $content ); ?>
-		</ul>
+	<div class="mb-tabs <?php echo esc_attr( implode(' ', $ext_cls) ); ?>">
+		<?php if(isset($atts['nav_pos']) && $atts['nav_pos'] != 'bottom'): ?>
+			<ul class="nav nav-tabs" role="tablist">
+				<?php echo mb_tab_title($content); ?>
+			</ul>
+		<?php endif; ?>
 		<div class="tab-content">
 			<?php echo do_shortcode( $content ); ?>
 		</div>
+		<?php if(isset($atts['nav_pos']) && $atts['nav_pos'] == 'bottom'): ?>
+			<ul class="nav nav-tabs" role="tablist">
+				<?php echo mb_tab_title($content); ?>
+			</ul>
+		<?php endif; ?>
 	</div>
 	<?php
 	$output = ob_get_clean();
@@ -35,6 +61,8 @@ function mb_tab_cb( $atts, $content ) {
 	$default = array(
 		'title' => '',
 		'tab_id' => '',
+		'fade' => 0,
+		'active' => 0
 	);
 
 	$default = apply_filters( 'mb_tab_element_atts', $default );
@@ -45,11 +73,25 @@ function mb_tab_cb( $atts, $content ) {
 		$atts['tab_id'] = sanitize_title($atts['title']);
 	}
 
+	$ext_cls = array();
+
+	if (isset($atts['active']) && (int) $atts['active']) {
+		$ext_cls[] = 'active';
+	}
+
+	if (isset($atts['fade']) && (int) $atts['fade']) {
+		$ext_cls[] = 'fade';
+	}
+
+	if (isset($atts['fade']) && (int) $atts['fade'] && (int) $atts['active']) {
+		$ext_cls[] = 'in';
+	}
+
 	$style = '';
 
 	ob_start();
 	?>
-	<div role="tabpanel" class="tab-pane" id="<?php echo esc_attr( $atts['tab_id'] ); ?>">
+	<div role="tabpanel" class="tab-pane <?php echo esc_attr( implode(' ', $ext_cls) ); ?>" id="<?php echo esc_attr( $atts['tab_id'] ); ?>">
 		<?php echo wpautop(do_shortcode( $content )); ?>
 	</div>
 	<?php
@@ -60,20 +102,101 @@ function mb_tab_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_tab','mb_tab_cb' );
 
-function mb_the_tab_title($data)
+function mb_tab_title( $content, $active = 0 )
 {
-	if (!empty($data[0])) {
-		$atts = shortcode_parse_atts($data[0]);
+	global $shortcode_tags;
 
-		$title = (isset($atts['title']) && !empty($atts['title'])) ? $atts['title'] : '';
-		$tab_id = (isset($atts['tab_id']) && !empty($atts['tab_id'])) ? $atts['tab_id'] : sanitize_title($atts['title']);
+	if ( false === strpos( $content, '[' ) ) {
+        return $content;
+    }
 
-		?>
-		<li role="presentation"><a href="#<?php echo esc_attr( $tab_id ); ?>" aria-controls="home" role="tab" data-toggle="tab"><?php echo esc_html($title); ?></a></li>
-		<?php
-	}
+    if (empty($shortcode_tags) || !is_array($shortcode_tags)){
+        return $content;
+    }
 
-	return $data[0];
+    // Find all registered tag names in $content.
+    preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)@', $content, $matches );
+    $tagnames = array_intersect( array_keys( $shortcode_tags ), $matches[1] );
+
+    if ( empty( $tagnames ) ) {
+        return $content;
+    }
+
+    $content = do_shortcodes_in_html_tags( $content, $ignore_html, $tagnames );
+
+    $pattern = get_shortcode_regex( $tagnames );
+    preg_match_all("/$pattern/", $content, $tabs);
+
+    $new_content = '';
+
+    foreach ($tabs[0] as $key => $tab) {
+    	preg_match("/$pattern/", $tab, $tab_item);
+    	$atts = shortcode_parse_atts($tab_item[3]);
+
+    	$title = (isset($atts['title']) && !empty($atts['title'])) ? $atts['title'] : '';
+		$tab_id = (isset($atts['tab_id']) && !empty($atts['tab_id'])) ? $atts['tab_id'] : '-'.rand(99, 99999);
+
+		if ($active == $key) {
+			$new_content .= '<li role="presentation" class="active"><a href="#'.esc_attr( $tab_id ).'" aria-controls="home" role="tab" data-toggle="tab">'.esc_html($title).'</a></li>';
+		} else {
+			$new_content .= '<li role="presentation"><a href="#'.esc_attr( $tab_id ).'" aria-controls="home" role="tab" data-toggle="tab">'.esc_html($title).'</a></li>';
+		}
+
+		
+    }
+
+    return $new_content;
+}
+
+function mb_tab_extra_atts( $content, $attr, $active = 0 ) {
+    global $shortcode_tags;
+ 
+    if ( false === strpos( $content, '[' ) ) {
+        return $content;
+    }
+ 
+    if (empty($shortcode_tags) || !is_array($shortcode_tags))
+        return $content;
+ 
+    // Find all registered tag names in $content.
+    preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)@', $content, $matches );
+    $tagnames = array_intersect( array_keys( $shortcode_tags ), $matches[1] );
+
+ 
+    if ( empty( $tagnames ) ) {
+        return $content;
+    }
+ 
+    $content = do_shortcodes_in_html_tags( $content, $ignore_html, $tagnames );
+
+
+ 
+    $pattern = get_shortcode_regex( $tagnames );
+    preg_match_all("/$pattern/", $content, $tabs);
+
+    $new_content = '';
+
+    foreach ($tabs[0] as $key => $tab) {
+    	preg_match("/$pattern/", $tab, $tab_item);
+    	$atts = shortcode_parse_atts($tab_item[3]);
+
+    	if(!isset($atts['tab_id']) || empty($atts['tab_id'])){
+    		$tab_id = sanitize_title($atts['title']).'-'.rand(99, 99999);
+
+    		$attr .= ' tab_id="'.$tab_id.'"';
+    	}
+
+    	if ($active == $key) {
+    		$new_sc = '['.$tab_item[2].' '.$tab_item[3].' '.$attr.' active="1"]'.$tab_item[5].'[/'.$tab_item[2].']';
+    	} else {
+    		$new_sc = '['.$tab_item[2].' '.$tab_item[3].' '.$attr.']'.$tab_item[5].'[/'.$tab_item[2].']';
+    	}
+    	
+    	$new_content .= $new_sc;
+    }
+    
+ 
+    return $new_content;
 }
 
 if (class_exists('MB_Element')) {
@@ -82,19 +205,38 @@ if (class_exists('MB_Element')) {
 		'title' => 'Tabs',
 		'subtitle' => 'Tabs Element',
 		'code' => 'mb_tabs',
-		'icon' => 'fa fa-info',
-		'color' => '#9cdb58',
+		'icon' => 'mb mb-tabs',
+		'color' => '#ffab00',
 		'child' => 'mb_tab',
 		'hascontent' => true,
 		'options' => array(
 			array(
-				'id' => 'size',
-				'label'    => __( 'Size', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
-				'type'     => 'dimension',
-				'default' => '25px',
-				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
-			)
+				'id' => 'nav_pos',
+				'label'    => __( 'Nav Position', 'mytheme' ),
+				'subtitle'    => __( 'Tab navigation position', 'mytheme' ),
+				'type'     => 'select',
+				'default' => 'top',
+                'choices' => array(
+                    'top' => 'Top',
+                    'bottom' => 'Bottom',
+                ),
+			),
+			array(
+				'id' => 'fade',
+				'label'    => __( 'Fade Animation', 'mytheme' ),
+				'type'     => 'radio',
+				'default' => '0',
+				'choices' => array(
+					'0' => __('Disable', 'mytheme'),
+					'1' => __('Enable', 'mytheme'),
+				),
+			),
+			array(
+				'id' => 'class',
+				'label'    => __( 'Extra Class', 'mytheme' ),
+				'type'     => 'text',
+				'default' => '',
+			),
 		)
 	);
 
@@ -107,20 +249,20 @@ if (class_exists('MB_Element')) {
 		'subtitle' => 'Test Shortcode Subtitle',
 		'code' => 'mb_tab',
 		'parent' => 'mb_tabs',
-		'icon' => 'fa fa-info',
+		'icon' => 'mb mb-tab',
+		'color' => '#ffc400',
 		'hascontent' => true,
 		'options' => array(
 			array(
 				'id' => 'title',
 				'label'    => __( 'Title', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'Tab title', 'mytheme' ),
 				'type'     => 'text',
 				'default' => 'Test Text',
 			),
 			array(
 				'id' => 'tab_content',
 				'label'    => __( 'Content', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
 				'type'     => 'editor',
 				'default' => 'Test Text',
 				'roll' => 'content'
@@ -128,7 +270,7 @@ if (class_exists('MB_Element')) {
 			array(
 				'id' => 'tab_id',
 				'label'    => __( 'Tab ID', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'subtitle'    => __( 'This tab id', 'mytheme' ),
 				'type'     => 'text',
 				'default' => '',
 			),

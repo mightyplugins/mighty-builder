@@ -50,7 +50,7 @@ if (class_exists('MB_Element')) {
 		'title' => 'Line',
 		'subtitle' => 'Line Element',
 		'code' => 'mb_line',
-		'icon' => 'fa fa-minus',
+		'icon' => 'mb mb-line',
 		'color' => '#ff6e6e',
 		'options' => array(
 			array(

@@ -489,7 +489,7 @@ right: -5px; */
     position: absolute;
     top: 10px;
     left: 10px;
-    font-size: 21px;
+    font-size: 16px;
     height: 50px;
     line-height: 50px;
     text-align: center;
@@ -508,8 +508,8 @@ right: -5px; */
 
 .mb-pb-element-item {
     background-color: #fff;
-    padding: 16px 10px;
-    padding-left: 50px;
+    padding: 19px 10px;
+    padding-left: 55px;
     border-radius: 3px;
     position: relative;
     margin-bottom: 10px;
@@ -579,15 +579,19 @@ right: -5px; */
 	text-overflow:ellipsis;
 }
 
+.mb-pb-elem-item-name > .mb{
+	font-size: 16px
+}
+
 .mb-pb-elem-icon{
-	width: 30px;
+	width: 36px;
     float: left;
     position: absolute;
     top: 10px;
     left: 10px;
-    font-size: 14px;
-    height: 30px;
-    line-height: 30px;
+    font-size: 16px;
+    height: 36px;
+    line-height: 37px;
     text-align: center;
     background-color: #2C2D36;
     color: #fff;
@@ -618,7 +622,8 @@ a.mb-pb-add-sub-element {
     color: #000;
 }
 .mb-pb-container-container-ui {
-    padding: 0 0px 10px;
+    padding: 10px;
+    padding-left: 45px;
 }
 
 .mb-pb-element-container .mb-pb-element-item h3.mb-pb-elem-item-name{

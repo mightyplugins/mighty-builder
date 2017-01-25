@@ -50,7 +50,7 @@ if (class_exists('MB_Element')) {
 		'title' => 'Count Up',
 		'subtitle' => 'Count Up Element',
 		'code' => 'mb_countup',
-		'icon' => 'fa fa-sort-numeric-desc',
+		'icon' => 'mb mb-countup',
 		'color' => '#ff9800',
 		'options' => array(
 			array(

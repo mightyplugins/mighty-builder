@@ -98,7 +98,7 @@ if (class_exists('MB_Element')) {
 		'title' => 'Embed',
 		'subtitle' => 'Video, Image, etc with oEmbed',
 		'code' => 'mb_oembed',
-		'icon' => 'fa fa-video-camera',
+		'icon' => 'mb mb-video',
 		'color' => '#4ad2da',
 		'options' => array(
 			array(

@@ -131,3 +131,71 @@
 .progress-bar-danger {
 	background-color: #e53935;
 }
+
+.mb-tabs .tab-content .tab-pane{
+	padding: 15px;
+	border: 1px solid #ececec;
+}
+.mb-tabs .nav-tabs{
+	border-width: 0;
+}
+
+.mb-tabs .nav-tabs > li{
+	margin-right: -1px;
+}
+
+.mb-tabs .nav-tabs > li > a{
+	border-radius: 0;
+	background-color: #f2f2f2;
+	margin-right: 0;
+	border: 1px solid #ececec;
+	color: #000;
+}
+
+.mb-tabs .nav-tabs > li.active > a,
+.mb-tabs .nav-tabs > li.active > a:focus,
+.mb-tabs .nav-tabs > li.active > a:hover{
+	border-color: #ececec;
+	border-bottom-color: #fff;
+	background-color: #fff;
+}
+
+.mb-tabs.bottom-nav .nav-tabs > li{
+	margin-bottom: 0;
+	margin-top: -1px;
+}
+
+.mb-tabs.bottom-nav .nav-tabs > li.active > a,
+.mb-tabs.bottom-nav .nav-tabs > li.active > a:focus,
+.mb-tabs.bottom-nav .nav-tabs > li.active > a:hover{
+	border-bottom-color: #ececec;
+	border-top-color: #fff;
+}
+
+.mb-accordions.panel-group .panel{
+	border-radius: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.mb-accordions .panel-heading{
+	padding: 0;
+}
+
+.mb-accordions .panel-heading a{
+	display: block;
+	padding: 10px 15px;
+}
+
+.mb-accordions .panel-default > .panel-heading{
+	background-color: #f2f2f2;
+	border-color: #f2f2f2;
+}
+
+.mb-accordions .panel-default{
+	border-color: #f2f2f2;
+}
+
+.mb-accordions .panel-default > .panel-heading + .panel-collapse > .panel-body{
+	border-top-color: #f2f2f2;
+}

@@ -114,7 +114,7 @@ if (function_exists('mb_add_map')) {
 		'subtitle' => 'Button Element',
 		'code' => 'mb_btn',
 		'hascontent' => true,
-		'icon' => 'fa fa-square-o',
+		'icon' => 'mb mb-button',
 		'color' => '#6ec3ff',
 		'options' => array(
 			array(

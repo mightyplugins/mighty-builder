@@ -45,7 +45,7 @@ if (class_exists('MB_Element')) {
 		'subtitle' => 'Alert Element',
 		'code' => 'mb_alert',
 		'hascontent' => true,
-		'icon' => 'fa fa-font',
+		'icon' => 'mb mb-alert',
 		'color' => '#39cbaa',
 		'options' => array(
 			array(
