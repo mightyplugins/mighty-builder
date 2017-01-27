@@ -169,6 +169,13 @@ if ( ! class_exists('MP_Page_Builder') ) {
 
 }
 
+/**
+ * Add Shortcode map to builder
+ *
+ * @param  (array) $map shortcode map array
+ * 
+ * @since		1.0.0
+ */
 function mb_add_map( $map )
 {
 	$map = apply_filters( $map['code'].'_map', $map );
@@ -184,9 +191,9 @@ function mb_add_map( $map )
  *
  * @since		1.0.0
  */
-function CTF_Page_Builder_Addon_Register() {
+function mp_page_builder_init() {
 	if( class_exists( 'CTF_Init' ) ) {
 		return MP_Page_Builder::instance();
 	}
 }
-add_action( 'init', 'CTF_Page_Builder_Addon_Register' );
+add_action( 'init', 'mp_page_builder_init' );

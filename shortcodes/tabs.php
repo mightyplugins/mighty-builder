@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_tabs_cb')):
+
 function mb_tabs_cb( $atts, $content ) {
 
 	$default = array(
@@ -56,6 +58,11 @@ function mb_tabs_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_tabs','mb_tabs_cb' );
 
+endif;
+
+
+if (!function_exists('mb_tab_cb')):
+
 function mb_tab_cb( $atts, $content ) {
 
 	$default = array(
@@ -102,6 +109,10 @@ function mb_tab_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_tab','mb_tab_cb' );
 
+endif;
+
+if (!function_exists('mb_tab_title')):
+
 function mb_tab_title( $content, $active = 0 )
 {
 	global $shortcode_tags;
@@ -147,6 +158,10 @@ function mb_tab_title( $content, $active = 0 )
 
     return $new_content;
 }
+
+endif;
+
+if (!function_exists('mb_tab_extra_atts')):
 
 function mb_tab_extra_atts( $content, $attr, $active = 0 ) {
     global $shortcode_tags;
@@ -199,6 +214,8 @@ function mb_tab_extra_atts( $content, $attr, $active = 0 ) {
     return $new_content;
 }
 
+endif;
+
 if (class_exists('MB_Element')) {
 
 	$tabs_map = array(
@@ -212,8 +229,8 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'nav_pos',
-				'label'    => __( 'Nav Position', 'mytheme' ),
-				'subtitle'    => __( 'Tab navigation position', 'mytheme' ),
+				'label'    => __( 'Nav Position', 'mighty-builder' ),
+				'subtitle'    => __( 'Tab navigation position', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => 'top',
                 'choices' => array(
@@ -223,17 +240,17 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'fade',
-				'label'    => __( 'Fade Animation', 'mytheme' ),
+				'label'    => __( 'Fade Animation', 'mighty-builder' ),
 				'type'     => 'radio',
 				'default' => '0',
 				'choices' => array(
-					'0' => __('Disable', 'mytheme'),
-					'1' => __('Enable', 'mytheme'),
+					'0' => __('Disable', 'mighty-builder'),
+					'1' => __('Enable', 'mighty-builder'),
 				),
 			),
 			array(
 				'id' => 'class',
-				'label'    => __( 'Extra Class', 'mytheme' ),
+				'label'    => __( 'Extra Class', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 			),
@@ -255,22 +272,22 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'title',
-				'label'    => __( 'Title', 'mytheme' ),
-				'subtitle'    => __( 'Tab title', 'mytheme' ),
+				'label'    => __( 'Title', 'mighty-builder' ),
+				'subtitle'    => __( 'Tab title', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => 'Test Text',
 			),
 			array(
 				'id' => 'tab_content',
-				'label'    => __( 'Content', 'mytheme' ),
+				'label'    => __( 'Content', 'mighty-builder' ),
 				'type'     => 'editor',
 				'default' => 'Test Text',
 				'roll' => 'content'
 			),
 			array(
 				'id' => 'tab_id',
-				'label'    => __( 'Tab ID', 'mytheme' ),
-				'subtitle'    => __( 'This tab id', 'mytheme' ),
+				'label'    => __( 'Tab ID', 'mighty-builder' ),
+				'subtitle'    => __( 'This tab id', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 			),

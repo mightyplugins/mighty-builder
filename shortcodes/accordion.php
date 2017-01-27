@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_accordions_cb')):
+
 function mb_accordions_cb( $atts, $content ) {
 
 	$default = array(
@@ -34,6 +36,10 @@ function mb_accordions_cb( $atts, $content ) {
 	return $output;
 }
 add_shortcode( 'mb_accordions','mb_accordions_cb' );
+
+endif;
+
+if (!function_exists('mb_accordion_cb')):
 
 function mb_accordion_cb( $atts, $content ) {
 
@@ -80,6 +86,10 @@ function mb_accordion_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_accordion','mb_accordion_cb' );
 
+endif;
+
+if (!function_exists('mb_accordion_extra_atts')):
+
 function mb_accordion_extra_atts( $content, $attr, $active = 0 ) {
     global $shortcode_tags;
  
@@ -124,6 +134,8 @@ function mb_accordion_extra_atts( $content, $attr, $active = 0 ) {
     return $new_content;
 }
 
+endif;
+
 if (class_exists('MB_Element')) {
 
 	$tabs_map = array(
@@ -137,7 +149,7 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'class',
-				'label'    => __( 'Extra Class', 'mytheme' ),
+				'label'    => __( 'Extra Class', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 			),
@@ -159,14 +171,14 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'title',
-				'label'    => __( 'Title', 'mytheme' ),
-				'subtitle'    => __( 'Tab title', 'mytheme' ),
+				'label'    => __( 'Title', 'mighty-builder' ),
+				'subtitle'    => __( 'Tab title', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => 'Test Text',
 			),
 			array(
 				'id' => 'tab_content',
-				'label'    => __( 'Content', 'mytheme' ),
+				'label'    => __( 'Content', 'mighty-builder' ),
 				'type'     => 'editor',
 				'default' => 'Test Text',
 				'roll' => 'content'

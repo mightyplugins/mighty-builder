@@ -23,8 +23,8 @@ if ( class_exists('MB_Element') && defined( 'WPCF7_PLUGIN' ) ) {
 		'options' => array(
 			array(
 				'id' => 'id',
-				'label'    => __( 'Contact Form', 'mytheme' ),
-				'subtitle'    => __( 'Select a contact form', 'mytheme' ),
+				'label'    => __( 'Contact Form', 'mighty-builder' ),
+				'subtitle'    => __( 'Select a contact form', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => $cf7_default,
 				'choices' => $contact_forms
@@ -48,37 +48,37 @@ if (class_exists('MB_Element') && class_exists('MP_Portfolio')){
 		'options' => array(
 			array(
 				'id' => 'count',
-				'label'    => __( 'Number of project', 'mytheme' ),
-				'subtitle'    => __( 'Select a contact form', 'mytheme' ),
+				'label'    => __( 'Number of project', 'mighty-builder' ),
+				'subtitle'    => __( 'Select a contact form', 'mighty-builder' ),
 				'type'     => 'number',
 				'default' => '12',
 			),
 			array(
 				'id' => 'filters_align',
-				'label'    => __( 'Filters Align', 'mytheme' ),
+				'label'    => __( 'Filters Align', 'mighty-builder' ),
 				'type'     => 'text_align',
 				'default' => 'left',
 			),
 			array(
 				'id' => 'show_filters',
-				'label'    => __( 'Show Filters', 'mytheme' ),
-				'subtitle'    => __( 'Only work with only Fluid and Fullwidth Container', 'mytheme' ),
+				'label'    => __( 'Show Filters', 'mighty-builder' ),
+				'subtitle'    => __( 'Only work with only Fluid and Fullwidth Container', 'mighty-builder' ),
 				'type'     => 'radio',
 				'default' => 'yes',
 				'choices' => array(
-					'no' => __('Disable', 'mytheme'),
-					'yes' => __('Enable', 'mytheme'),
+					'no' => __('Disable', 'mighty-builder'),
+					'yes' => __('Enable', 'mighty-builder'),
 				),
 			),
 			array(
 				'id' => 'show_paginate',
-				'label'    => __( 'Show Paginate', 'mytheme' ),
-				'subtitle'    => __( 'Only work with only Fluid and Fullwidth Container', 'mytheme' ),
+				'label'    => __( 'Show Paginate', 'mighty-builder' ),
+				'subtitle'    => __( 'Only work with only Fluid and Fullwidth Container', 'mighty-builder' ),
 				'type'     => 'radio',
 				'default' => 'yes',
 				'choices' => array(
-					'no' => __('Disable', 'mytheme'),
-					'yes' => __('Enable', 'mytheme'),
+					'no' => __('Disable', 'mighty-builder'),
+					'yes' => __('Enable', 'mighty-builder'),
 				),
 			),
 		)

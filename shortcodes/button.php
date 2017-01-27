@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_btn_cb')):
+
 function mb_btn_cb( $atts, $content ) {
 
 	$default = array(
@@ -105,6 +107,7 @@ function mb_btn_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_btn','mb_btn_cb' );
 
+endif;
 
 
 if (function_exists('mb_add_map')) {
@@ -119,8 +122,8 @@ if (function_exists('mb_add_map')) {
 		'options' => array(
 			array(
 				'id' => 'btn_content',
-				'label'    => __( 'Text', 'mytheme' ),
-				'subtitle'    => __( 'Button text', 'mytheme' ),
+				'label'    => __( 'Text', 'mighty-builder' ),
+				'subtitle'    => __( 'Button text', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 				'roll' => 'content',
@@ -128,47 +131,47 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'link',
-				'label'    => __( 'Link/URL', 'mytheme' ),
-				'subtitle'    => __( 'Button link', 'mytheme' ),
+				'label'    => __( 'Link/URL', 'mighty-builder' ),
+				'subtitle'    => __( 'Button link', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 				'tab' => 'General'
 			),
 			array(
 				'id' => 'btn_type',
-				'label'    => __( 'Type', 'mytheme' ),
-				'subtitle'    => __( 'Select button style', 'mytheme' ),
+				'label'    => __( 'Type', 'mighty-builder' ),
+				'subtitle'    => __( 'Select button style', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => 'default',
 				'choices' => array(
-					'default' => __('Default', 'mytheme'),
-					'primary' => __('Primary', 'mytheme'),
-					'success' => __('Success', 'mytheme'),
-					'info' => __('Info', 'mytheme'),
-					'warning' => __('Warning', 'mytheme'),
-					'danger' => __('Danger', 'mytheme'),
-					'link' => __('Link', 'mytheme'),
+					'default' => __('Default', 'mighty-builder'),
+					'primary' => __('Primary', 'mighty-builder'),
+					'success' => __('Success', 'mighty-builder'),
+					'info' => __('Info', 'mighty-builder'),
+					'warning' => __('Warning', 'mighty-builder'),
+					'danger' => __('Danger', 'mighty-builder'),
+					'link' => __('Link', 'mighty-builder'),
 				),
 				'tab' => 'General'
 			),
 			array(
 				'id' => 'size',
-				'label'    => __( 'Size', 'mytheme' ),
-				'subtitle'    => __( 'Select button size', 'mytheme' ),
+				'label'    => __( 'Size', 'mighty-builder' ),
+				'subtitle'    => __( 'Select button size', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => 'btn-nm',
 				'choices' => array(
-					'btn-xs' => __('Extra Small', 'mytheme'),
-					'btn-sm' => __('Small', 'mytheme'),
-					'btn-nm' => __('Normal', 'mytheme'),
-					'btn-lg' => __('Large', 'mytheme'),
+					'btn-xs' => __('Extra Small', 'mighty-builder'),
+					'btn-sm' => __('Small', 'mighty-builder'),
+					'btn-nm' => __('Normal', 'mighty-builder'),
+					'btn-lg' => __('Large', 'mighty-builder'),
 				),
 				'tab' => 'General'
 			),
 			array(
 				'id' => 'align',
-				'label'    => __( 'Align', 'mytheme' ),
-				'subtitle'    => __( 'Icon alignment', 'mytheme' ),
+				'label'    => __( 'Align', 'mighty-builder' ),
+				'subtitle'    => __( 'Icon alignment', 'mighty-builder' ),
 				'type'     => 'text_align',
 				'default' => 'left',
 				'choices' => array( 'justify' => '0' ),
@@ -176,7 +179,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'margin_top',
-				'label'    => __( 'Margin Top', 'mytheme' ),
+				'label'    => __( 'Margin Top', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -184,7 +187,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'margin_bottom',
-				'label'    => __( 'Margin Bottom', 'mytheme' ),
+				'label'    => __( 'Margin Bottom', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -192,7 +195,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'margin_left',
-				'label'    => __( 'Margin Left', 'mytheme' ),
+				'label'    => __( 'Margin Left', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -200,7 +203,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'margin_right',
-				'label'    => __( 'Margin Right', 'mytheme' ),
+				'label'    => __( 'Margin Right', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,

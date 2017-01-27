@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_line_cb')):
+
 function mb_line_cb( $atts, $content ) {
 
 	$default = array(
@@ -44,6 +46,8 @@ function mb_line_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_line','mb_line_cb' );
 
+endif;
+
 if (class_exists('MB_Element')) {
 
 	$line_map = array(
@@ -55,43 +59,43 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'color',
-				'label'    => __( 'Color', 'mytheme' ),
-				'subtitle'    => __( 'Line color', 'mytheme' ),
+				'label'    => __( 'Color', 'mighty-builder' ),
+				'subtitle'    => __( 'Line color', 'mighty-builder' ),
 				'type'     => 'color_rgba',
 				'default' => '',
 			),
 			array(
 				'id' => 'width',
-				'label'    => __( 'Width', 'mytheme' ),
+				'label'    => __( 'Width', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '100%',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem', '%' ) )
 			),
 			array(
 				'id' => 'height',
-				'label'    => __( 'Height', 'mytheme' ),
+				'label'    => __( 'Height', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '1px',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem', '%' ) )
 			),
 			array(
 				'id' => 'align',
-				'label'    => __( 'Align', 'mytheme' ),
-				'subtitle'    => __( 'Line alignment', 'mytheme' ),
+				'label'    => __( 'Align', 'mighty-builder' ),
+				'subtitle'    => __( 'Line alignment', 'mighty-builder' ),
 				'type'     => 'text_align',
 				'default' => 'center',
 				'choices' => array( 'justify' => '0' )
 			),
 			array(
 				'id' => 'margin_top',
-				'label'    => __( 'Margin Top', 'mytheme' ),
+				'label'    => __( 'Margin Top', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '20px',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
 			),
 			array(
 				'id' => 'margin_bottom',
-				'label'    => __( 'Margin Bottom', 'mytheme' ),
+				'label'    => __( 'Margin Bottom', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '20px',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )

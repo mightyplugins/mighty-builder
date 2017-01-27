@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_space_cb')):
+
 function mb_space_cb( $atts, $content ) {
 
 	$default = array(
@@ -29,6 +31,8 @@ function mb_space_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_space','mb_space_cb' );
 
+endif;
+
 if (class_exists('MB_Element')) {
 
 	$space_map = array(
@@ -40,8 +44,8 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'size',
-				'label'    => __( 'Size', 'mytheme' ),
-				'subtitle'    => __( 'Space size', 'mytheme' ),
+				'label'    => __( 'Size', 'mighty-builder' ),
+				'subtitle'    => __( 'Space size', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '25px',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )

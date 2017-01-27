@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_icon_cb')):
+
 function mb_icon_cb( $atts, $content ) {
 
 	$default = array(
@@ -44,6 +46,8 @@ function mb_icon_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_icon','mb_icon_cb' );
 
+endif;
+
 if (class_exists('MB_Element')) {
 
 	$icon_map = array(
@@ -55,61 +59,61 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'icon',
-				'label'    => __( 'Icon', 'mytheme' ),
-				'subtitle'    => __( 'Select an icon', 'mytheme' ),
+				'label'    => __( 'Icon', 'mighty-builder' ),
+				'subtitle'    => __( 'Select an icon', 'mighty-builder' ),
 				'type'     => 'icon',
 				'default' => 'fa fa-cogs',
 			),
 			array(
 				'id' => 'size',
-				'label'    => __( 'Size', 'mytheme' ),
-				'subtitle'    => __( 'Icon size', 'mytheme' ),
+				'label'    => __( 'Size', 'mighty-builder' ),
+				'subtitle'    => __( 'Icon size', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '25px',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) )
 			),
 			array(
 				'id' => 'icon_align',
-				'label'    => __( 'Align', 'mytheme' ),
-				'subtitle'    => __( 'Icon alignment', 'mytheme' ),
+				'label'    => __( 'Align', 'mighty-builder' ),
+				'subtitle'    => __( 'Icon alignment', 'mighty-builder' ),
 				'type'     => 'text_align',
 				'default' => '',
 				'choices' => array( 'justify' => '0' )
 			),
 			array(
 				'id' => 'color',
-				'label'    => __( 'Color', 'mytheme' ),
-				'subtitle'    => __( 'Icon color', 'mytheme' ),
+				'label'    => __( 'Color', 'mighty-builder' ),
+				'subtitle'    => __( 'Icon color', 'mighty-builder' ),
 				'type'     => 'color',
 				'default' => '',
 			),
 			array(
 				'id' => 'background_color',
-				'label'    => __( 'Background Color', 'mytheme' ),
-				'subtitle'    => __( 'Icon background color', 'mytheme' ),
+				'label'    => __( 'Background Color', 'mighty-builder' ),
+				'subtitle'    => __( 'Icon background color', 'mighty-builder' ),
 				'type'     => 'color',
 				'default' => '',
 			),
 			array(
 				'id' => 'width',
-				'label'    => __( 'Width', 'mytheme' ),
-				'subtitle'    => __( 'Icon width', 'mytheme' ),
+				'label'    => __( 'Width', 'mighty-builder' ),
+				'subtitle'    => __( 'Icon width', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'choices' => array( 'units' => array( 'px', '%' ) )
 			),
 			array(
 				'id' => 'height',
-				'label'    => __( 'Height', 'mytheme' ),
-				'subtitle'    => __( 'Icon height', 'mytheme' ),
+				'label'    => __( 'Height', 'mighty-builder' ),
+				'subtitle'    => __( 'Icon height', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'choices' => array( 'units' => array( 'px', '%' ) )
 			),
 			array(
 				'id' => 'border_radius',
-				'label'    => __( 'Border Radius', 'mytheme' ),
-				'subtitle'    => __( 'Border radius of icon', 'mytheme' ),
+				'label'    => __( 'Border Radius', 'mighty-builder' ),
+				'subtitle'    => __( 'Border radius of icon', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'choices' => array( 'units' => array( 'px', '%' ) )

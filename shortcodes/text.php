@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_text_cb')):
+
 function mb_text_cb( $atts, $content ) {
 
 	$default = array(
@@ -50,6 +52,8 @@ function mb_text_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_text','mb_text_cb' );
 
+endif;
+
 
 
 if (class_exists('MB_Element')) {
@@ -64,8 +68,8 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'text_content',
-				'label'    => __( 'Content', 'mytheme' ),
-				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'label'    => __( 'Content', 'mighty-builder' ),
+				'subtitle'    => __( 'Content you like to show.', 'mighty-builder' ),
 				'type'     => 'editor',
 				'default' => '',
 				'roll' => 'content',
@@ -73,57 +77,57 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'font_size',
-				'label'    => __( 'Font Size', 'mytheme' ),
-				'subtitle'    => __( 'Text font size', 'mytheme' ),
+				'label'    => __( 'Font Size', 'mighty-builder' ),
+				'subtitle'    => __( 'Text font size', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'tab' => 'Style'
 			),
 			array(
 				'id' => 'align',
-				'label'    => __( 'Text Align', 'mytheme' ),
+				'label'    => __( 'Text Align', 'mighty-builder' ),
 				'type'     => 'text_align',
 				'default' => '',
 				'tab' => 'Style'
 			),
 			array(
 				'id' => 'color',
-				'label'    => __( 'Text Color', 'mytheme' ),
+				'label'    => __( 'Text Color', 'mighty-builder' ),
 				'type'     => 'color',
 				'default' => '',
 				'tab' => 'Style'
 			),
 			array(
 				'id' => 'background_color',
-				'label'    => __( 'Background Color', 'mytheme' ),
+				'label'    => __( 'Background Color', 'mighty-builder' ),
 				'type'     => 'color',
 				'default' => '',
 				'tab' => 'Style'
 			),
 			array(
 				'id' => 'padding_left',
-				'label'    => __( 'Padding Left', 'mytheme' ),
+				'label'    => __( 'Padding Left', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'tab' => 'Spacing'
 			),
 			array(
 				'id' => 'padding_right',
-				'label'    => __( 'Padding Right', 'mytheme' ),
+				'label'    => __( 'Padding Right', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'tab' => 'Spacing'
 			),
 			array(
 				'id' => 'padding_top',
-				'label'    => __( 'Padding Top', 'mytheme' ),
+				'label'    => __( 'Padding Top', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'tab' => 'Spacing'
 			),
 			array(
 				'id' => 'padding_bottom',
-				'label'    => __( 'Padding Bottom', 'mytheme' ),
+				'label'    => __( 'Padding Bottom', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'tab' => 'Spacing'

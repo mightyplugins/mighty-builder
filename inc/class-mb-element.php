@@ -1,8 +1,7 @@
 <?php
 
-/**
-* 
-*/
+if (!class_exists('MB_Element')):
+
 class MB_Element
 {
 	public static $_elements = array();
@@ -14,3 +13,5 @@ class MB_Element
 		self::$_elements[$shortcode_data['code']] = $shortcode_data;
 	}
 }
+
+endif;

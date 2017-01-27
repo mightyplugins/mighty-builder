@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_alert_cb')):
+
 function mb_alert_cb( $atts, $content ) {
 
 	$default = array(
@@ -36,6 +38,7 @@ function mb_alert_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_alert','mb_alert_cb' );
 
+endif;
 
 
 if (class_exists('MB_Element')) {
@@ -50,34 +53,34 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'alert_content',
-				'label'    => __( 'Content', 'mytheme' ),
-				'subtitle'    => __( 'Content you like to show.', 'mytheme' ),
+				'label'    => __( 'Content', 'mighty-builder' ),
+				'subtitle'    => __( 'Content you like to show.', 'mighty-builder' ),
 				'type'     => 'editor',
 				'default' => '',
 				'roll' => 'content'
 			),
 			array(
 				'id' => 'alert_type',
-				'label'    => __( 'Type', 'mytheme' ),
-				'subtitle'    => __( 'Select alert type', 'mytheme' ),
+				'label'    => __( 'Type', 'mighty-builder' ),
+				'subtitle'    => __( 'Select alert type', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => 'info',
 				'choices' => array(
-					'success' => __('Success', 'mytheme'),
-					'info' => __('Info', 'mytheme'),
-					'warning' => __('Warning', 'mytheme'),
-					'danger' => __('Danger', 'mytheme'),
+					'success' => __('Success', 'mighty-builder'),
+					'info' => __('Info', 'mighty-builder'),
+					'warning' => __('Warning', 'mighty-builder'),
+					'danger' => __('Danger', 'mighty-builder'),
 				)
 			),
 			array(
 				'id' => 'close_btn',
-				'label'    => __( 'Close Button', 'mytheme' ),
-				'subtitle'    => __( 'Show/Hide alert close button', 'mytheme' ),
+				'label'    => __( 'Close Button', 'mighty-builder' ),
+				'subtitle'    => __( 'Show/Hide alert close button', 'mighty-builder' ),
 				'type'     => 'radio',
 				'default' => '0',
 				'choices' => array(
-					'0' => __('Hide', 'mytheme'),
-					'1' => __('Show', 'mytheme'),
+					'0' => __('Hide', 'mighty-builder'),
+					'1' => __('Show', 'mighty-builder'),
 				)
 			)
 		)

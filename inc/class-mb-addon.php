@@ -5,6 +5,8 @@ if(!class_exists('CTF_Addon')){
     return;
 }
 
+if (!class_exists('MB_Addon')):
+
 class MB_Addon extends CTF_Addon
 {
 
@@ -18,7 +20,7 @@ class MB_Addon extends CTF_Addon
 
         add_action( 'edit_form_after_title', array( &$this, 'hook_after_title' ) );
 
-        add_action( 'edit_form_after_editor', array( &$this, 'ctpb_hook_after_editor' ) );
+        add_action( 'edit_form_after_editor', array( &$this, 'hook_after_editor' ) );
 
         add_action( 'admin_footer', array( &$this, 'print_pagebuilder_tmpls' ) );
 
@@ -38,11 +40,10 @@ class MB_Addon extends CTF_Addon
             'section_sc' => apply_filters( 'mb_pb_section_sortcode_tag', 'mb_section' ),
             'row_sc' => apply_filters( 'mb_pb_row_sortcode_tag', 'mb_row' ),
             'col_sc' => apply_filters( 'mb_pb_column_sortcode_tag', 'mb_col' ),
-            'pb_enable_text' => esc_html__( 'Active Page Builder', 'ctpb' ),
-            'pb_disable_text' => esc_html__( 'Disable Page Builder', 'ctpb' ),
-            'pb_elements_title' => esc_html__( 'Select an Element', 'ctpb' ),
-            'mb_confirm' => esc_html__( 'Are you sure?', 'ctpb' ),
-            // 'pb_image_sizes' => get_intermediate_image_sizes()
+            'pb_enable_text' => esc_html__( 'Active Page Builder', 'mighty-builder' ),
+            'pb_disable_text' => esc_html__( 'Disable Page Builder', 'mighty-builder' ),
+            'pb_elements_title' => esc_html__( 'Select an Element', 'mighty-builder' ),
+            'mb_confirm' => esc_html__( 'Are you sure?', 'mighty-builder' ),
         );
 
         wp_localize_script( 'mb-pagebuilder', 'mb_elements_data', MB_Element::$_elements );
@@ -66,11 +67,11 @@ class MB_Addon extends CTF_Addon
             $is_enable = (int) $is_enable;
             $active_class = 'mb-pb-active';
             $btn_icon = 'check';
-            $enable_button_txt = esc_html__( 'Active Page Builder', 'ctpb' );
+            $enable_button_txt = esc_html__( 'Active Page Builder', 'mighty-builder' );
 
             if ($is_enable) {
                 $active_class = '';
-                $enable_button_txt = esc_html__( 'Disable Page Builder', 'ctpb' );
+                $enable_button_txt = esc_html__( 'Disable Page Builder', 'mighty-builder' );
                 $btn_icon = 'times';
             }
 
@@ -82,7 +83,7 @@ class MB_Addon extends CTF_Addon
         }
     }
 
-    function ctpb_hook_after_editor(){
+    function hook_after_editor(){
         if ( get_post_type() == 'page' ) {
 
             global $post;
@@ -145,7 +146,7 @@ class MB_Addon extends CTF_Addon
         <div class="remodal mb-pb-remodal mb-pb-remodal-form-off" data-remodal-id="modal-pb" role="dialog" aria-labelledby="modal-pb-title" aria-describedby="modal-pb-subtitle" data-remodal-options="hashTracking: false">
             
             <div class="modal-pb-header">
-                <h2 id="modal-pb-title">Select an Element</h2>
+                <h2 id="modal-pb-title"><?php esc_html_e('Select an Element', 'mighty-builder'); ?></h2>
                 <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
             </div>
             <div id="modal-pb-container">
@@ -154,8 +155,8 @@ class MB_Addon extends CTF_Addon
             </div>
             <br>
             <div class="ctf-fc modal-pb-buttons">
-                <button data-remodal-action="cancel" class="mb-pb-modal-cancel-btn button button-ctpb-cancel">Cancel</button>
-                <button class="button button-ctpb" id="add_ctpb_sc_to_item">Save Changes</button>
+                <button data-remodal-action="cancel" class="mb-pb-modal-cancel-btn button button-ctpb-cancel"><?php esc_html_e('Cancel', 'mighty-builder'); ?></button>
+                <button class="button button-ctpb" id="add_ctpb_sc_to_item"><?php esc_html_e('Save Changes', 'mighty-builder'); ?></button>
             </div>
         </div>
         <script type="text/html" id="tmpl-layout-section">
@@ -164,8 +165,8 @@ class MB_Addon extends CTF_Addon
                 
                 <div class="mb-pb-layout-edit clearfix">
                     <ul>
-                        <li><a href="#" class="mb-pb-drag"><i class="fa fa-arrows"></i> Section</a></li>
-                        <li><a href="#" class="mb-pb-add-row"><i class="fa fa-plus"></i> Add Row</a></li>
+                        <li><a href="#" class="mb-pb-drag"><i class="fa fa-arrows"></i> <?php esc_html_e('Section', 'mighty-builder'); ?></a></li>
+                        <li><a href="#" class="mb-pb-add-row"><i class="fa fa-plus"></i> <?php esc_html_e('Add Row', 'mighty-builder'); ?></a></li>
                         <li><a href="#" class="mb-pb-edit-section"><i class="fa fa-pencil"></i></a></li>
                         <li><a href="#" class="mb-pb-copy-section"><i class="fa fa-clone"></i></a></li>
                         <li><a href="#" class="mb-pb-delete" data-item="section"><i class="fa fa-trash-o"></i></a></li>
@@ -183,8 +184,8 @@ class MB_Addon extends CTF_Addon
                 
                 <div class="mb-pb-layout-edit clearfix">
                     <ul>
-                        <li><a href="#" class="mb-pb-drag"><i class="fa fa-arrows"></i> Row</a></li>
-                        <li><a href="#" class="mb-pb-add-col"><i class="fa fa-plus"></i> Add Column</a></li>
+                        <li><a href="#" class="mb-pb-drag"><i class="fa fa-arrows"></i> <?php esc_html_e('Row', 'mighty-builder'); ?></a></li>
+                        <li><a href="#" class="mb-pb-add-col"><i class="fa fa-plus"></i> <?php esc_html_e('Add Column', 'mighty-builder'); ?></a></li>
                         <li><a href="#" class="mb-pb-edit-row"><i class="fa fa-pencil"></i></a></li>
                         <li><a href="#" class="mb-pb-copy-row"><i class="fa fa-clone"></i></a></li>
                         <li><a href="#" class="mb-pb-delete" data-item="row"><i class="fa fa-trash-o"></i></a></li>
@@ -215,7 +216,7 @@ class MB_Addon extends CTF_Addon
                         </ul>
                     </div>
                     <div class="mb-pb-col-container"></div>
-                    <a href="#" class="mb-pb-add-element"><i class="fa fa-plus"></i><span> Add Element</span></a>
+                    <a href="#" class="mb-pb-add-element"><i class="fa fa-plus"></i><span> <?php esc_html_e('Add Element', 'mighty-builder'); ?></span></a>
                     
                     
                 </div>
@@ -277,7 +278,7 @@ class MB_Addon extends CTF_Addon
                     <h3 class="mb-pb-elem-item-name">{{ data.name }}</h3>
                 </div>
                 <div class="mb-pb-elem-cont-container"></div>
-                <a href="#" class="mb-pb-add-sub-element"><i class="fa fa-plus"></i><span> Add {{ data.name }} Item</span></a>
+                <a href="#" class="mb-pb-add-sub-element"><i class="fa fa-plus"></i><span> <?php  echo sprintf( esc_html__('Add %s Item', 'mighty-builder' ), '{{ data.name }}'); ?></span></a>
 
                 <textarea class="mb-pb-sc-code mb-pb-sc-end">{{{ data.sc_end }}}</textarea>
                     
@@ -359,3 +360,5 @@ class MB_Addon extends CTF_Addon
         <?php
     }
 }
+
+endif;

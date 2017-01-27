@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_countup_cb')):
+
 function mb_countup_cb( $atts, $content ) {
 
 	$default = array(
@@ -44,6 +46,8 @@ function mb_countup_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_countup','mb_countup_cb' );
 
+endif;
+
 if (class_exists('MB_Element')) {
 
 	$countup_map = array(
@@ -55,56 +59,56 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'num',
-				'label'    => __( 'Number', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'Number', 'mighty-builder' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mighty-builder' ),
 				'type'     => 'number',
 				'default' => '100',
 				'tab' => 'Content'
 			),
 			array(
 				'id' => 'prefix',
-				'label'    => __( 'Prefix', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'Prefix', 'mighty-builder' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 				'tab' => 'Content'
 			),
 			array(
 				'id' => 'suffix',
-				'label'    => __( 'Suffix', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'Suffix', 'mighty-builder' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 				'tab' => 'Content'
 			),
 			array(
 				'id' => 'icon',
-				'label'    => __( 'Icon', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'Icon', 'mighty-builder' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mighty-builder' ),
 				'type'     => 'icon',
 				'default' => '',
 				'tab' => 'Content'
 			),
 			array(
 				'id' => 'label',
-				'label'    => __( 'Label', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'Label', 'mighty-builder' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 				'tab' => 'Content'
 			),
 			array(
 				'id' => 'color',
-				'label'    => __( 'Text Color', 'mytheme' ),
-				'subtitle'    => __( 'Heading Text Color', 'mytheme' ),
+				'label'    => __( 'Text Color', 'mighty-builder' ),
+				'subtitle'    => __( 'Heading Text Color', 'mighty-builder' ),
 				'type'     => 'color',
 				'default' => '',
 				'tab' => 'Style'
 			),
 			array(
 				'id' => 'icon_color',
-				'label'    => __( 'Icon Color', 'mytheme' ),
-				'subtitle'    => __( 'Heading Text Color', 'mytheme' ),
+				'label'    => __( 'Icon Color', 'mighty-builder' ),
+				'subtitle'    => __( 'Heading Text Color', 'mighty-builder' ),
 				'type'     => 'color',
 				'default' => '',
 				'tab' => 'Style'

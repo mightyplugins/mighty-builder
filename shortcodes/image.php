@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_img_cb')):
+
 function mb_img_cb( $atts, $content ) {
 
 	$default = array(
@@ -71,6 +73,7 @@ function mb_img_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_img','mb_img_cb' );
 
+endif;
 
 
 if (class_exists('MB_Element')) {
@@ -95,57 +98,57 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'src',
-				'label'    => __( 'Image', 'mytheme' ),
-				'subtitle'    => __( 'Select image', 'mytheme' ),
+				'label'    => __( 'Image', 'mighty-builder' ),
+				'subtitle'    => __( 'Select image', 'mighty-builder' ),
 				'type'     => 'image',
 				'default' => '',
 			),
 			array(
 				'id' => 'alt',
-				'label'    => __( 'Image ALT', 'mytheme' ),
-				'subtitle'    => __( 'Value for image alt attribute.', 'mytheme' ),
+				'label'    => __( 'Image ALT', 'mighty-builder' ),
+				'subtitle'    => __( 'Value for image alt attribute.', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 			),
 			array(
 				'id' => 'title',
-				'label'    => __( 'Image Title', 'mytheme' ),
-				'subtitle'    => __( 'Value for image title attribute.', 'mytheme' ),
+				'label'    => __( 'Image Title', 'mighty-builder' ),
+				'subtitle'    => __( 'Value for image title attribute.', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 			),
 			array(
 				'id' => 'size',
-				'label'    => __( 'Image Size', 'mytheme' ),
-				'subtitle'    => __( 'Size of this image.', 'mytheme' ),
+				'label'    => __( 'Image Size', 'mighty-builder' ),
+				'subtitle'    => __( 'Size of this image.', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => 'full',
 				'choices' => $sizes
 			),
 			array(
 				'id' => 'align',
-				'label'    => __( 'Image Align', 'mytheme' ),
-				'subtitle'    => __( 'Image align. Default: left', 'mytheme' ),
+				'label'    => __( 'Image Align', 'mighty-builder' ),
+				'subtitle'    => __( 'Image align. Default: left', 'mighty-builder' ),
 				'type'     => 'text_align',
 				'default' => '',
 				'choices' => array( 'justify' => '0' ),
 			),
 			array(
 				'id' => 'link_to',
-				'label'    => __( 'Link To', 'mytheme' ),
-				'subtitle'    => __( 'Set link of this image.', 'mytheme' ),
+				'label'    => __( 'Link To', 'mighty-builder' ),
+				'subtitle'    => __( 'Set link of this image.', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => 'none',
 				'choices' => array(
-					'none' => __( 'None', 'mytheme' ),
-					'self' => __( 'Self', 'mytheme' ),
-					'link' => __( 'Custom Link', 'mytheme' ),
+					'none' => __( 'None', 'mighty-builder' ),
+					'self' => __( 'Self', 'mighty-builder' ),
+					'link' => __( 'Custom Link', 'mighty-builder' ),
 				)
 			),
 			array(
 				'id' => 'link',
-				'label'    => __( 'Custom Link', 'mytheme' ),
-				'subtitle'    => __( 'This option only work if \'Link To\' set as \'Custom Link\'.', 'mytheme' ),
+				'label'    => __( 'Custom Link', 'mighty-builder' ),
+				'subtitle'    => __( 'This option only work if \'Link To\' set as \'Custom Link\'.', 'mighty-builder' ),
 				'type'     => 'url',
 				'default' => '',
 			),

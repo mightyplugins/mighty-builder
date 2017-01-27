@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_column_cb')):
+
 function mb_column_cb( $atts, $content ) {
 
 	$default = array(
@@ -165,6 +167,7 @@ function mb_column_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_col','mb_column_cb' );
 
+endif;
 
 
 if (class_exists('MB_Element')) {
@@ -179,44 +182,44 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'id',
-				'label'    => __( 'Column ID', 'mytheme' ),
+				'label'    => __( 'Column ID', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
                 'tab' => 'Settings'
 			),
 			array(
 				'id' => 'class',
-				'label'    => __( 'Column Extra Class', 'mytheme' ),
+				'label'    => __( 'Column Extra Class', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
                 'tab' => 'Settings'
 			),
 			array(
 				'id' => 'col',
-				'label'    => __( 'Column Size', 'mytheme' ),
-				'subtitle'    => __( 'Note: This value is readonly. You can\'t change it from here.', 'mytheme' ),
+				'label'    => __( 'Column Size', 'mighty-builder' ),
+				'subtitle'    => __( 'Note: This value is readonly. You can\'t change it from here.', 'mighty-builder' ),
 				'type'     => 'readonly',
 				'tab' => 'Settings'
 			),
 			array(
 				'id' => 'bg_color',
-				'label'    => __( 'Background Color', 'mytheme' ),
+				'label'    => __( 'Background Color', 'mighty-builder' ),
 				'type'     => 'color',
 				'default' => '',
 				'tab' => 'Background'
 			),
 			array(
 				'id' => 'bg_img',
-				'label'    => __( 'Image', 'mytheme' ),
-				'subtitle'    => __( 'Background image', 'mytheme' ),
+				'label'    => __( 'Image', 'mighty-builder' ),
+				'subtitle'    => __( 'Background image', 'mighty-builder' ),
 				'type'     => 'image',
 				'default' => '',
 				'tab' => 'Background'
 			),
 			array(
 				'id' => 'bg_repeat',
-				'label'    => __( 'Repeat', 'mytheme' ),
-				'subtitle'    => __( 'Background Repeat', 'mytheme' ),
+				'label'    => __( 'Repeat', 'mighty-builder' ),
+				'subtitle'    => __( 'Background Repeat', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => '',
                 'choices' => array(
@@ -229,8 +232,8 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'bg_size',
-				'label'    => __( 'Size', 'mytheme' ),
-				'subtitle'    => __( 'Background Size', 'mytheme' ),
+				'label'    => __( 'Size', 'mighty-builder' ),
+				'subtitle'    => __( 'Background Size', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => '',
                 'choices' => array(
@@ -242,8 +245,8 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'bg_position',
-				'label'    => __( 'Position', 'mytheme' ),
-				'subtitle'    => __( 'Background Position', 'mytheme' ),
+				'label'    => __( 'Position', 'mighty-builder' ),
+				'subtitle'    => __( 'Background Position', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => '',
                 'choices' => array(
@@ -261,8 +264,8 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'bg_attachment',
-				'label'    => __( 'Attachment', 'mytheme' ),
-				'subtitle'    => __( 'Background Attachment', 'mytheme' ),
+				'label'    => __( 'Attachment', 'mighty-builder' ),
+				'subtitle'    => __( 'Background Attachment', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => '',
                 'choices' => array(
@@ -274,7 +277,7 @@ if (class_exists('MB_Element')) {
 
 			array(
 				'id' => 'padding_top',
-				'label'    => __( 'Padding Top', 'mytheme' ),
+				'label'    => __( 'Padding Top', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) ),
@@ -283,7 +286,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'padding_bottom',
-				'label'    => __( 'Padding Bottom', 'mytheme' ),
+				'label'    => __( 'Padding Bottom', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) ),
@@ -292,7 +295,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'padding_left',
-				'label'    => __( 'Padding Left', 'mytheme' ),
+				'label'    => __( 'Padding Left', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) ),
@@ -301,7 +304,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'padding_right',
-				'label'    => __( 'Padding Right', 'mytheme' ),
+				'label'    => __( 'Padding Right', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'choices' => array( 'units' => array( 'px', 'em', 'rem' ) ),
@@ -310,7 +313,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'margin_top',
-				'label'    => __( 'Margin Top', 'mytheme' ),
+				'label'    => __( 'Margin Top', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -318,7 +321,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'margin_bottom',
-				'label'    => __( 'Margin Bottom', 'mytheme' ),
+				'label'    => __( 'Margin Bottom', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -326,7 +329,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'margin_left',
-				'label'    => __( 'Margin Left', 'mytheme' ),
+				'label'    => __( 'Margin Left', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -334,7 +337,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'margin_right',
-				'label'    => __( 'Margin Right', 'mytheme' ),
+				'label'    => __( 'Margin Right', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,

@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_oembed_cb')):
+
 function mb_oembed_cb( $atts, $content ) {
 
 	$default = array(
@@ -92,6 +94,8 @@ function mb_oembed_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_oembed','mb_oembed_cb' );
 
+endif;
+
 if (class_exists('MB_Element')) {
 
 	$video_map = array(
@@ -103,15 +107,15 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'url',
-				'label'    => __( 'URL', 'mytheme' ),
-				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mytheme' ),
+				'label'    => __( 'URL', 'mighty-builder' ),
+				'subtitle'    => __( 'Lorem ipsum dolor sit amet', 'mighty-builder' ),
 				'type'     => 'url',
 				'default' => '',
 				'tab' => 'General'
 			),
 			array(
 				'id' => 'margin_top',
-				'label'    => __( 'Margin Top', 'mytheme' ),
+				'label'    => __( 'Margin Top', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -119,7 +123,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'margin_bottom',
-				'label'    => __( 'Margin Bottom', 'mytheme' ),
+				'label'    => __( 'Margin Bottom', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -127,7 +131,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'margin_left',
-				'label'    => __( 'Margin Left', 'mytheme' ),
+				'label'    => __( 'Margin Left', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -135,7 +139,7 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'margin_right',
-				'label'    => __( 'Margin Right', 'mytheme' ),
+				'label'    => __( 'Margin Right', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,

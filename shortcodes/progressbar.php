@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_progressbar_cb')):
+
 function mb_progressbar_cb( $atts, $content ) {
 
 	$default = array(
@@ -49,6 +51,8 @@ function mb_progressbar_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_progressbar','mb_progressbar_cb' );
 
+endif;
+
 if (class_exists('MB_Element')) {
 
 	$progressbar_map = array(
@@ -60,14 +64,14 @@ if (class_exists('MB_Element')) {
 		'options' => array(
 			array(
 				'id' => 'title',
-				'label'    => __( 'Title', 'mytheme' ),
-				'subtitle'    => __( 'Title of prgress bar', 'mytheme' ),
+				'label'    => __( 'Title', 'mighty-builder' ),
+				'subtitle'    => __( 'Title of prgress bar', 'mighty-builder' ),
 				'type'     => 'text',
 			),
 			array(
 				'id' => 'size',
-				'label'    => __( 'Size', 'mytheme' ),
-				'subtitle'    => __( 'Prgress bar size as % (max value 100)', 'mytheme' ),
+				'label'    => __( 'Size', 'mighty-builder' ),
+				'subtitle'    => __( 'Prgress bar size as % (max value 100)', 'mighty-builder' ),
 				'type'     => 'number',
 				'default' => '50',
 				'choices' => array(
@@ -78,38 +82,38 @@ if (class_exists('MB_Element')) {
 			),
 			array(
 				'id' => 'type',
-				'label'    => __( 'Type', 'mytheme' ),
-				'subtitle'    => __( 'Select progress bar style', 'mytheme' ),
+				'label'    => __( 'Type', 'mighty-builder' ),
+				'subtitle'    => __( 'Select progress bar style', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => 'default',
 				'choices' => array(
-					'default' => __('Default', 'mytheme'),
-					'success' => __('Success', 'mytheme'),
-					'info' => __('Info', 'mytheme'),
-					'warning' => __('Warning', 'mytheme'),
-					'danger' => __('Danger', 'mytheme'),
+					'default' => __('Default', 'mighty-builder'),
+					'success' => __('Success', 'mighty-builder'),
+					'info' => __('Info', 'mighty-builder'),
+					'warning' => __('Warning', 'mighty-builder'),
+					'danger' => __('Danger', 'mighty-builder'),
 				)
 			),
 			array(
 				'id' => 'striped',
-				'label'    => __( 'Striped', 'mytheme' ),
-				'subtitle'    => __( 'Enable/Disable striped progress bar', 'mytheme' ),
+				'label'    => __( 'Striped', 'mighty-builder' ),
+				'subtitle'    => __( 'Enable/Disable striped progress bar', 'mighty-builder' ),
 				'type'     => 'radio',
 				'default' => '0',
 				'choices' => array(
-					'0' => __('Disable', 'mytheme'),
-					'1' => __('Enable', 'mytheme'),
+					'0' => __('Disable', 'mighty-builder'),
+					'1' => __('Enable', 'mighty-builder'),
 				)
 			),
 			array(
 				'id' => 'animated',
-				'label'    => __( 'Animated', 'mytheme' ),
-				'subtitle'    => __( 'Enable/Disable progress bar animation', 'mytheme' ),
+				'label'    => __( 'Animated', 'mighty-builder' ),
+				'subtitle'    => __( 'Enable/Disable progress bar animation', 'mighty-builder' ),
 				'type'     => 'radio',
 				'default' => '0',
 				'choices' => array(
-					'0' => __('Disable', 'mytheme'),
-					'1' => __('Enable', 'mytheme'),
+					'0' => __('Disable', 'mighty-builder'),
+					'1' => __('Enable', 'mighty-builder'),
 				)
 			)
 		)

@@ -1,5 +1,7 @@
 <?php
 
+if (!function_exists('mb_heading_cb')):
+
 function mb_heading_cb( $atts, $content ) {
 
 	global $mb_google_fonts;
@@ -85,12 +87,7 @@ function mb_heading_cb( $atts, $content ) {
 		$mb_google_fonts[$atts['haeding_font-family']][] = $atts['haeding_font-weight'];
 	}
 
-	
 
-
-	/*if (isset($atts['haeding_font-family']) && !empty($atts['haeding_font-family'])) {
-		wp_enqueue_style( 'mb_google_font_' . mb_text_to_css_class( $atts['haeding_font-family'] ), '//fonts.googleapis.com/css?family=' . str_replace(' ', '+', $atts['haeding_font-family']) . ':' . implode(',', $font_weights) );
-	}*/
 
 	$style = '';
 	$style_md = '';
@@ -182,8 +179,6 @@ function mb_heading_cb( $atts, $content ) {
 				<?php echo esc_attr($style_xs); ?>
 			}
 		}
-		
-		
 	</style>
 	<<?php echo esc_attr( $atts['tag'] ); ?> class="<?php echo esc_attr($cls); ?>"><?php echo do_shortcode( $content ); ?></<?php echo esc_attr( $atts['tag'] ); ?>>
 	
@@ -197,6 +192,8 @@ function mb_heading_cb( $atts, $content ) {
 }
 add_shortcode( 'mb_heading','mb_heading_cb' );
 
+endif;
+
 if (function_exists('mb_add_map')) {
 
 	$heading_map = array(
@@ -209,8 +206,8 @@ if (function_exists('mb_add_map')) {
 		'options' => array(
 			array(
 				'id' => 'heading_content',
-				'label'    => __( 'Text', 'mytheme' ),
-				'subtitle'    => __( 'Heading Text', 'mytheme' ),
+				'label'    => __( 'Text', 'mighty-builder' ),
+				'subtitle'    => __( 'Heading Text', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => '',
 				'roll' => 'content',
@@ -218,16 +215,16 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'color',
-				'label'    => __( 'Text Color', 'mytheme' ),
-				'subtitle'    => __( 'Heading Text Color', 'mytheme' ),
+				'label'    => __( 'Text Color', 'mighty-builder' ),
+				'subtitle'    => __( 'Heading Text Color', 'mighty-builder' ),
 				'type'     => 'color',
 				'default' => '',
 				'tab' => 'Style'
 			),
 			array(
 				'id' => 'tag',
-				'label'    => __( 'Heading Tag', 'mytheme' ),
-				'subtitle'    => __( 'Select Heading Type', 'mytheme' ),
+				'label'    => __( 'Heading Tag', 'mighty-builder' ),
+				'subtitle'    => __( 'Select Heading Type', 'mighty-builder' ),
 				'type'     => 'select',
 				'default' => 'h1',
 				'choices' => array(
@@ -243,8 +240,8 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
                 'id' => 'haeding',
-                'label'    => __( 'Font', 'mytheme' ),
-                'subtitle'    => __( 'Select font family.', 'mytheme' ),
+                'label'    => __( 'Font', 'mighty-builder' ),
+                'subtitle'    => __( 'Select font family.', 'mighty-builder' ),
                 'type'     => 'google_font',
                 'default' => array(),
                 'choices' => array(
@@ -255,8 +252,8 @@ if (function_exists('mb_add_map')) {
             ),
             array(
 				'id' => 'font_size',
-				'label'    => __( 'Font Size', 'mytheme' ),
-				'subtitle'    => __( 'Heading font size', 'mytheme' ),
+				'label'    => __( 'Font Size', 'mighty-builder' ),
+				'subtitle'    => __( 'Heading font size', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -264,8 +261,8 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'line_height',
-				'label'    => __( 'Line Height', 'mytheme' ),
-				'subtitle'    => __( 'Heading text lign height', 'mytheme' ),
+				'label'    => __( 'Line Height', 'mighty-builder' ),
+				'subtitle'    => __( 'Heading text lign height', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -273,8 +270,8 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'align',
-				'label'    => __( 'Heading Align', 'mytheme' ),
-				'subtitle'    => __( 'Text align. Default: left', 'mytheme' ),
+				'label'    => __( 'Heading Align', 'mighty-builder' ),
+				'subtitle'    => __( 'Text align. Default: left', 'mighty-builder' ),
 				'type'     => 'text_align',
 				'default' => '',
 				'choices' => array( 'justify' => '0' ),
@@ -282,7 +279,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'padding_top',
-				'label'    => __( 'Padding Top', 'mytheme' ),
+				'label'    => __( 'Padding Top', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -290,7 +287,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'padding_bottom',
-				'label'    => __( 'Padding Bottom', 'mytheme' ),
+				'label'    => __( 'Padding Bottom', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -298,7 +295,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'padding_left',
-				'label'    => __( 'Padding Left', 'mytheme' ),
+				'label'    => __( 'Padding Left', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -306,7 +303,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'padding_right',
-				'label'    => __( 'Padding Right', 'mytheme' ),
+				'label'    => __( 'Padding Right', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -315,7 +312,7 @@ if (function_exists('mb_add_map')) {
 
 			array(
 				'id' => 'margin_top',
-				'label'    => __( 'Margin Top', 'mytheme' ),
+				'label'    => __( 'Margin Top', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -323,7 +320,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'margin_bottom',
-				'label'    => __( 'Margin Bottom', 'mytheme' ),
+				'label'    => __( 'Margin Bottom', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -331,7 +328,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'margin_left',
-				'label'    => __( 'Margin Left', 'mytheme' ),
+				'label'    => __( 'Margin Left', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
@@ -339,7 +336,7 @@ if (function_exists('mb_add_map')) {
 			),
 			array(
 				'id' => 'margin_right',
-				'label'    => __( 'Margin Right', 'mytheme' ),
+				'label'    => __( 'Margin Right', 'mighty-builder' ),
 				'type'     => 'dimension',
 				'default' => '',
 				'responsive' => true,
