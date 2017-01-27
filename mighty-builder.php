@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Mighty Builder
- * Plugin URI:  http://mightyplugins.com/
+ * Plugin URI:  https://mightyplugins.com/
  * Description: Mighty Builder is best page builder for WordPress 
  * Author:      Mighty Plugins
- * Author URI:  http://mightyplugins.com/
+ * Author URI:  https://mightyplugins.com/
  * Version:     1.0.0
  * Text Domain: mighty-builder
  * Domain Path: /languages/
