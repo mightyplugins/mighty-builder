@@ -299,6 +299,10 @@
 		pbSwitchAction: function (){
 			var self = this;
 
+			if (self.visualEditor.hasClass('mb-pb-active')) {
+				self.initByEditorData();
+			}
+
 			self.pbSwitch.on('click', function (e) {
 				e.preventDefault();
 
@@ -313,6 +317,8 @@
 					// Chnage button text
 					$(this).html('<i class="fa fa-times"></i> '+self.args.pb_disable_text);
 
+					$('.mb-status-input').val('1');
+
 					self.initByEditorData();
 
 				} else if (self.visualEditor.hasClass('mb-pb-active')) {
@@ -325,6 +331,8 @@
 
 					// Chnage button text
 					$(this).html('<i class="fa fa-check"></i> '+self.args.pb_enable_text);
+
+					$('.mb-status-input').val('0');
 
 					self.sectionHolder.html("");
 				}
@@ -364,9 +372,15 @@
 				
 			});
 
-			var matchedSections = editor_content.match(new RegExp("(\\["+self.args.section_sc+".*?\\].*?\\[\\/"+self.args.section_sc+"\\])", "g"));
+			var matchedSections = editor_content.match(new RegExp("(\\["+self.args.section_sc+".*?\\].*?\\[\\/"+self.args.section_sc+"\\])", "g")),
+				regenerate = false;;
 
+			if ( typeof matchedSections === 'undefined' || _.isEmpty(matchedSections) ) {
+				var addContent = '['+self.args.section_sc+']['+self.args.row_sc+']['+self.args.col_sc+' col="12"][mb_text]'+editor_content+'[/mb_text][/'+self.args.col_sc+'][/'+self.args.row_sc+'][/'+self.args.section_sc+']';
+				matchedSections = addContent.match(new RegExp("(\\["+self.args.section_sc+".*?\\].*?\\[\\/"+self.args.section_sc+"\\])", "g"));
 
+				regenerate = true;
+			}
 
 
 			if ( typeof matchedSections !== 'undefined' && !_.isEmpty(matchedSections) ) {
@@ -420,6 +434,11 @@
 					self.sectionHolder.append(sectionObj);
 
 				});
+			}
+
+
+			if (regenerate) {
+				$('body').trigger('ctpbchanged');
 			}
 
 			
@@ -655,7 +674,10 @@
 
 				var newElementObj = elementObj.clone();
 
-				// self.childElemContSortable(newElementObj);
+				self.childElemContSortable(newElementObj);
+				self.sectionContainerSortable(newElementObj);
+				self.rowContainerSortable(newElementObj);
+				self.colContainerSortable(newElementObj);
 
 				newElementObj.insertAfter(elementObj);
 
@@ -757,7 +779,9 @@
 
 				var newElementObj = elementObj.clone();
 
-				// self.childElemContSortable(newElementObj);
+				self.childElemContSortable(newElementObj);
+				self.rowContainerSortable(newElementObj);
+				self.colContainerSortable(newElementObj);
 
 				newElementObj.insertAfter(elementObj);
 
@@ -903,87 +927,94 @@
 			
 			self.pbContainer.on('click', 'a.mb-pb-delete', function(e){
 				e.preventDefault();
-				var itemName = $(this).data('item'),
-					parentSelector = '';
+				var makeSure = confirm(self.args.mb_confirm);
 
-				if (itemName == 'section') {
-					parentSelector = '.mb-pb-section-layout';
-				} else if (itemName == 'row'){
-					parentSelector = '.mb-pb-row-layout';
-				} else if (itemName == 'column'){
-					parentSelector = '.mb-pb-col-layout';
-				}
+				if (makeSure == true) {
+					var itemName = $(this).data('item'),
+						parentSelector = '';
+
+					if (itemName == 'section') {
+						parentSelector = '.mb-pb-section-layout';
+					} else if (itemName == 'row'){
+						parentSelector = '.mb-pb-row-layout';
+					} else if (itemName == 'column'){
+						parentSelector = '.mb-pb-col-layout';
+					}
 
 
-				if (parentSelector) {
-					if (itemName == 'column'){
-						var row = $(this).parents('.mb-pb-row-layout'),
-							colHolder = row.find(self.colHolderSelector),
-							currentCols = colHolder.find('.mb-pb-col-layout'),
-							numberOfCols= (currentCols.length - 1),
-							col_size = (12/numberOfCols),
-							sizeAddition = 0;
+					if (parentSelector) {
+						if (itemName == 'column'){
+							var row = $(this).parents('.mb-pb-row-layout'),
+								colHolder = row.find(self.colHolderSelector),
+								currentCols = colHolder.find('.mb-pb-col-layout'),
+								numberOfCols= (currentCols.length - 1),
+								col_size = (12/numberOfCols),
+								sizeAddition = 0;
 
-						if(numberOfCols == 5){
-							col_size = 2;
-							sizeAddition = 2;
-						} else if(numberOfCols == 7){
-							col_size = 1;
-							sizeAddition = 5;
-						} else if(numberOfCols == 8){
-							col_size = 1;
-							sizeAddition = 4;
-						} else if(numberOfCols == 9){
-							col_size = 1;
-							sizeAddition = 3;
-						} else if(numberOfCols == 10){
-							col_size = 1;
-							sizeAddition = 2;
-						} else if(numberOfCols == 11){
-							col_size = 1;
-							sizeAddition = 1;
-						} else if(numberOfCols == 12){
-							col_size = 1;
-						}
-
-						currentCols.each(function(){
-							var colSizeData = parseInt($(this).attr('data-col-size')),
-								newColSize = col_size;
-							
-							$(this).removeClass('mb_pb_col-'+colSizeData);
-							
-							if(sizeAddition){
-								newColSize += 1;
-								
-								sizeAddition -= 1;
+							if(numberOfCols == 5){
+								col_size = 2;
+								sizeAddition = 2;
+							} else if(numberOfCols == 7){
+								col_size = 1;
+								sizeAddition = 5;
+							} else if(numberOfCols == 8){
+								col_size = 1;
+								sizeAddition = 4;
+							} else if(numberOfCols == 9){
+								col_size = 1;
+								sizeAddition = 3;
+							} else if(numberOfCols == 10){
+								col_size = 1;
+								sizeAddition = 2;
+							} else if(numberOfCols == 11){
+								col_size = 1;
+								sizeAddition = 1;
+							} else if(numberOfCols == 12){
+								col_size = 1;
 							}
 
-							var tempShortcodeStart = '['+self.args.col_sc+' col="'+newColSize+'"]', 
-								tempShortcodeEnd = '[/'+self.args.col_sc+']';
+							currentCols.each(function(){
+								var colSizeData = parseInt($(this).attr('data-col-size')),
+									newColSize = col_size;
+								
+								$(this).removeClass('mb_pb_col-'+colSizeData);
+								
+								if(sizeAddition){
+									newColSize += 1;
+									
+									sizeAddition -= 1;
+								}
 
-							$(this).find('> .mb-pb-sc-start').html(tempShortcodeStart);
-							$(this).find('> .mb-pb-sc-end').html(tempShortcodeEnd);
+								var tempShortcodeStart = '['+self.args.col_sc+' col="'+newColSize+'"]', 
+									tempShortcodeEnd = '[/'+self.args.col_sc+']';
 
-							$(this).find('.mb-pb-col-sz-txt').html(newColSize+'/12');
+								$(this).find('> .mb-pb-sc-start').html(tempShortcodeStart);
+								$(this).find('> .mb-pb-sc-end').html(tempShortcodeEnd);
+
+								$(this).find('.mb-pb-col-sz-txt').html(newColSize+'/12');
+								
+								$(this).attr('data-col-size', newColSize);
+								$(this).addClass('mb_pb_col-'+newColSize);
+							});
+
 							
-							$(this).attr('data-col-size', newColSize);
-							$(this).addClass('mb_pb_col-'+newColSize);
-						});
 
-						$(this).parents(parentSelector).remove();
+							$(this).parents(parentSelector).remove();
 
 
-					} else {
-						$(this).parents(parentSelector).remove();
+						} else {
+
+							$(this).parents(parentSelector).remove();
+						}
+						
 					}
-					
-				}
 
-				/**
-				 * Event: ctpbchanged
-				 * Input page builder shortcodes to tinyMCE
-				 */
-				$('body').trigger('ctpbchanged');
+					/**
+					 * Event: ctpbchanged
+					 * Input page builder shortcodes to tinyMCE
+					 */
+					$('body').trigger('ctpbchanged');
+				}
 				
 			});
 
@@ -1520,9 +1551,14 @@
 				}
 
 				if (elementObj.length != 0) {
-					elementObj.remove();
+					var makeSure = confirm(self.args.mb_confirm);
 
-					$('body').trigger('ctpbchanged');
+					if (makeSure == true) {
+						elementObj.remove();
+
+						$('body').trigger('ctpbchanged');
+					}
+					
 				}
 			});
 		},
@@ -1688,6 +1724,7 @@
 					childElemData = {
 						code: childItemData.code,
 						icon: childItemData.icon,
+						color: childItemData.color,
 						name: childItemData.title,
 						sc_start: childShortcode
 					};

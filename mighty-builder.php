@@ -90,7 +90,6 @@ if ( ! class_exists('MP_Page_Builder') ) {
 		 * @since		1.0.0
 		 */
 		private function hooks() {
-			add_action( 'admin_footer', array($this,'print_elements_as_json'), 10 );
 
 			add_action( 'wp_enqueue_scripts', array($this,'front_end_assets') );
 
@@ -129,19 +128,6 @@ if ( ! class_exists('MP_Page_Builder') ) {
 		}
 
 		/**
-		 * Print all shortcodes options map.
-		 * 
-		 * @since		1.0.0
-		 */
-		public function print_elements_as_json(){
-			?>
-			<script type="text/javascript">
-				window.mb_elements_data = <?php echo json_encode(MB_Element::$_elements); ?>;
-			</script>
-			<?php
-		}
-
-		/**
 		 * Load all front-end assets (CSS and JS)
 		 * 
 		 * @since		1.0.0
@@ -150,13 +136,13 @@ if ( ! class_exists('MP_Page_Builder') ) {
 		{
 			wp_enqueue_style('bootstrap', MP_PB_URL.'assets/bootstrap/css/bootstrap.min.css'  );
 			wp_enqueue_style('font-awesome', MP_PB_URL.'assets/font-awesome/css/font-awesome.min.css'  );
-			wp_enqueue_style('pagebuilder', MP_PB_URL.'assets/css/pagebuilder.css'  );
+			wp_enqueue_style('mighty-builder', MP_PB_URL.'assets/css/mighty-builder.css'  );
 
 
 			wp_enqueue_script( 'bootstrap', MP_PB_URL.'assets/bootstrap/js/bootstrap.min.js', array('jquery'), '', true );
 			wp_enqueue_script( 'counterup', MP_PB_URL.'assets/countup/jquery.counterup.min.js', array('jquery'), '', true );
 			wp_enqueue_script( 'waypoints', MP_PB_URL.'assets/js/waypoints.min.js', array('jquery'), '', true );
-			wp_enqueue_script( 'pagebuilder', MP_PB_URL.'assets/js/pagebuilder.js', array('jquery', 'waypoints', 'counterup', 'bootstrap'), '', true );
+			wp_enqueue_script( 'mighty-builder', MP_PB_URL.'assets/js/mighty-builder.js', array('jquery', 'waypoints', 'counterup', 'bootstrap'), '', true );
 		}
 
 		/**

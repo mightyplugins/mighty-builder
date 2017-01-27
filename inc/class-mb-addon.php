@@ -21,6 +21,8 @@ class MB_Addon extends CTF_Addon
         add_action( 'edit_form_after_editor', array( &$this, 'ctpb_hook_after_editor' ) );
 
         add_action( 'admin_footer', array( &$this, 'print_pagebuilder_tmpls' ) );
+
+        add_action( 'save_post',  array( &$this, 'save_mb_active_meta' ), 10, 2 );
 	}
 	
 	function load_admin_js(){
@@ -39,9 +41,11 @@ class MB_Addon extends CTF_Addon
             'pb_enable_text' => esc_html__( 'Active Page Builder', 'ctpb' ),
             'pb_disable_text' => esc_html__( 'Disable Page Builder', 'ctpb' ),
             'pb_elements_title' => esc_html__( 'Select an Element', 'ctpb' ),
+            'mb_confirm' => esc_html__( 'Are you sure?', 'ctpb' ),
             // 'pb_image_sizes' => get_intermediate_image_sizes()
         );
 
+        wp_localize_script( 'mb-pagebuilder', 'mb_elements_data', MB_Element::$_elements );
         wp_localize_script( 'mb-pagebuilder', 'mb_pb_args', $mb_pb_args );
     }
     
@@ -59,17 +63,20 @@ class MB_Addon extends CTF_Addon
             global $post;
 
             $is_enable = get_post_meta( $post->ID, 'mb_pb_enabled_key', true );
+            $is_enable = (int) $is_enable;
             $active_class = 'mb-pb-active';
+            $btn_icon = 'check';
             $enable_button_txt = esc_html__( 'Active Page Builder', 'ctpb' );
 
             if ($is_enable) {
                 $active_class = '';
                 $enable_button_txt = esc_html__( 'Disable Page Builder', 'ctpb' );
+                $btn_icon = 'times';
             }
 
             echo '<div class="mb-pb-tab-cont">'
                     .'<div class="mb-pb-switch">'
-                        .'<button class="mb-pb-switch-button" id="mb-pb-switch-button"  type="button" role="presentation"><i class="fa fa-check"></i> '.$enable_button_txt.'</button>'
+                        .'<button class="mb-pb-switch-button" id="mb-pb-switch-button"  type="button" role="presentation"><i class="fa fa-'.$btn_icon.'"></i> '.$enable_button_txt.'</button>'
                     .'</div>'
                     .'<div class="mb-pb-classic-editor '.$active_class.'">';
         }
@@ -81,24 +88,54 @@ class MB_Addon extends CTF_Addon
             global $post;
 
             $is_enable = get_post_meta( $post->ID, 'mb_pb_enabled_key', true );
+            $is_enable = (int) $is_enable;
             $active_class = '';
+            $active_input = 0;
 
 
             if ($is_enable) {
                 $active_class = 'mb-pb-active';
+                $active_input = 1;
             }
 
             echo    '</div>'
                     .'<div class="mb-pb-container '.$active_class.'" id="mb-pb-container">'
                         .'<div class="mb-pb-header">'
-                            .'<h3><i class="fa fa-cogs" aria-hidden="true"></i> <span>Page Builder</span></h3>'
+                            .'<h3><i class="fa fa-cogs" aria-hidden="true"></i> <span>Mighty Builder</span></h3>'
                             .'<button type="button" role="presentation" class="mb-pb-fullscreen" id="mb-pb-fullscreen"><i class="mce-ico mce-i-dfw"></i></button>'
                         .'</div>'
                         .'<div class="mb-pb-elem-container">'
                         .'</div>'
                         .'<a class="mb-pb-add-sec" href="#" data-pb-shortcode="mb_section" data-pb-type="layout">Add Section</a>'
                     .'</div>'
+                    .'<input type="hidden" name="mb_pb_enabled" class="mb-status-input" value="'.$active_input.'">'
                 .'</div>';
+        }
+    }
+
+
+    function save_mb_active_meta($post_id, $post)
+    {
+        $post_type = get_post_type_object( $post->post_type );
+
+        if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ){
+            return $post_id;
+        }
+
+        $new_meta_value = ( isset( $_POST['mb_pb_enabled'] ) ? sanitize_html_class( $_POST['mb_pb_enabled'] ) : '' );
+
+
+
+        $meta_key = 'mb_pb_enabled_key';
+
+        $meta_value = get_post_meta( $post_id, $meta_key, true );
+
+        if ( !empty($new_meta_value) && empty($meta_value) ){
+            add_post_meta( $post_id, $meta_key, $new_meta_value, true );
+        } elseif ( !empty($new_meta_value) && $new_meta_value != $meta_value ) {
+            update_post_meta( $post_id, $meta_key, $new_meta_value );
+        } elseif ( empty($new_meta_value) && !empty($meta_value) ) {
+            delete_post_meta( $post_id, $meta_key, $meta_value );
         }
     }
 

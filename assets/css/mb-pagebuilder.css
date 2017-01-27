@@ -521,6 +521,21 @@ right: -5px; */
 	color: #fff;
 }
 
+.mb-pb-element-container.ui-sortable-helper{
+	background-color: #000;
+	max-width: 150px;
+	max-height: 56px;
+	color: #fff;
+}
+.mb-pb-element-container.ui-sortable-helper .mb-pb-elem-item-name{
+	color: #fff !important;
+}
+.mb-pb-element-container.ui-sortable-helper .mb-pb-elem-cont-container,
+.mb-pb-element-container.ui-sortable-helper .mb-pb-add-sub-element,
+.mb-pb-element-container.ui-sortable-helper .mb-pb-element-edit{
+	display: none !important;
+}
+
 .mb-pb-element-item.ui-sortable-helper .mb-pb-elem-item-name{
 	color: #fff;
 }
