@@ -5,7 +5,7 @@
  * Description: Mighty Builder is best page builder for WordPress 
  * Author:      Mighty Plugins
  * Author URI:  https://mightyplugins.com/
- * Version:     1.0.0
+ * Version:     1.0.1
  * Text Domain: mighty-builder
  * Domain Path: /languages/
  */

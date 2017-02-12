@@ -44,6 +44,9 @@ Coming Soon...
 
 
 == Changelog ==
+= 1.0.1 =
+
+* dimension input fixed
 
 = 1.0 =
 
