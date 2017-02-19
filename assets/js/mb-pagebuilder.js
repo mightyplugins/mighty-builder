@@ -1485,7 +1485,6 @@
 
 				self.pagebuilderModalObj.find('#modal-pb-title').text(elementTitle);
 
-
 				var field_obj = new CTF_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
 
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').off('click');
@@ -1571,7 +1570,7 @@
 			_.each(options, function(option, i){
 				if (typeof option.roll === 'undefined') {
 					// var scAttrPatt =  new RegExp(option.id+'=["\']?((?:.(?!["\']?\s+(?:\S+)=|[>"\']))+.)["\']?'),
-					var scAttrPatt =  new RegExp(option.id+'="(.*?)"'),
+					var scAttrPatt =  new RegExp('\\s'+option.id+'="(.*?)"'),
 						machedVal = shortcode.match(scAttrPatt);
 					
 					if (
@@ -1651,6 +1650,8 @@
 						if (!_.isNull(machedVal)) {
 							options[i].defaultValue = options[i].default;
 							options[i].default = machedVal[1];
+
+							
 						}
 					} else {
 						
