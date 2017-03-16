@@ -13,6 +13,10 @@ function mb_text_cb( $atts, $content ) {
 		'color'				=> '',
 		'align'				=> '',
 		'font_size'			=> '',
+
+		// System Atts
+		'_id' => '',
+		'_print_css' => false
 	);
 
 	$atts_default = apply_filters( 'mb_text_element_atts', $default );
@@ -32,13 +36,26 @@ function mb_text_cb( $atts, $content ) {
 	$style .= (isset($atts['font_size']) && !empty($atts['font_size'])) ? 'font-size:'.$atts['font_size'].';' : '';
 	$style .= (isset($atts['background_color']) && !empty($atts['background_color'])) ? 'background-color:'.$atts['background_color'].';' : '';
 
+	$cls = 'mb_text_'.$atts['_id'];
+
+
+	if ($atts['_print_css']) {
+		$css_array = array();
+
+		$css_array['class'] = $cls;
+		$css_array['css'] = array();
+		$css_array['css']['main'] = $style;
+
+		return $css_array;
+	}
+
 
 	$output = '';
 
 	ob_start();
 
 	?>
-	<div class="text" style="<?php echo esc_attr($style); ?>">
+	<div class="text <?php echo esc_attr($cls); ?>" style="<?php echo esc_attr($style); ?>">
 		<?php echo do_shortcode( $content ); ?>
 	</div>
 	

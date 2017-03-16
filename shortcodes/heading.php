@@ -66,6 +66,10 @@ function mb_heading_cb( $atts, $content ) {
 		'md_margin_right' => '',
 		'sm_margin_right' => '',
 		'xs_margin_right' => '',
+
+		// System Atts
+		'_id' => '',
+		'_print_css' => false
 	);
 
 	$atts_default = apply_filters( 'mb_heading_element_atts', $default );
@@ -152,7 +156,21 @@ function mb_heading_cb( $atts, $content ) {
 	$style_xs .= (isset($atts['xs_margin_left']) && !empty($atts['xs_margin_left'])) ? 'margin-left:'.$atts['xs_margin_left'].';' : '';
 	$style_xs .= (isset($atts['xs_margin_right']) && !empty($atts['xs_margin_right'])) ? 'margin-right:'.$atts['xs_margin_right'].';' : '';
 
-	$cls = 'heading_'.rand(99, 99999);
+	$cls = 'heading_'.$atts['_id'];
+
+
+	if ($atts['_print_css']) {
+		$css_array = array();
+
+		$css_array['class'] = $cls;
+		$css_array['css'] = array();
+		$css_array['css']['main'] = $style;
+		$css_array['css']['md'] = $style_md;
+		$css_array['css']['sm'] = $style_sm;
+		$css_array['css']['xs'] = $style_xs;
+
+		return $css_array;
+	}
 
 
 	$output = '';
@@ -160,26 +178,6 @@ function mb_heading_cb( $atts, $content ) {
 	ob_start();
 
 	?>
-	<style type="text/css">
-		.<?php echo esc_attr( $cls ); ?>{
-			<?php echo esc_attr($style); ?>
-		}
-		@media (min-width: 992px) and (max-width: 1199px) {
-			.<?php echo esc_attr( $cls ); ?>{
-				<?php echo esc_attr($style_md); ?>
-			}
-		}
-		@media (min-width: 768px) and (max-width: 991px ){
-			.<?php echo esc_attr( $cls ); ?>{
-				<?php echo esc_attr($style_sm); ?>
-			}
-		}
-		@media (max-width: 767px) {
-			.<?php echo esc_attr( $cls ); ?>{
-				<?php echo esc_attr($style_xs); ?>
-			}
-		}
-	</style>
 	<<?php echo esc_attr( $atts['tag'] ); ?> class="<?php echo esc_attr($cls); ?>"><?php echo do_shortcode( $content ); ?></<?php echo esc_attr( $atts['tag'] ); ?>>
 	
 	<?php

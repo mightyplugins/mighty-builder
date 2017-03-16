@@ -81,6 +81,7 @@ if ( ! class_exists('MP_Page_Builder') ) {
 			require_once MP_PB_PATH .'/inc/functions.php';
 			require_once MP_PB_PATH .'/inc/class-mb-element.php';
 			require_once MP_PB_PATH .'/inc/class-mb-addon.php';
+			require_once MP_PB_PATH .'/inc/class-mb-css-generator.php';
 			require_once MP_PB_PATH .'/shortcodes/shortcodes.php';
 		}
 
@@ -98,6 +99,8 @@ if ( ! class_exists('MP_Page_Builder') ) {
 			add_filter( 'wp_footer', array($this,'load_google_font') );
 
 			add_filter( 'init', array($this,'load_textdomain') );
+
+			add_action( 'save_post', array($this,'generator_css'), 10, 2 );
 		}
 
 		public function load_google_font()
@@ -138,11 +141,41 @@ if ( ! class_exists('MP_Page_Builder') ) {
 			wp_enqueue_style('font-awesome', MP_PB_URL.'assets/font-awesome/css/font-awesome.min.css'  );
 			wp_enqueue_style('mighty-builder', MP_PB_URL.'assets/css/mighty-builder.css'  );
 
+			$page_css = get_post_meta( get_the_id(), 'mb_pb_page_css', true );
+
+			if ($page_css) {
+				wp_add_inline_style( 'mighty-builder', $page_css );
+			}
+
 
 			wp_enqueue_script( 'bootstrap', MP_PB_URL.'assets/bootstrap/js/bootstrap.min.js', array('jquery'), '', true );
 			wp_enqueue_script( 'counterup', MP_PB_URL.'assets/countup/jquery.counterup.min.js', array('jquery'), '', true );
 			wp_enqueue_script( 'waypoints', MP_PB_URL.'assets/js/waypoints.min.js', array('jquery'), '', true );
 			wp_enqueue_script( 'mighty-builder', MP_PB_URL.'assets/js/mighty-builder.js', array('jquery', 'waypoints', 'counterup', 'bootstrap'), '', true );
+		}
+
+		public function generator_css( $post_id, $post )
+		{
+			$post_type = get_post_type_object( $post->post_type );
+
+			if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ){
+				return $post_id;
+			}
+
+			$page_css_class  = new MB_CSS_Generator($_POST['content']);
+			$page_css  = $page_css_class->get_css();
+
+			$meta_key = 'mb_pb_page_css';
+
+			$meta_value = get_post_meta( $post_id, $meta_key, true );
+
+			if ( !empty($page_css) && empty($meta_value) ){
+				add_post_meta( $post_id, $meta_key, $page_css, true );
+			} elseif ( !empty($page_css) && $page_css != $meta_value ) {
+				update_post_meta( $post_id, $meta_key, $page_css );
+			} elseif ( empty($page_css) && !empty($meta_value) ) {
+				delete_post_meta( $post_id, $meta_key, $meta_value );
+			}
 		}
 
 		/**

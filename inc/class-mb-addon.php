@@ -125,8 +125,6 @@ class MB_Addon extends CTF_Addon
 
         $new_meta_value = ( isset( $_POST['mb_pb_enabled'] ) ? sanitize_html_class( $_POST['mb_pb_enabled'] ) : '' );
 
-
-
         $meta_key = 'mb_pb_enabled_key';
 
         $meta_value = get_post_meta( $post_id, $meta_key, true );

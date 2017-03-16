@@ -589,7 +589,7 @@
 		getSection: function(sc_start, sc_end){
 			var self = this,
 				data = {
-					sc_start:'['+self.args.section_sc+']',
+					sc_start:'['+self.args.section_sc+' _id="'+Math.round(Date.now()/1000)+'"]',
 					sc_end:'[/'+self.args.section_sc+']'
 				},
 				sectionObj;
@@ -691,7 +691,7 @@
 		getRow: function(sc_start, sc_end){
 			var self = this,
 				data = {
-					sc_start:'['+self.args.row_sc+']',
+					sc_start:'['+self.args.row_sc+' _id="'+Math.round(Date.now()/1000)+'"]',
 					sc_end:'[/'+self.args.row_sc+']'
 				},
 				rowObj;
@@ -795,7 +795,7 @@
 		getColumn: function( size, sc_start, sc_end){
 			var self = this,
 				data = {
-					sc_start:'['+self.args.col_sc+' col="'+size+'"]',
+					sc_start:'['+self.args.col_sc+' col="'+size+'" _id="'+Math.round(Date.now()/1000)+'"]',
 					sc_end:'[/'+self.args.col_sc+']',
 					col_size: size
 				},
@@ -1282,7 +1282,10 @@
 			var shortcode = "["+code,
 				shortcodeData = mb_elements_data[code],
 				self = this,
-				content;
+				content,
+				newId = Math.round(Date.now()/1000);
+
+			shortcode += ' _id="'+newId+'"';
 			
 			if( typeof atts !== 'undefined' && _.isObject(atts) && !_.isEmpty(atts) ){
 				_.each(atts, function (value, name){

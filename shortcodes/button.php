@@ -29,6 +29,10 @@ function mb_btn_cb( $atts, $content ) {
 		'md_margin_right' => '',
 		'sm_margin_right' => '',
 		'xs_margin_right' => '',
+
+		// System Atts
+		'_id' => '',
+		'_print_css' => false
 	);
 
 	$atts_default = apply_filters( 'mb_btn_element_atts', $default );
@@ -37,6 +41,9 @@ function mb_btn_cb( $atts, $content ) {
 
 
 	$style_container = '';
+	$style_container_md = '';
+	$style_container_sm = '';
+	$style_container_xs = '';
 
 	$style_container .= (isset($atts['align']) && !empty($atts['align'])) ? 'text-align:'.$atts['align'].';' : '';
 
@@ -61,7 +68,22 @@ function mb_btn_cb( $atts, $content ) {
 	$style_container_xs .= (isset($atts['xs_margin_left']) && !empty($atts['xs_margin_left'])) ? 'margin-left:'.$atts['xs_margin_left'].';' : '';
 	$style_container_xs .= (isset($atts['xs_margin_right']) && !empty($atts['xs_margin_right'])) ? 'margin-right:'.$atts['xs_margin_right'].';' : '';
 
-	$cls = 'btn_cont_'.rand(99, 99999);
+
+	$cls = 'btn_cont_'.$atts['_id'];
+
+
+	if ($atts['_print_css']) {
+		$css_array = array();
+
+		$css_array['class'] = $cls;
+		$css_array['css'] = array();
+		$css_array['css']['main'] = $style_container;
+		$css_array['css']['md'] = $style_container_md;
+		$css_array['css']['sm'] = $style_container_sm;
+		$css_array['css']['xs'] = $style_container_xs;
+
+		return $css_array;
+	}
 
 
 	$output = '';
@@ -69,28 +91,6 @@ function mb_btn_cb( $atts, $content ) {
 	ob_start();
 
 	?>
-	<style type="text/css">
-		.<?php echo esc_attr( $cls ); ?>{
-			<?php echo esc_attr($style_container); ?>
-		}
-		@media (min-width: 992px) and (max-width: 1199px) {
-			.<?php echo esc_attr( $cls ); ?>{
-				<?php echo esc_attr($style_container_md); ?>
-			}
-		}
-		@media (min-width: 768px) and (max-width: 991px ){
-			.<?php echo esc_attr( $cls ); ?>{
-				<?php echo esc_attr($style_container_sm); ?>
-			}
-		}
-		@media (max-width: 767px) {
-			.<?php echo esc_attr( $cls ); ?>{
-				<?php echo esc_attr($style_container_xs); ?>
-			}
-		}
-		
-		
-	</style>
 	<div class="mb-btn-container <?php echo esc_attr($cls); ?>">
 		<a href="<?php echo esc_url( $atts['link'] ); ?>" class="btn btn-<?php echo esc_attr( $atts['btn_type'] ); ?> <?php echo esc_attr( $atts['size'] ); ?>" role="button">
 			<?php echo do_shortcode( $content ); ?>

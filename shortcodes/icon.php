@@ -12,7 +12,11 @@ function mb_icon_cb( $atts, $content ) {
 		'border_radius' => '',
 		'width' => '',
 		'height' => '',
-		'icon_align' => ''
+		'icon_align' => '',
+
+		// System Atts
+		'_id' => '',
+		'_print_css' => false
 	);
 
 	$default = apply_filters( 'mb_icon_element_atts', $default );
@@ -32,11 +36,22 @@ function mb_icon_cb( $atts, $content ) {
 	$style_cont = '';
 	$style_cont .= (isset($atts['icon_align']) && !empty($atts['icon_align'])) ? 'text-align:'.$atts['icon_align'].';' : '';
 
+	$cls = 'mb_icon_'.$atts['_id'];
 
+
+	if ($atts['_print_css']) {
+		$css_array = array();
+
+		$css_array['class'] = $cls;
+		$css_array['css'] = array();
+		$css_array['css']['main'] = $style;
+
+		return $css_array;
+	}
 
 	ob_start();
 	?>
-	<div class="ct-icon" style="<?php echo esc_attr($style_cont); ?>"><i style="<?php echo esc_attr($style); ?>" class="<?php echo esc_attr( $atts['icon'] ); ?>"></i></div>
+	<div class="ct-icon" style="<?php echo esc_attr($style_cont); ?>"><i class="<?php echo esc_attr( $atts['icon'] ); ?> <?php echo esc_attr($cls); ?>"></i></div>
 	<?php
 
 	$output =  ob_get_clean();
