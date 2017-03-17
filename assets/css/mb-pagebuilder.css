@@ -508,7 +508,7 @@ right: -5px; */
 
 .mb-pb-element-item {
     background-color: #fff;
-    padding: 19px 10px;
+    padding: 9px 10px;
     padding-left: 55px;
     border-radius: 3px;
     position: relative;
@@ -519,6 +519,11 @@ right: -5px; */
 	background-color: #000;
 	max-width: 150px;
 	color: #fff;
+	height: 56px !important;
+}
+
+.mb-pb-element-item.ui-sortable-helper .mb-pb-elem-label{
+	display: none;
 }
 
 .mb-pb-element-container.ui-sortable-helper{
@@ -587,7 +592,7 @@ right: -5px; */
 	color: #fff;
 }
 .mb-pb-elem-item-name{
-	margin: 0;
+	margin: 10px 0;
 	font-size: 13px;
 	white-space:nowrap;
 	overflow: hidden;
@@ -621,7 +626,13 @@ right: -5px; */
 	margin-top: 10px;
 	position: relative;
 }
-
+.mb-pb-elem-label{
+	color: #ababab;
+	font-size: 12px;
+}
+.mb-pb-elem-label span{
+	margin-right: 15px;
+}
 .mb-pb-element-container:hover > .mb-pb-element-edit{
 	display: block;
 	top: 0;
@@ -646,6 +657,10 @@ a.mb-pb-add-sub-element {
 }
 .mb-pb-element-container .mb-pb-element-item{
 	background-color: #f5f5f5;
+}
+
+.mb-pb-element-container > .mb-pb-container-container-ui > .mb-pb-elem-item-name{
+	margin: 0;
 }
 
 .modal-pb-buttons{

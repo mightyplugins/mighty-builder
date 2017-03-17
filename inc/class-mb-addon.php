@@ -244,6 +244,7 @@ class MB_Addon extends CTF_Addon
                         <i class="{{ data.icon }}"></i>
                     </div>
                     <h3 class="mb-pb-elem-item-name">{{ data.name }}</h3>
+                    <div class="mb-pb-elem-label">{{{ data.admin_label }}}</div>
                 </div>
                     
         </div></script>

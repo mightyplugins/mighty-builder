@@ -209,6 +209,7 @@ if (function_exists('mb_add_map')) {
 				'type'     => 'text',
 				'default' => '',
 				'roll' => 'content',
+				'admin' => true,
 				'tab' => 'Content'
 			),
 			array(

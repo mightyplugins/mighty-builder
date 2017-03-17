@@ -276,6 +276,7 @@ if (class_exists('MB_Element')) {
 				'subtitle'    => __( 'Tab title', 'mighty-builder' ),
 				'type'     => 'text',
 				'default' => 'Test Text',
+				'admin'	=> true
 			),
 			array(
 				'id' => 'tab_content',

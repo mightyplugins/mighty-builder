@@ -875,12 +875,15 @@
 			
 			var self = this,
 				element_data = mb_elements_data[tag],
+				options = self.getScOptionsFromSc(shortcode, tag),
+				allAtts = self.getAttsFromOptions(options),
 				data = {
 					code: tag,
 					icon: element_data.icon,
 					color: element_data.color,
 					name: element_data.title,
-					sc_start: shortcode
+					sc_start: shortcode,
+					admin_label: self.getAdminLabelByData(element_data.options, allAtts)
 				},
 				itemObj;
 				
@@ -889,6 +892,7 @@
 			
 			return itemObj;
 		},
+
 		getContainerItem: function(tag, shortcode){
 			
 			var self = this,
@@ -1260,7 +1264,8 @@
 								icon: element_data.icon,
 								color: element_data.color,
 								name: element_data.title,
-								sc_start: shortcode
+								sc_start: shortcode,
+								admin_label: self.getAdminLabelByData(element_data.options, allAtts)
 							};
 
 						if(typeof element_data.child !== 'undefined'){
@@ -1412,13 +1417,19 @@
 					self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').off('click');
 					self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').on('click', function(){
 						var formData = self.pagebuilderModalForm.serializeObject(),
-							shortcode = '';
+							shortcode = '',
+							admin_label = '';
 						
 						if(typeof formData[data.code] !== 'undefined'){
 							shortcode = self.getShortcodeByData(data.code, formData[data.code]);
+
+							admin_label = self.getAdminLabelByData(mb_elements_data[data.code].options, formData[data.code]);
 						}
 
+
+
 						elementObj.find("> .mb-pb-sc-code").html(shortcode);
+						elementObj.find(".mb-pb-elem-label").html(admin_label);
 						
 						/**
 						 * Event: ctpbchanged
@@ -1493,14 +1504,18 @@
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').off('click');
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').on('click', function(){
 					var formData = self.pagebuilderModalForm.serializeObject(),
-						shortcode = '';
+						shortcode = '',
+						admin_label = '';
 					
 					if(typeof formData[tag] !== 'undefined'){
 						shortcode = self.getShortcodeByData(tag, formData[tag]);
+
+						admin_label = self.getAdminLabelByData(mb_elements_data[tag].options, formData[tag]);
 					}
 					
 
 					elementObj.find("> .mb-pb-sc-code.mb-pb-sc-start").html(shortcode);
+					elementObj.find(".mb-pb-elem-label").html(admin_label);
 					
 					/**
 					 * Event: ctpbchanged
@@ -1730,7 +1745,8 @@
 						icon: childItemData.icon,
 						color: childItemData.color,
 						name: childItemData.title,
-						sc_start: childShortcode
+						sc_start: childShortcode,
+						admin_label: self.getAdminLabelByData(childItemData.options, childAllAtts)
 					};
 
 				var childElementObj = $(self.elementItemTmpl(childElemData))
@@ -1892,6 +1908,19 @@
 			} else {
 				$('#content').html(content_sc);
 			}
+		},
+		getAdminLabelByData: function ( options, atts ) {
+			var label = '';
+
+			_.each(options, function (option){
+				if (typeof option.admin !== 'undefined' && option.admin) {
+					if (typeof atts[option.id] !== 'undefined' && !_.isEmpty(atts[option.id])) {
+						label += '<span><strong>'+option.label+':</strong> '+atts[option.id]+'</span>';
+					}
+				}
+			});
+
+			return label;
 		}
 	});
 	
