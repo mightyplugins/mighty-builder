@@ -5,7 +5,7 @@
  * Description: Mighty Builder is best page builder for WordPress 
  * Author:      Mighty Plugins
  * Author URI:  https://mightyplugins.com/
- * Version:     1.0.1
+ * Version:     1.0.2
  * Text Domain: mighty-builder
  * Domain Path: /languages/
  */
@@ -24,6 +24,10 @@ if ( ! defined( 'CTF_PATH' ) ){
 }
 if ( ! defined( 'CTF_URL' ) ){
 	define('CTF_URL', plugin_dir_url( __FILE__ ).'framework/');
+}
+
+if ( ! defined( 'MP_PB_VER' ) ){
+	define('MP_PB_VER', '1.0.2');
 }
 
 // Load Framework
@@ -67,6 +71,10 @@ if ( ! class_exists('MP_Page_Builder') ) {
 					$opt_addon = new MB_Addon();
 				}
 
+			}
+
+			if (!get_option( 'mighty_builder_ver' ) || get_option( 'mighty_builder_ver' ) < MP_PB_VER) {
+				update_option( 'mighty_builder_ver', MP_PB_VER );
 			}
 
 			return self::$instance;

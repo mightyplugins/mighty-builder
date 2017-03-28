@@ -44,6 +44,10 @@ Coming Soon...
 
 
 == Changelog ==
+= 1.0.2 =
+
+* CountUp Icon and Text color conflict fixed
+
 = 1.0.1 =
 
 * dimension input fixed
