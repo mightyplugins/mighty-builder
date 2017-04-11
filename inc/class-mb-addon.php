@@ -37,6 +37,8 @@ class MB_Addon extends CTF_Addon
         wp_enqueue_script( 'mb-pagebuilder', MP_PB_URL . 'assets/js/mb-pagebuilder.js', array('jquery', 'underscore', 'ctf-core-script'), '1.0', true );
 
         $mb_pb_args = array(
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+            'lib_items' => MB_Library::get_libs_items(),
             'section_sc' => apply_filters( 'mb_pb_section_sortcode_tag', 'mb_section' ),
             'row_sc' => apply_filters( 'mb_pb_row_sortcode_tag', 'mb_row' ),
             'col_sc' => apply_filters( 'mb_pb_column_sortcode_tag', 'mb_col' ),
@@ -44,6 +46,36 @@ class MB_Addon extends CTF_Addon
             'pb_disable_text' => esc_html__( 'Disable Page Builder', 'mighty-builder' ),
             'pb_elements_title' => esc_html__( 'Select an Element', 'mighty-builder' ),
             'mb_confirm' => esc_html__( 'Are you sure?', 'mighty-builder' ),
+            'lib_inputs' => array(
+                array(
+                    'id' => 'title',
+                    'label' => esc_html__( 'Title', 'mighty-builder' ),
+                    'subtitle' => '',
+                    'type' => 'text',
+                    'default' => '',
+                ),
+                array(
+                    'id' => 'subtitle',
+                    'label' => esc_html__( 'Sub-Title', 'mighty-builder' ),
+                    'subtitle' => '',
+                    'type' => 'text',
+                    'default' => '',
+                ),
+                array(
+                    'id' => 'type',
+                    'label' => esc_html__( 'Template Type', 'mighty-builder' ),
+                    'subtitle' => '',
+                    'type' => 'text',
+                    'default' => '',
+                ),
+                array(
+                    'id' => 'image',
+                    'label' => esc_html__( 'Image', 'mighty-builder' ),
+                    'subtitle' => '',
+                    'type' => 'image',
+                    'default' => '',
+                )
+            )
         );
 
         wp_localize_script( 'mb-pagebuilder', 'mb_elements_data', MB_Element::$_elements );
@@ -99,18 +131,21 @@ class MB_Addon extends CTF_Addon
                 $active_input = 1;
             }
 
-            echo    '</div>'
-                    .'<div class="mb-pb-container '.$active_class.'" id="mb-pb-container">'
-                        .'<div class="mb-pb-header">'
-                            .'<h3><i class="fa fa-cogs" aria-hidden="true"></i> <span>Mighty Builder</span></h3>'
-                            .'<button type="button" role="presentation" class="mb-pb-fullscreen" id="mb-pb-fullscreen"><i class="mce-ico mce-i-dfw"></i></button>'
-                        .'</div>'
-                        .'<div class="mb-pb-elem-container">'
-                        .'</div>'
-                        .'<a class="mb-pb-add-sec" href="#" data-pb-shortcode="mb_section" data-pb-type="layout">Add Section</a>'
-                    .'</div>'
-                    .'<input type="hidden" name="mb_pb_enabled" class="mb-status-input" value="'.$active_input.'">'
-                .'</div>';
+            ?>
+                </div>
+                <div class="mb-pb-container <?php echo esc_attr($active_class); ?>" id="mb-pb-container">
+                    <div class="mb-pb-header">
+                        <h3><i class="fa fa-cogs" aria-hidden="true"></i> <span>Mighty Builder</span></h3>
+                        <button type="button" role="presentation" class="mb-pb-library" id="mb-pb-library"><i class="fa fa-columns"></i> Templates</button>
+                        <button type="button" role="presentation" class="mb-pb-fullscreen" id="mb-pb-fullscreen"><i class="mce-ico mce-i-dfw"></i></button>
+                    </div>
+                    <div class="mb-pb-elem-container">
+                    </div>
+                    <a class="mb-pb-add-sec" href="#" data-pb-shortcode="mb_section" data-pb-type="layout">Add Section</a>
+                </div>
+                <input type="hidden" name="mb_pb_enabled" class="mb-status-input" value="<?php echo esc_attr($active_input); ?>">
+            </div>
+            <?php
         }
     }
 
@@ -155,6 +190,33 @@ class MB_Addon extends CTF_Addon
             <div class="ctf-fc modal-pb-buttons">
                 <button data-remodal-action="cancel" class="mb-pb-modal-cancel-btn button button-ctpb-cancel"><?php esc_html_e('Cancel', 'mighty-builder'); ?></button>
                 <button class="button button-ctpb" id="add_ctpb_sc_to_item"><?php esc_html_e('Save Changes', 'mighty-builder'); ?></button>
+            </div>
+        </div>
+        <div class="remodal mb-pb-lib-remodal" data-remodal-id="modal-pb-lib" role="dialog" aria-labelledby="modal-pb-lib-title" aria-describedby="modal-pb-lib-subtitle" data-remodal-options="hashTracking: false">
+            
+            <div class="modal-pb-lib-header">
+                <h2 id="modal-pb-lib-title"><?php esc_html_e('Template Library', 'mighty-builder'); ?></h2>
+                <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+            </div>
+            <div class="mb-lib-new-wrap">
+                <form class="mpb-lib-inputs ctf-fc">
+                    <h3 class="mb-lib-inputs-title">Save this page as a template</h3>
+                    <div class="mpb-lib-inputs-inner"></div>
+                    <div class="mp-pb-lib-buttons clearfix">
+                        <button type="button" class="mb-pb-lib-cancel-btn button button-ctpb-cancel"><?php esc_html_e('Cancel', 'mighty-builder'); ?></button>
+                        <button type="button" class="button button-ctpb" id="add-new-tmpl-lib"><?php esc_html_e('Add Template', 'mighty-builder'); ?></button>
+                        <span class="spinner mb-lib-new-spin"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="mb-lib-topbar clearfix">
+                <div class="mb-lib-filter-view"></div>
+                <button class="mpb-lib-new-item"><i class="fa fa-plus"></i> Add Template</button>
+            </div>
+            
+            
+            <div id="modal-pb-lib-container">
+                <div class="mpb-lib-list clearfix"></div>
             </div>
         </div>
         <script type="text/html" id="tmpl-layout-section">
@@ -354,6 +416,44 @@ class MB_Addon extends CTF_Addon
                     <# tp_i++; } ); #>
                 </div>
                 
+            </div>
+        </script>
+        <script type="text/html" id="tmpl-mb-lib-item">
+            <#
+                var cls = '';
+
+                if(typeof data.type !== 'undefined'){
+                    cls = data.type.join(" ");
+                }
+            #>
+            <div class="mb-lib-item-wrap {{ data.id }} {{ cls }}">
+                <div class="mb-lib-item">
+                    <div class="mb-lib-item-img">
+                        <img src="{{ data.image }}" alt="">
+                    </div>
+                    <div class="mb-lib-item-data">
+                        <h3>{{ data.title }}</h3>
+                        <div class="mb-lib-item-st">{{ data.subtitle }}</div>
+                        <div class="mb-lib-item-input clearfix">
+                            <input type="button" class="mb-lib-item-in-action button button-ctpb" value="Import">
+                            <span class="spinner"></span>
+                            <# if(data.option){ #>
+                            <input type="button" class="mb-lib-item-del-action button button-ctpb-cancel" value="Delete" data-id="{{ data.id }}">
+                            <# } #>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <script type="text/html" id="tmpl-mb-lib-filter">
+            <div class="mb-lib-filter-wrap">
+                <ul>
+                    <li><a href="#" data-id="*" class="active">All</a></li>
+                    <# _.each( data.types, function (type){ #>
+                        <# var id = type.toLowerCase().replace(/ /g, '_') #>
+                        <li><a href="#" data-id="{{ id }}">{{ type }}</a></li>
+                    <# }); #>
+                </ul>
             </div>
         </script>
         <?php

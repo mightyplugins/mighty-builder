@@ -1,4 +1,4 @@
-=== Mighty Builder ===
+=== Mighty Builder - Drag & Drop WordPress Page Builder ===
 Contributors: mightyplugins
 Donate link: http://mightyplugins.com/
 Tags: page builder, page composer, pagebuilder, drag and drop
@@ -44,6 +44,10 @@ Coming Soon...
 
 
 == Changelog ==
+= 1.0.2 =
+
+* CountUp Icon and Text color conflict fixed
+
 = 1.0.1 =
 
 * dimension input fixed
@@ -51,3 +55,8 @@ Coming Soon...
 = 1.0 =
 
 * Initial release
+
+== Upgrade Notice ==
+
+= 1.0.2 =
+You must need to update it.

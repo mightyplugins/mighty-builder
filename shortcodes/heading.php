@@ -76,19 +76,22 @@ function mb_heading_cb( $atts, $content ) {
 
 	$atts = shortcode_atts( $atts_default, $atts );
 
-	$all_fonts = CTF_Help::get_google_font_json();
+	if (!class_exists('WP_Font_Manager')) {
 
-	$all_fonts = json_decode($all_fonts, true);
+		$all_fonts = CTF_Help::get_google_font_json();
 
-	$font_weights = $all_fonts[$atts['haeding_font-family']];
+		$all_fonts = json_decode($all_fonts, true);
+
+		$font_weights = $all_fonts[$atts['haeding_font-family']];
 
 
-	if (!isset($mb_google_fonts[$atts['haeding_font-family']]) || !is_array($mb_google_fonts[$atts['haeding_font-family']])) {
-		$mb_google_fonts[$atts['haeding_font-family']] = array();
-	}
+		if (!isset($mb_google_fonts[$atts['haeding_font-family']]) || !is_array($mb_google_fonts[$atts['haeding_font-family']])) {
+			$mb_google_fonts[$atts['haeding_font-family']] = array();
+		}
 
-	if (isset($atts['haeding_font-weight']) && !empty($atts['haeding_font-weight']) && isset($mb_google_fonts[$atts['haeding_font-family']]) && !in_array($atts['haeding_font-weight'], $mb_google_fonts[$atts['haeding_font-family']]) ) {
-		$mb_google_fonts[$atts['haeding_font-family']][] = $atts['haeding_font-weight'];
+		if (isset($atts['haeding_font-weight']) && !empty($atts['haeding_font-weight']) && isset($mb_google_fonts[$atts['haeding_font-family']]) && !in_array($atts['haeding_font-weight'], $mb_google_fonts[$atts['haeding_font-family']]) ) {
+			$mb_google_fonts[$atts['haeding_font-family']][] = $atts['haeding_font-weight'];
+		}
 	}
 
 

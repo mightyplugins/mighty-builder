@@ -5,7 +5,7 @@
  * Description: Mighty Builder is best page builder for WordPress 
  * Author:      Mighty Plugins
  * Author URI:  https://mightyplugins.com/
- * Version:     1.0.1
+ * Version:     1.1.0
  * Text Domain: mighty-builder
  * Domain Path: /languages/
  */
@@ -67,6 +67,10 @@ if ( ! class_exists('MP_Page_Builder') ) {
 					$opt_addon = new MB_Addon();
 				}
 
+				if(class_exists('MB_Library')){
+					$mb_libs = new MB_Library();
+				}
+
 			}
 
 			return self::$instance;
@@ -79,6 +83,7 @@ if ( ! class_exists('MP_Page_Builder') ) {
 		 */
 		private function includes() {
 			require_once MP_PB_PATH .'/inc/functions.php';
+			require_once MP_PB_PATH .'/inc/class-mb-library.php';
 			require_once MP_PB_PATH .'/inc/class-mb-element.php';
 			require_once MP_PB_PATH .'/inc/class-mb-addon.php';
 			require_once MP_PB_PATH .'/inc/class-mb-css-generator.php';
@@ -96,7 +101,9 @@ if ( ! class_exists('MP_Page_Builder') ) {
 
 			add_filter( 'the_content', array($this,'shortcode_empty_paragraph_fix') );
 
-			add_filter( 'wp_footer', array($this,'load_google_font') );
+			if (!class_exists('WP_Font_Manager')) {
+				add_filter( 'wp_footer', array($this,'load_google_font') );
+			}
 
 			add_filter( 'init', array($this,'load_textdomain') );
 
