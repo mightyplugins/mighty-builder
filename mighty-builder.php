@@ -19,7 +19,7 @@ if ( ! defined( 'MP_PB_URL' ) ){
 	define('MP_PB_URL', plugin_dir_url( __FILE__ ));
 }
 
-if ( ! defined( 'CTF_PATH' ) ){
+/*if ( ! defined( 'CTF_PATH' ) ){
 	define('CTF_PATH',  plugin_dir_path( __FILE__ ).'/framework/');
 }
 if ( ! defined( 'CTF_URL' ) ){
@@ -27,7 +27,7 @@ if ( ! defined( 'CTF_URL' ) ){
 }
 
 // Load Framework
-require_once MP_PB_PATH .'/framework/cantoframework.php';
+require_once MP_PB_PATH .'/framework/cantoframework.php';*/
 
 
 if ( ! class_exists('MP_Page_Builder') ) {
@@ -59,12 +59,13 @@ if ( ! class_exists('MP_Page_Builder') ) {
 		 */
 		public static function instance() {
 			if( !self::$instance ) {
+
 				self::$instance = new MP_Page_Builder();
 				self::$instance->includes();
 				self::$instance->hooks();
-				
-				if(class_exists('MB_Addon')){
-					$opt_addon = new MB_Addon();
+
+				if(class_exists('MB_Core')){
+					$mb_core = new MB_Core();
 				}
 
 				if(class_exists('MB_Library')){
@@ -82,10 +83,15 @@ if ( ! class_exists('MP_Page_Builder') ) {
 		 * @since		1.0.0
 		 */
 		private function includes() {
+			// Load Core Files
+			require_once MP_PB_PATH .'/inc/core/class-mb-core.php';
+			require_once MP_PB_PATH .'/inc/core/class-mb-data.php';
+			require_once MP_PB_PATH .'/inc/core/class-mb-field.php';
+
+
 			require_once MP_PB_PATH .'/inc/functions.php';
 			require_once MP_PB_PATH .'/inc/class-mb-library.php';
 			require_once MP_PB_PATH .'/inc/class-mb-element.php';
-			require_once MP_PB_PATH .'/inc/class-mb-addon.php';
 			require_once MP_PB_PATH .'/inc/class-mb-css-generator.php';
 			require_once MP_PB_PATH .'/shortcodes/shortcodes.php';
 		}
@@ -144,8 +150,8 @@ if ( ! class_exists('MP_Page_Builder') ) {
 		 */
 		public function front_end_assets()
 		{
-			wp_enqueue_style('bootstrap', MP_PB_URL.'assets/bootstrap/css/bootstrap.min.css'  );
-			wp_enqueue_style('font-awesome', MP_PB_URL.'assets/font-awesome/css/font-awesome.min.css'  );
+			wp_enqueue_style('bootstrap', MP_PB_URL.'assets/vendor/bootstrap/css/bootstrap.min.css'  );
+			wp_enqueue_style('font-awesome', MP_PB_URL.'assets/vendor/font-awesome/css/font-awesome.min.css'  );
 			wp_enqueue_style('mighty-builder', MP_PB_URL.'assets/css/mighty-builder.css'  );
 
 			$page_css = get_post_meta( get_the_id(), 'mb_pb_page_css', true );
@@ -155,8 +161,8 @@ if ( ! class_exists('MP_Page_Builder') ) {
 			}
 
 
-			wp_enqueue_script( 'bootstrap', MP_PB_URL.'assets/bootstrap/js/bootstrap.min.js', array('jquery'), '', true );
-			wp_enqueue_script( 'counterup', MP_PB_URL.'assets/countup/jquery.counterup.min.js', array('jquery'), '', true );
+			wp_enqueue_script( 'bootstrap', MP_PB_URL.'assets/vendor/bootstrap/js/bootstrap.min.js', array('jquery'), '', true );
+			wp_enqueue_script( 'counterup', MP_PB_URL.'assets/vendor/countup/jquery.counterup.min.js', array('jquery'), '', true );
 			wp_enqueue_script( 'waypoints', MP_PB_URL.'assets/js/waypoints.min.js', array('jquery'), '', true );
 			wp_enqueue_script( 'mighty-builder', MP_PB_URL.'assets/js/mighty-builder.js', array('jquery', 'waypoints', 'counterup', 'bootstrap'), '', true );
 		}
@@ -232,8 +238,6 @@ function mb_add_map( $map )
  * @since		1.0.0
  */
 function mp_page_builder_init() {
-	if( class_exists( 'CTF_Init' ) ) {
-		return MP_Page_Builder::instance();
-	}
+	return MP_Page_Builder::instance();
 }
 add_action( 'init', 'mp_page_builder_init' );

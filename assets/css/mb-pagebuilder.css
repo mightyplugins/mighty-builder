@@ -743,11 +743,11 @@ h2#modal-pb-title {
 	display: none;
 }
 
-/* .remodal .ctf-fc .ctf-cc-container .ctf-title-container {
+/* .remodal .mb-fc .mb-cc-container .mb-title-container {
     width: 38%;
 }
 
-.remodal .ctf-fc .ctf-cc-container .ctf-input-field {
+.remodal .mb-fc .mb-cc-container .mb-input-field {
     width: 62%;
 } */
 
@@ -852,7 +852,7 @@ h2#modal-pb-title {
 	display: block;
 }
 
-.mb-pb-responsive-input .mb-responsive-panel .ctf-cc-container{
+.mb-pb-responsive-input .mb-responsive-panel .mb-cc-container{
 	padding-top: 0;
 }
 
@@ -911,11 +911,11 @@ h2#modal-pb-title {
 	display: block;
 }
 
-.ctf-cc-container.ctf-input-editor .ctf-title-container{
+.mb-cc-container.mb-input-editor .mb-title-container{
 	display: none;
 }
 
-.ctf-cc-container.ctf-input-editor .ctf-input-field-container{
+.mb-cc-container.mb-input-editor .mb-input-field-container{
 	width: 100%;
 }
 .mpb-lib-list{
@@ -1017,7 +1017,7 @@ h2#modal-pb-title {
 	display: block;
 }
 
-.mpb-lib-inputs .ctf-cc-container:last-child{
+.mpb-lib-inputs .mb-cc-container:last-child{
 	border-bottom-width: 0;
 }
 .mp-pb-lib-buttons{

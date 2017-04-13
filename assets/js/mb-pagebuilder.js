@@ -14,7 +14,7 @@
 
 	var CTF_PB = {};
 	
-	CTF_Core.CTF_PageBuilder = CTF_Core.Opts.extend({
+	MB_Core.CTF_PageBuilder = MB_Core.Opts.extend({
 		tabsData: {},
 		tabsObj: '',
 		initialize: function ( container, args, tag ){
@@ -27,7 +27,7 @@
 			this.renderContent();
 		},
 		renderInput: function(args){
-			var inputFieldClss = CTF_Core.Api['ctf_'+args.type],
+			var inputFieldClss = MB_Core.Api['mb_'+args.type],
 				inputField;
 
 
@@ -208,7 +208,7 @@
 		}
 	});
 
-	CTF_Core.CTF_MB_Libs = CTF_Core.Opts.extend({
+	MB_Core.CTF_MB_Libs = MB_Core.Opts.extend({
 		initialize: function ( args ){
 			this.inputArgs = args;
 			this.containerObj = $('.mpb-lib-inputs-inner');
@@ -678,7 +678,7 @@
 				self.pagebuilderModalObj.find('.mpb-elements-list').html('');
 				self.pagebuilderModalForm.html('');
 
-				var field_obj = new CTF_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
+				var field_obj = new MB_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
 
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').off('click');
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').on('click', function(){
@@ -783,7 +783,7 @@
 				self.pagebuilderModalObj.find('.mpb-elements-list').html('');
 				self.pagebuilderModalForm.html('');
 
-				var field_obj = new CTF_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
+				var field_obj = new MB_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
 
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').off('click');
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').on('click', function(){
@@ -888,7 +888,7 @@
 				self.pagebuilderModalObj.find('.mpb-elements-list').html('');
 				self.pagebuilderModalForm.html('');
 
-				var field_obj = new CTF_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
+				var field_obj = new MB_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
 
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').off('click');
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').on('click', function(){
@@ -1369,8 +1369,8 @@
 								value = JSON.parse(value);
 							}
 							
-							if( typeof value.url !== 'undefined' ){
-								shortcode += ' '+name+'="'+value.url+'"';
+							if( typeof value.id !== 'undefined' ){
+								shortcode += ' '+name+'="'+value.id+'"';
 							}
 							
 						} else if( option.type == 'image_multi' ){
@@ -1382,8 +1382,8 @@
 							
 							if(_.isArray(value)){
 								_.each(value, function(image){
-									if( typeof image.url !== 'undefined' ){
-										imagesValue.push(image.url);
+									if( typeof image.id !== 'undefined' ){
+										imagesValue.push(image.id);
 									}
 								});
 							}
@@ -1455,7 +1455,7 @@
 					
 					self.pagebuilderModalObj.removeClass('mb-pb-remodal-form-off');
 					
-					var field_obj = new CTF_Core.CTF_PageBuilder(self.pagebuilderModalForm, element_args.options, data.code);
+					var field_obj = new MB_Core.CTF_PageBuilder(self.pagebuilderModalForm, element_args.options, data.code);
 
 
 					self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').off('click');
@@ -1543,7 +1543,7 @@
 
 				self.pagebuilderModalObj.find('#modal-pb-title').text(elementTitle);
 
-				var field_obj = new CTF_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
+				var field_obj = new MB_Core.CTF_PageBuilder(self.pagebuilderModalForm, options, tag);
 
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').off('click');
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').on('click', function(){
@@ -1801,7 +1801,7 @@
 				self.pagebuilderModalObj.find('.mpb-elements-list').html('');
 				self.pagebuilderModalForm.html('');
 
-				var field_obj = new CTF_Core.CTF_PageBuilder(self.pagebuilderModalForm, childItemData.options, childItemData.code);
+				var field_obj = new MB_Core.CTF_PageBuilder(self.pagebuilderModalForm, childItemData.options, childItemData.code);
 
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').off('click');
 				self.pagebuilderModalObj.find('.modal-pb-buttons #add_ctpb_sc_to_item').on('click', function(){
@@ -2008,7 +2008,7 @@
 				$(this).addClass('hidden');
 				form.addClass('active');
 
-				var libsInput = new CTF_Core.CTF_MB_Libs(mb_pb_args.lib_inputs);
+				var libsInput = new MB_Core.CTF_MB_Libs(mb_pb_args.lib_inputs);
 				
 			});
 
@@ -2211,4 +2211,4 @@
 		$(this).toggleClass('mb-pb-btn-active');
 	});
 
-})(jQuery, CTF_Core);
+})(jQuery, MB_Core);
