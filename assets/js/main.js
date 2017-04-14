@@ -205,7 +205,8 @@ window.MB_Core = window.MB_Core || {};
 	    },
 	    ready: function(){},
 	    renderContent: function(){
-	    	var field_tmpl = wp.template( 'mb-field-'+this.inputId );
+	    	var field_tmpl = wp.template( 'mb-field-'+this.inputId ),
+	    		self = this;
 
 
             
@@ -232,9 +233,57 @@ window.MB_Core = window.MB_Core || {};
 
             this.inputObj = $(field_tmpl(this.inputArgs));
 
+            if (typeof this.inputArgs.condition !== 'undefined') {
+            	if (_.isArray(this.inputArgs.condition)) {
+            		_.each(this.inputArgs.condition, function (item) {
+            			var conditionFun = function (e) {
+            				e.preventDefault();
+
+            				var value = $(this).val(),
+            					conditionStatus = true;
+
+            				if (_.isArray(item.value)) {
+            					if ($.inArray(value, item.value) > -1) {
+            						conditionStatus = true;
+            					} else {
+            						conditionStatus = false;
+            					}
+            				} else {
+            					conditionStatus = self.getCondition[item.operator](item.value, value);
+            				}
+
+            				if (conditionStatus) {
+            					$('#mb-opt-'+item.id).removeClass('hidden');
+            				} else {
+            					$('#mb-opt-'+item.id).addClass('hidden');
+            				}
+            			};
+
+            			$(self.inputObj.find('['+self.inputArgs.link+']')).off('change');
+            			$(self.inputObj.find('['+self.inputArgs.link+']')).on('change', conditionFun);
+            			$('body').off('mboptdone');
+            			$('body').on('mboptdone', conditionFun);
+            		});
+            	}
+            }
+
 	    	this.container.append(this.inputObj);
 
 	    	this.deferred.renderContent.resolve();
+	    },
+	    getCondition: {
+	    	'=': function (value, current) {
+	    		return (value == current);
+	    	},
+	    	'==': function (value, current) {
+	    		return (value === current);
+	    	},
+	    	'!=': function (value, current) {
+	    		return (value != current);
+	    	},
+	    	'!==': function (value, current) {
+	    		return (value !== current);
+	    	}
 	    }
 	});
 	

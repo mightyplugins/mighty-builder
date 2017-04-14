@@ -201,6 +201,16 @@ if (class_exists('MB_Element')) {
                     'fluid' => 'Fluid',
                     'fullwidth' => 'Fullwidth'
                 ),
+                'condition' => array(
+                	array(
+                		'id' => 'force_fullwidth',
+                		'operator' => '=',
+                		'value' => array(
+                			'fluid',
+                			'fullwidth'
+                		),
+                	)
+                ),
                 'tab' => 'Settings'
 			),
 			array(

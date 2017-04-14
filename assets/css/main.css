@@ -86,6 +86,9 @@
 	box-sizing: border-box;
 	border-bottom: 1px solid #f1f1f1;
 }
+.mb-fc .mb-cc-container.hidden{
+	display: none;
+}
 .mb-fc .mb-cc-container .mb-title-container{
 	width: 30%;
     /*float: left;*/

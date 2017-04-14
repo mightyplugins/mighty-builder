@@ -37,7 +37,7 @@ class MB_Field
   public function js_template_render( $inputPath )
   {
     ?>
-    <div class="mb-cc-container mb-input-<?php echo esc_attr( $this->type ); ?> clearfix">
+    <div class="mb-cc-container mb-input-<?php echo esc_attr( $this->type ); ?> clearfix" id="mb-opt-{{ data.id }}">
       <div class="mb-title-container">
         <# if ( data.label ) { #>
           <span class="mb-control-title" data-mb-tooltip="{{ data.toltip }}">{{{ data.label }}}</span>

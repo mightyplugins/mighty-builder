@@ -400,7 +400,7 @@ class MB_Core
             </div>
         </script>
         <script type="text/html" id="tmpl-ctpb-responsive-input">
-            <div class="mb-pb-responsive-input">
+            <div class="mb-pb-responsive-input" id="mb-opt-{{ data.id }}">
                 <ul class="mb-responsive-tab-nav">
                     <li data-id="{{ data.id }}_lg" class="active"><i class="fa fa-desktop"></i></li>
                     <# if(typeof data.md !== 'undefined' && data.md == true){ #>

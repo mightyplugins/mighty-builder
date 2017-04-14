@@ -25,6 +25,8 @@
 			this.tabsData = this.getTabsData(this.inputArgs);
 
 			this.renderContent();
+
+			$('body').trigger('mboptdone');
 		},
 		renderInput: function(args){
 			var inputFieldClss = MB_Core.Api['mb_'+args.type],
@@ -2182,8 +2184,6 @@
 
 					data.type.push($.trim(type).toLowerCase().replace(/ /g, '_'));
 				});
-
-				console.log(data);
 			}
 
 			var item = wp.template('mb-lib-item'),
