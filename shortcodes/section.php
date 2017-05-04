@@ -157,6 +157,8 @@ function mb_section_cb( $atts, $content ) {
 		$css_array['css']['md'] = $style_md;
 		$css_array['css']['sm'] = $style_sm;
 		$css_array['css']['xs'] = $style_xs;
+		
+		$css_array = apply_filters( 'mb_section_element_output_css', $css_array, $atts, $content );
 
 		return $css_array;
 	}
