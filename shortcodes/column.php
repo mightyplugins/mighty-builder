@@ -65,13 +65,17 @@ function mb_column_cb( $atts, $content ) {
 
 	$atts = shortcode_atts( $atts_default, $atts );
 
+	$image = wp_get_attachment_image_src($atts['bg_img'], 'full');
+
+	list($src, $width, $height) = $image;
+
 	$style = '';
 	$style_md = '';
 	$style_sm = '';
 	$style_xs = '';
 
 	$style .= (isset($atts['bg_color']) && !empty($atts['bg_color'])) ? 'background-color:'.$atts['bg_color'].';' : '';
-	$style .= (isset($atts['bg_img']) && !empty($atts['bg_img'])) ? 'background-image: url('.$atts['bg_img'].');' : '';
+	$style .= (isset($atts['bg_img']) && !empty($atts['bg_img'])) ? 'background-image: url('.$src.');' : '';
 	$style .= (isset($atts['bg_repeat']) && !empty($atts['bg_repeat'])) ? 'background-repeat: '.$atts['bg_repeat'].';' : '';
 	$style .= (isset($atts['bg_position']) && !empty($atts['bg_position'])) ? 'background-position: '.$atts['bg_position'].';' : '';
 	$style .= (isset($atts['bg_attachment']) && !empty($atts['bg_attachment'])) ? 'background-attachment: '.$atts['bg_attachment'].';' : '';

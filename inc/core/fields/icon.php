@@ -7,7 +7,7 @@
             </div>
             <div class="ct-ip-popup clearfix">
               <div class="ct-ip-search">
-                <input type="text" class="ct-ip-search-input" placeholder="<?php esc_html_e('Search icon', '_s'); ?>" />
+                <input type="text" class="ct-ip-search-input" placeholder="<?php esc_html_e('Search icon', 'mighty-builder'); ?>" />
               </div>
               <ul>
                 <#

@@ -1,9 +1,9 @@
         <div class="mb-input-field mb-input-field-google-font">
         	<# if( parseFloat(data.choices['font-family']) || _.isUndefined(data.choices['font-family']) ){ #>
 			<div class="mb-if-gf-font-family">
-				<label><?php esc_html_e('Font Family', '_s'); ?></label>
+				<label><?php esc_html_e('Font Family', 'mighty-builder'); ?></label>
 				<select class="mb-gf-ff-input">
-					<option value=""><?php esc_html_e('Select a font...', '_s'); ?></option>
+					<option value=""><?php esc_html_e('Select a font...', 'mighty-builder'); ?></option>
 					<# for ( key in mb_google_fonts ) { #>
 						<option value="{{ key }}"<# if ( key === data.value['font-family'] ) { #>selected<# } #>>{{ key }}</option>
 					<# } #>
@@ -13,7 +13,7 @@
 			<# if( parseFloat(data.choices['font-weight']) || _.isUndefined(data.choices['font-weight']) ){ #>
 			<div class="mb-if-gf-font-weight">
 				<# var fontWeights = mb_google_fonts[data.value['font-family']]; #>
-				<label><?php esc_html_e('Font Weight', '_s'); ?></label>
+				<label><?php esc_html_e('Font Weight', 'mighty-builder'); ?></label>
 				<select class="mb-gf-fw-input">
 					<# for ( key in fontWeights ) { #>
 						<option value="{{ fontWeights[ key ] }}"<# if ( fontWeights[ key ] === data.value['font-weight'] ) { #>selected<# } #>>{{ fontWeights[ key ] }}</option>
@@ -40,7 +40,7 @@
 		        	units = data.choices['units'];
 		        }
 				#>
-				<label><?php esc_html_e('Font Size', '_s'); ?></label>
+				<label><?php esc_html_e('Font Size', 'mighty-builder'); ?></label>
 				<div class="mb-input-dimension-number">
 					<input type="number" value="{{ fzNumber }}" min="0" class="mb-gf-fz-value-input">
 				</div>
@@ -73,7 +73,7 @@
 		        	units = data.choices['units'];
 		        }
 				#>
-				<label><?php esc_html_e('Line Height', '_s'); ?></label>
+				<label><?php esc_html_e('Line Height', 'mighty-builder'); ?></label>
 				<div class="mb-input-dimension-number">
 					<input type="number" value="{{ lhNumber }}" min="0" class="mb-gf-lh-value-input">
 				</div>
@@ -97,7 +97,7 @@
 		        	units = data.choices['units'];
 		        }
 				#>
-				<label><?php esc_html_e('Latter Spacing', '_s'); ?></label>
+				<label><?php esc_html_e('Latter Spacing', 'mighty-builder'); ?></label>
 				<div class="mb-input-dimension-number">
 					<input type="number" value="{{ lsNumber }}" min="0" class="mb-gf-ls-value-input">
 				</div>
@@ -121,7 +121,7 @@
 		        	units = data.choices['units'];
 		        }
 				#>
-				<label><?php esc_html_e('Word Spacing', '_s'); ?></label>
+				<label><?php esc_html_e('Word Spacing', 'mighty-builder'); ?></label>
 				<div class="mb-input-dimension-number">
 					<input type="number" value="{{ wsNumber }}" min="0" class="mb-gf-ws-value-input">
 				</div>

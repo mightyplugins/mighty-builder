@@ -7,7 +7,7 @@
 					</div>
 				<# } #>
 			</div>
-			<button class="mb-mt-add-new mb-btn mb-btn-small" data-name="{{{ _.escape(data.link) }}}"><i class="fa fa-plus"></i> <?php esc_html_e('Add', '_s'); ?></button>
+			<button class="mb-mt-add-new mb-btn mb-btn-small" data-name="{{{ _.escape(data.link) }}}"><i class="fa fa-plus"></i> <?php esc_html_e('Add', 'mighty-builder'); ?></button>
 			<div class="mb-mt-input-item mb-hidden mb-mt-tmpl">
 				<input type="text" class="mb-txt-field" >
 				<button class="mb-mt-input-delete">x</button>

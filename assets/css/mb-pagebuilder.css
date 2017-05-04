@@ -78,6 +78,7 @@
 	border: 1px solid #e5e5e5;
 	background-color: #fff;
     padding: 20px;
+    padding-left: 80px;
     position: relative;
 }
 
@@ -1077,4 +1078,21 @@ h2#modal-pb-title {
 
 .mb-lib-item-wrap.hidden{
 	display: none;
+}
+
+.mb-bar-icon{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 58px;
+	height: 58px;
+	background-color: #06b3e6;
+	vertical-align: middle;
+    line-height: 60px;
+    font-size: 32px;
+    text-align: center;
+}
+
+.mb-bar-icon svg{
+	display: inline-block;
 }

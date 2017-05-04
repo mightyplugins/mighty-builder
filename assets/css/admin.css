@@ -1,0 +1,36 @@
+.mb-about-wrap .mb-settings-panel{
+	display: none;
+}
+
+.mb-about-wrap .mb-panel-active{
+	display: block !important;
+}
+
+.mb-about-wrap .nav-tab-wrapper > a:focus{
+	box-shadow: none;
+}
+
+.svg .mb-about-wrap .wp-badge{
+	background-image: url(../images/about/icon.svg);
+}
+
+.mb-about-wrap .wp-badge{
+	background-color: #06b3e6;
+}
+
+
+/* .mb-ab-row{
+	box-sizing: border-box;
+	margin: 0 -15px;
+	padding: 15px 0;
+}
+
+.mb-col-1-2{
+	box-sizing: border-box;
+	padding: 0 15px;
+	float: left;
+}
+
+.mb-col-1-2{
+	width: 50%;
+} */

@@ -1367,26 +1367,19 @@
 								}
 							});
 						} else if( option.type == 'image' ){
-							if(!_.isEmpty(value)){
-								value = JSON.parse(value);
-							}
-							
-							if( typeof value.id !== 'undefined' ){
-								shortcode += ' '+name+'="'+value.id+'"';
-							}
+	
+							shortcode += ' '+name+'="'+value+'"';
 							
 						} else if( option.type == 'image_multi' ){
 							if(!_.isEmpty(value)){
-								value = JSON.parse(value);
+								value = value.split(',');
 							}
 							
 							var imagesValue = [];
 							
 							if(_.isArray(value)){
 								_.each(value, function(image){
-									if( typeof image.id !== 'undefined' ){
-										imagesValue.push(image.id);
-									}
+									imagesValue.push(image);
 								});
 							}
 							
@@ -1691,23 +1684,17 @@
 						options[i].default = valueAll;
 						
 					} else if(option.type == 'image'){
-						options[i].default = {};
+						options[i].default = '';
 
 						if( !_.isNull(machedVal) ){
-							options[i].default['url'] = machedVal[1];
+							options[i].default = parseInt(machedVal[1]);
 						}
 						
 					} else if(option.type == 'image_multi'){
-						options[i].default = [];
+						options[i].default = '';
 
 						if( !_.isNull(machedVal) ){
-							_.each(machedVal[1].split(','), function(imageUrl){
-								var image = {
-									url: imageUrl
-								};
-								
-								options[i].default.push(image);
-							});
+							options[i].default = machedVal[1];
 						}
 						
 					} else if(option.type == 'color'){

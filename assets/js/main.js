@@ -239,7 +239,7 @@ window.MB_Core = window.MB_Core || {};
             			var conditionFun = function (e) {
             				e.preventDefault();
 
-            				var value = $(this).val(),
+            				var value = self.inputObj.find('['+self.inputArgs.link+']:checked').val(),
             					conditionStatus = true;
 
             				if (_.isArray(item.value)) {
@@ -808,9 +808,27 @@ window.MB_Core = window.MB_Core || {};
 			this.changeBtn = this.inputObj.find('.image-change-button');
 			this.ImageView = this.inputObj.find('.mb-ifi-view-image');
 			this.inputData = this.inputObj.find('.mb-ii-data-field');
-			
-			
-			
+						
+			if (typeof $this.inputArgs.default !== 'undefined' && _.isNumber($this.inputArgs.default)) {
+				var imgID = $this.inputArgs.default;
+
+				if (!_.isNaN(imgID)) {
+					$.ajax({
+						url: mb_ext_vars.ajax_url,
+						method: "POST",
+						dataType: 'json',
+						data: {
+							action: 'mb_get_attachment_data',
+							id: imgID
+						}
+					}).done(function (imgData) {
+						if (!_.isEmpty(imgData)) {
+							$this.ImageView.append('<img class="mb-ifi-vimg" src="'+imgData.url+'" alt="'+imgData.alt+'" />');
+						}
+						
+					});
+				}
+			}
 			
 			this.addBtn.on( 'click', function() {
 				$this.createFrame();
@@ -881,7 +899,7 @@ window.MB_Core = window.MB_Core || {};
 					$this.removeBtn.removeClass('mb-hidden');
 					$this.changeBtn.removeClass('mb-hidden');
 					
-					$this.inputData.val(JSON.stringify($this.allVals));
+					$this.inputData.val(attachment.id);
 				});
 			}
 			
@@ -896,6 +914,28 @@ window.MB_Core = window.MB_Core || {};
 			this.inputData = this.inputObj.find('.mb-img-multi-data-all');
 			
 			
+			if (typeof $this.inputArgs.default !== 'undefined' && !_.isEmpty($this.inputArgs.default)) {
+				var imgIDs = $this.inputArgs.default.split(',');
+
+				if (!_.isEmpty(imgIDs)) {
+					$.ajax({
+						url: mb_ext_vars.ajax_url,
+						method: "POST",
+						dataType: 'json',
+						data: {
+							action: 'mb_get_attachment_data_array',
+							id: imgIDs
+						}
+					}).done(function (imgDataAll) {
+						if (!_.isEmpty(imgDataAll)) {
+							_.each(imgDataAll, function (imgData) {
+								$this.ImageView.append('<div class="mb-multi-img-item"><img class="" src="'+imgData.url+'" alt="'+imgData.alt+'" /><button class="mb-mi-item-close" data-id="'+imgData.id+'">x</button></div>');
+							});							
+						}
+						
+					});
+				}
+			}
 			
 			
 			this.addBtn.on( 'click', function() {
@@ -907,31 +947,36 @@ window.MB_Core = window.MB_Core || {};
 				update: function( event, ui ) {
 					var all_vals = [];
 				
-					$this.inputObj.find('.mb-img-multi-data').each(function (){
-						var temp_data = JSON.parse($(this).val());
-						all_vals.push(temp_data);
+					$this.inputObj.find('.mb-mi-item-close').each(function (){
+						var imgID = $(this).data('id');
+
+						all_vals.push(imgID);
+						
 					});
 					
-					$this.inputData.val(JSON.stringify(all_vals));
+					$this.inputData.val(all_vals);
 	
 				}
 			});
 			
 			
 			$this.inputObj.on( 'click', '.mb-mi-item-close', function( e ) {
-			
 				e.preventDefault();
+
+				var currentVal = $this.inputData.val(),
+					valArray = currentVal.split(','),
+					deleteVal = $(this).data('id'),
+					deleteIndex = valArray.indexOf(deleteVal.toString());
+
+				if (deleteIndex > -1) {
+				    valArray.splice(deleteIndex, 1);
+				}
 				
 				$(this).parent('.mb-multi-img-item').remove();
 				
 				var all_vals = [];
-				
-				$this.inputObj.find('.mb-img-multi-data').each(function (){
-					var temp_data = JSON.parse($(this).val());
-					all_vals.push(temp_data);
-				});
-				
-				$this.inputData.val(JSON.stringify(all_vals));
+
+				$this.inputData.val(valArray);
 	
 			});
 			
@@ -956,31 +1001,24 @@ window.MB_Core = window.MB_Core || {};
 				$this.frame.state().get('selection').map(function (attachment) {
 				
 					attachment = attachment.toJSON();
+
+					$this.allVals.push(attachment.id);
+
+					var imgThumbUrl = '';
+
+					if (typeof attachment.sizes.thumbnail !== 'undefined') {
+						imgThumbUrl = attachment.sizes.thumbnail.url;
+					} else {
+						imgThumbUrl = attachment.url;
+					}
 					
-					
-					
-					var tmp_img = {};
-					
-					tmp_img['thumbnail'] = attachment.sizes.thumbnail.url;
-					tmp_img['url'] = attachment.url;
-					tmp_img['id'] = attachment.id;
-					tmp_img['title'] = attachment.title;
-					tmp_img['alt'] = attachment.alt;
-					tmp_img['width'] = attachment.width;
-					tmp_img['height'] = attachment.height;
-					
-					$this.ImageView.append('<div class="mb-multi-img-item"><img class="" src="'+attachment.sizes.thumbnail.url+'" alt="" /><button class="mb-mi-item-close">x</button><input type="hidden" class="mb-img-multi-data" value="'+_.escape(JSON.stringify(tmp_img))+'" ></div>');
+					$this.ImageView.append('<div class="mb-multi-img-item"><img class="" src="'+imgThumbUrl+'" alt="" /><button class="mb-mi-item-close" data-id="'+attachment.id+'">x</button></div>');
 				
 
 					
 				});
 				
-				$this.inputObj.find('.mb-img-multi-data').each(function (){
-					var temp_data = JSON.parse($(this).val());
-					$this.allVals.push(temp_data);
-				});
-				
-				$this.inputData.val(JSON.stringify($this.allVals));
+				$this.inputData.val($this.allVals);
 				
 			});
 		}

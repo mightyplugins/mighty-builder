@@ -23,6 +23,9 @@ class MB_Core
         add_action( 'edit_form_after_editor', array( $this, 'hook_after_editor' ) );
 
         add_action( 'save_post',  array( $this, 'save_mb_active_meta' ), 10, 2 );
+
+        add_action( 'wp_ajax_mb_get_attachment_data', array($this, 'get_attachment_data') );
+        add_action( 'wp_ajax_mb_get_attachment_data_array', array($this, 'get_attachment_data_array') );
 	}
 
 	public function load_admin_js()
@@ -50,6 +53,11 @@ class MB_Core
 		);
 		wp_localize_script('mb-core-script', 'mb_fa_icons', $mb_fa_icons_json);
 		wp_localize_script('mb-core-script', 'mb_mce_var', $this->get_editor_vars());
+
+        $mb_ext_vars = array(
+            'ajax_url' => admin_url( 'admin-ajax.php' ),
+        );
+        wp_localize_script('mb-core-script', 'mb_ext_vars', $mb_ext_vars);
 
 
 		wp_enqueue_script( 'mb-remodal', MP_PB_URL . 'assets/vendor/remodal/remodal.min.js', array('jquery'), '1.0', true );
@@ -164,13 +172,16 @@ class MB_Core
                 </div>
                 <div class="mb-pb-container <?php echo esc_attr($active_class); ?>" id="mb-pb-container">
                     <div class="mb-pb-header">
-                        <h3><i class="fa fa-cogs" aria-hidden="true"></i> <span>Mighty Builder</span></h3>
-                        <button type="button" role="presentation" class="mb-pb-library" id="mb-pb-library"><i class="fa fa-columns"></i> Templates</button>
+                        <span class="mb-bar-icon">
+                            <svg width="32px" height="32px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"><path d="M2.417,11.908l0,0c0,0.617 -0.501,1.117 -1.117,1.117c-0.616,0 -1.116,-0.5 -1.116,-1.117l0,0l0,0c0,0 0,-3.048 0,-5.583c0,-1.85 1.499,-3.35 3.349,-3.35c0,0 0,0 0,0c0.827,0 1.621,0.305 2.234,0.853c0.592,-0.53 1.375,-0.853 2.233,-0.853c0,0 0,0 0,0c0.888,0 1.741,0.353 2.369,0.981c0.628,0.628 0.981,1.48 0.981,2.369l0,0.191c0.349,-0.124 0.725,-0.191 1.117,-0.191c1.848,0 3.349,1.501 3.349,3.35c0,1.849 -1.501,3.35 -3.349,3.35c-1.849,0 -3.35,-1.501 -3.35,-3.35c0,0 0,-3.35 0,-3.35c0,-0.296 -0.118,-0.58 -0.327,-0.79c-0.21,-0.209 -0.494,-0.327 -0.79,-0.327c0,0 0,0 0,0c-0.296,0 -0.58,0.118 -0.79,0.327c-0.209,0.21 -0.327,0.494 -0.327,0.79l0,2.233l0,0c0,0.616 -0.5,1.116 -1.116,1.116c-0.616,0 -1.116,-0.5 -1.117,-1.116l0,0l0,-0.001c0,0 0,-2.232 0,-2.232c0,-0.296 -0.118,-0.58 -0.327,-0.79c-0.209,-0.209 -0.493,-0.327 -0.79,-0.327c0,0 0,0 0,0c-0.296,0 -0.58,0.118 -0.789,0.327c-0.21,0.21 -0.327,0.494 -0.327,0.79l0,5.583l0,0Zm10.05,-3.35c0.616,0 1.116,0.501 1.116,1.117c0,0.616 -0.5,1.116 -1.116,1.116c-0.617,0 -1.117,-0.5 -1.117,-1.116c0,-0.616 0.5,-1.117 1.117,-1.117Z" style="fill:#fff;"/></svg>
+                        </span>
+                        <h3><?php _e('Mighty Builder', 'mighty-builder'); ?></h3>
+                        <button type="button" role="presentation" class="mb-pb-library" id="mb-pb-library"><?php echo sprintf( __('%s Templates', 'mighty-builder'), '<i class="fa fa-columns"></i>' ) ?></button>
                         <button type="button" role="presentation" class="mb-pb-fullscreen" id="mb-pb-fullscreen"><i class="mce-ico mce-i-dfw"></i></button>
                     </div>
                     <div class="mb-pb-elem-container">
                     </div>
-                    <a class="mb-pb-add-sec" href="#" data-pb-shortcode="mb_section" data-pb-type="layout">Add Section</a>
+                    <a class="mb-pb-add-sec" href="#" data-pb-shortcode="mb_section" data-pb-type="layout"><?php _e('Add Section', 'mighty-builder'); ?></a>
                 </div>
                 <input type="hidden" name="mb_pb_enabled" class="mb-status-input" value="<?php echo esc_attr($active_input); ?>">
             </div>
@@ -236,7 +247,7 @@ class MB_Core
             </div>
             <div class="mb-lib-new-wrap">
                 <form class="mpb-lib-inputs mb-fc">
-                    <h3 class="mb-lib-inputs-title">Save this page as a template</h3>
+                    <h3 class="mb-lib-inputs-title"><?php _e('Save this page as a template', 'mighty-builder'); ?></h3>
                     <div class="mpb-lib-inputs-inner"></div>
                     <div class="mp-pb-lib-buttons clearfix">
                         <button type="button" class="mb-pb-lib-cancel-btn button button-ctpb-cancel"><?php esc_html_e('Cancel', 'mighty-builder'); ?></button>
@@ -247,7 +258,7 @@ class MB_Core
             </div>
             <div class="mb-lib-topbar clearfix">
                 <div class="mb-lib-filter-view"></div>
-                <button class="mpb-lib-new-item"><i class="fa fa-plus"></i> Add Template</button>
+                <button class="mpb-lib-new-item"><?php echo sprintf( __('%s Add Template', 'mighty-builder'), '<i class="fa fa-plus"></i>' ) ?></button>
             </div>
             
             
@@ -471,10 +482,10 @@ class MB_Core
                         <h3>{{ data.title }}</h3>
                         <div class="mb-lib-item-st">{{ data.subtitle }}</div>
                         <div class="mb-lib-item-input clearfix">
-                            <input type="button" class="mb-lib-item-in-action button button-ctpb" value="Import">
+                            <input type="button" class="mb-lib-item-in-action button button-ctpb" value="<?php _e('Import', 'mighty-builder'); ?>">
                             <span class="spinner"></span>
                             <# if(data.option){ #>
-                            <input type="button" class="mb-lib-item-del-action button button-ctpb-cancel" value="Delete" data-id="{{ data.id }}">
+                            <input type="button" class="mb-lib-item-del-action button button-ctpb-cancel" value="<?php _e('Delete', 'mighty-builder'); ?>" data-id="{{ data.id }}">
                             <# } #>
                         </div>
                     </div>
@@ -484,7 +495,7 @@ class MB_Core
         <script type="text/html" id="tmpl-mb-lib-filter">
             <div class="mb-lib-filter-wrap">
                 <ul>
-                    <li><a href="#" data-id="*" class="active">All</a></li>
+                    <li><a href="#" data-id="*" class="active"><?php _e('All', 'mighty-builder'); ?></a></li>
                     <# _.each( data.types, function (type){ #>
                         <# var id = type.toLowerCase().replace(/ /g, '_') #>
                         <li><a href="#" data-id="{{ id }}">{{ type }}</a></li>
@@ -756,6 +767,57 @@ class MB_Core
 			'mb_mce_css' => $mce_css,
 			'mb_mce_external_plugins' => $mce_external_plugins,
 		);
+    }
+
+
+
+
+    public function get_attachment_data()
+    {
+        $attachment_id = $_POST['id'];
+
+        $image = wp_get_attachment_image_src($attachment_id, 'thumbnail');
+
+        list($src, $width, $height) = $image;
+
+        $alt = trim( strip_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
+
+        $image_data = array(
+            'url' => $src,
+            'alt' => $alt
+        );
+
+        echo json_encode($image_data);
+
+        die();
+    }
+
+
+    public function get_attachment_data_array()
+    {
+        $attachment_ids = $_POST['id'];
+
+        $image_all = array();
+
+        foreach ($attachment_ids as $attachment_id) {
+            $image = wp_get_attachment_image_src($attachment_id, 'thumbnail');
+
+            list($src, $width, $height) = $image;
+
+            $alt = trim( strip_tags( get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) ) );
+
+            $image_data = array(
+                'id' => $attachment_id,
+                'url' => $src,
+                'alt' => $alt
+            );
+
+            $image_all[] = $image_data;
+        }
+
+        echo json_encode($image_all);
+
+        die();
     }
 
 

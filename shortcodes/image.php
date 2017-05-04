@@ -22,19 +22,13 @@ function mb_img_cb( $atts, $content ) {
 
 	$style .= (isset($atts['align']) && !empty($atts['align'])) ? 'text-align:'.$atts['align'].';' : '';
 	
-
-	if ($atts['size'] != 'full') {
-		$image_id = mb_get_image_id_by_url($atts['src']);
-
-		if ($image_id) {
-			$image = wp_get_attachment_image_src( $image_id, $atts['size'] );
-
-			if (isset($image[0]) && !empty($image[0])) {
-				$atts['src'] = $image[0];
-			}
-		}
-		
+	if (empty($atts['src'])) {
+		return;
 	}
+
+	$image = wp_get_attachment_image_src($atts['src'], $atts['size']);
+
+	list($src, $width, $height) = $image;
 
 
 	$output = '';
@@ -45,7 +39,7 @@ function mb_img_cb( $atts, $content ) {
 	<?php
 	if ($atts['link_to'] == 'self'):
 		?>
-		<a href="<?php echo esc_url( $atts['src'] ); ?>">
+		<a href="<?php echo esc_url( $src ); ?>">
 		<?php
 	elseif ($atts['link_to'] == 'link'):
 		?>
@@ -53,7 +47,7 @@ function mb_img_cb( $atts, $content ) {
 		<?php
 	endif;
 	?>
-	<img src="<?php echo esc_url( $atts['src'] ); ?>" alt="<?php echo esc_attr( $atts['alt'] ); ?>" title="<?php echo esc_attr( $atts['title'] ); ?>">
+	<img src="<?php echo esc_url( $src ); ?>" alt="<?php echo esc_attr( $atts['alt'] ); ?>" title="<?php echo esc_attr( $atts['title'] ); ?>">
 	
 	<?php
 	if ($atts['link_to'] == 'self' || $atts['link_to'] == 'link'):

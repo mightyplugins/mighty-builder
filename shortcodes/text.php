@@ -55,9 +55,7 @@ function mb_text_cb( $atts, $content ) {
 	ob_start();
 
 	?>
-	<div class="text <?php echo esc_attr($cls); ?>" style="<?php echo esc_attr($style); ?>">
-		<?php echo do_shortcode( $content ); ?>
-	</div>
+	<div class="text <?php echo esc_attr($cls); ?>"><?php echo do_shortcode( $content ); ?></div>
 	
 	<?php
 
@@ -88,7 +86,7 @@ if (class_exists('MB_Element')) {
 				'label'    => __( 'Content', 'mighty-builder' ),
 				'subtitle'    => __( 'Content you like to show.', 'mighty-builder' ),
 				'type'     => 'editor',
-				'default' => '',
+				'default' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assentiar semel legimus studiis, graecum chrysippi congressus eiusdem liberos impedit, tribuat ortum assueverit dicas familiari ferae utriusque convenire sinat. Nostris novi utriusque expeteretur liberiusque arbitraretur dividendo deinde doloremque. Corporisque ipse graecos adiit fuga probant',
 				'roll' => 'content',
 				'tab' => 'Genaral'
 			),

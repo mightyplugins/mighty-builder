@@ -91,6 +91,12 @@ class MB_CSS_Generator
 		
 		if (is_array($output)) {
 			$this->_css_array[$output['class']] = $output['css'];
+			
+			if(isset($output['extra']) && !empty($output['extra'])){
+				foreach($output['extra'] as $extra_selector => $extra_css){
+					$this->_css_array[$extra_selector] = $extra_css;
+				}
+			}
 			return false;
 		} else {
 			return false;

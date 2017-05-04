@@ -118,7 +118,6 @@ function mb_heading_cb( $atts, $content ) {
 	$style .= (isset($atts['haeding_font-weight']) && !empty($atts['haeding_font-weight'])) ? 'font-weight:'.$atts['haeding_font-weight'].';' : '';
 	$style .= (isset($atts['font_size']) && !empty($atts['font_size'])) ? 'font-size:'.$atts['font_size'].';' : '';
 	$style .= (isset($atts['line_height']) && !empty($atts['line_height'])) ? 'line-height:'.$atts['line_height'].';' : '';
-	$style .= (isset($atts['line_height']) && !empty($atts['line_height'])) ? 'line-height:'.$atts['line_height'].';' : '';
 
 	$style_md .= (isset($atts['md_font_size']) && !empty($atts['md_font_size'])) ? 'font-size:'.$atts['md_font_size'].';' : '';
 	$style_md .= (isset($atts['md_line_height']) && !empty($atts['md_line_height'])) ? 'line-height:'.$atts['md_line_height'].';' : '';

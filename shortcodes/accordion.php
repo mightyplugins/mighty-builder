@@ -139,8 +139,8 @@ endif;
 if (class_exists('MB_Element')) {
 
 	$tabs_map = array(
-		'title' => 'Accordions',
-		'subtitle' => 'Accordions Element',
+		'title' => __('Accordions', 'mighty-builder'),
+		'subtitle' => __('Accordions Element', 'mighty-builder'),
 		'code' => 'mb_accordions',
 		'icon' => 'mb mb-accordions',
 		'color' => '#00bfa5',
@@ -161,8 +161,8 @@ if (class_exists('MB_Element')) {
 	MB_Element::add($tabs_map);
 
 	$tab_map = array(
-		'title' => 'Accordion Item',
-		'subtitle' => 'Test Shortcode Subtitle',
+		'title' => __('Accordion Item', 'mighty-builder'),
+		'subtitle' => __('Test Shortcode Subtitle', 'mighty-builder'),
 		'code' => 'mb_accordion',
 		'parent' => 'mb_accordions',
 		'icon' => 'mb mb-accordion',
